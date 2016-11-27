@@ -13,27 +13,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class SmartGame implements ApplicationListener, InputProcessor {
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
-	private Texture img;
 	private Ground ground;
-	private Ennemy E;
-	private String mvt = "";
 	
 	@Override
 	public void create () {
 		camera = new OrthographicCamera(720, 1280);
-
+		camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
-
-		Character C = new Character("data/spritesheet.atlas",1,20,50,50,100,20,10,"water");
-		E = new Ennemy("data/spritesheet.atlas",1,20,50,50,100,20,10,"fire");
-		System.out.println("Caracteristiques de C : "+C.getLife()+","+C.getStrength()+","+C.getSpeed()+","+C.getElement());
-		System.out.println("Caracteristiques de E : "+E.getLife()+","+E.getStrength()+","+E.getSpeed()+","+E.getElement());
-		C.Attack(E);
-		System.out.println("Attaque");
-		System.out.println("Caracteristiques de E : "+E.getLife()+","+E.getStrength()+","+E.getSpeed()+","+E.getElement());
-
-		this.ground = new Ground("photo.jpg");
+		this.ground = new Ground("map.jpg");
 		Gdx.input.setInputProcessor(this);
 	}
 
@@ -48,8 +35,8 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
+		this.ground.update();
 		this.ground.draw(batch);
-		E.draw(batch);
 		camera.translate(0,1);
 		camera.update();
 		batch.end();
@@ -68,7 +55,6 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 	@Override
 	public void dispose () {
 		batch.dispose();
-		img.dispose();
 	}
 
 	@Override
@@ -88,7 +74,8 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		return false;
+		this.ground.click(screenX);
+		return true;
 	}
 
 	@Override

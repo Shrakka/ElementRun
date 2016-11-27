@@ -1,5 +1,8 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 import java.util.HashMap;
 
 /**
@@ -48,6 +51,10 @@ public class Character extends Animated {
 
     public void Right(){
         this.setX(this.getX() + 1);
+    }
+
+    public void Up(){
+        this.setY(this.getY() + 1);
     }
 
     public void addElement(String element){

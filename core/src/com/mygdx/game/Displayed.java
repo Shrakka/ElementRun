@@ -22,6 +22,7 @@ public class Displayed extends Actor {
     public Displayed(String string, int x, int y, int width, int height){
         this.setBounds(x,y,width,height);
         this.string = string;
+        this.elapsedTime = 0;
         this.setAnimation(string);
         this.setTouchable(Touchable.enabled);
     }
@@ -33,9 +34,13 @@ public class Displayed extends Actor {
         this.elapsedTime = 0;
     }
 
+    public int computeX(){
+        return (int) (this.getX()*720/3+(720/3-this.getWidth())/2);
+    }
+
     public void draw(Batch batch){
         this.elapsedTime += Gdx.graphics.getDeltaTime();
-        batch.draw(this.animation.getKeyFrame(this.elapsedTime, true),this.getX(),this.getY(),this.getWidth(),this.getHeight());
+        batch.draw(this.animation.getKeyFrame(this.elapsedTime, true),this.computeX(),this.getY(),this.getWidth(),this.getHeight());
     }
 
     public Rectangle getBounds(){
