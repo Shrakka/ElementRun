@@ -33,7 +33,7 @@ public class Displayed extends Actor {
         this.elapsedTime = 0;
     }
 
-    public void draw(Batch batch, float alpha){
+    public void draw(Batch batch){
         this.elapsedTime += Gdx.graphics.getDeltaTime();
         batch.draw(this.animation.getKeyFrame(this.elapsedTime, true),this.getX(),this.getY(),this.getWidth(),this.getHeight());
     }
