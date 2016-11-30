@@ -17,7 +17,7 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 	
 	@Override
 	public void create () {
-		camera = new OrthographicCamera(720, 1280);
+		camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
 		batch = new SpriteBatch();
 		this.ground = new Ground("map.jpg");

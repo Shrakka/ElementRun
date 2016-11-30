@@ -14,18 +14,23 @@ import java.util.ArrayList;
 public class Ground {
     private String string;
     private Sprite sprite;
-    private ArrayList<Displayed> displayed;
+    private ArrayList<Displayed> otherThanCharacter;
+    private Character character;
 
     public Ground(String string){
         this.string = string;
-        this.displayed = new ArrayList<Displayed>();
-        this.displayed.add(new Character("data/spritesheet.atlas",0,0,100,100,100,100,100,"fire"));
-        this.displayed.add(new Ennemy("data/spritesheet.atlas",1,700,100,100,100,100,100,"fire"));
+        this.character = new Character("character/air/air.atlas",0,0,128,128,100,100,100,"air");
+        this.otherThanCharacter = new ArrayList<Displayed>();
+        this.otherThanCharacter.add(new Ennemy("ennemy/fire/fire.atlas",1,700,100,100,100,100,100,"fire"));
         this.init();
     }
 
-    public ArrayList<Displayed> getDisplayed(){
-        return this.displayed;
+    public ArrayList<Displayed> getOtherThanCharacter(){
+        return this.otherThanCharacter;
+    }
+
+    public Character getCharacter(){
+        return this.character;
     }
 
     public String getString(){
@@ -36,27 +41,30 @@ public class Ground {
         Texture texture = new Texture(Gdx.files.internal(this.getString()));
         texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         this.sprite = new Sprite(texture);
+        this.sprite.setSize(Gdx.graphics.getWidth(), this.sprite.getHeight()*Gdx.graphics.getWidth()/this.sprite.getWidth());
         this.sprite.setOrigin(0,0);
         this.sprite.setPosition(0,0);
     }
 
     public void draw(SpriteBatch batch){
         this.sprite.draw(batch);
-        for (int i = 0; i < this.getDisplayed().size(); i++){
-            this.getDisplayed().get(i).draw(batch);
+        this.getCharacter().draw(batch);
+        for (int i = 0; i < this.getOtherThanCharacter().size(); i++){
+            this.getOtherThanCharacter().get(i).draw(batch);
         }
     }
 
     public void update(){
-        ((Character)this.getDisplayed().get(0)).Up();
+        this.getCharacter().Up();
+        this.getCharacter().checkCollision(this.getOtherThanCharacter());
     }
 
     public void click(int screenX){
-        if (screenX < 720/3*((Character)this.getDisplayed().get(0)).getX()){
-            ((Character)this.getDisplayed().get(0)).Left();
+        if (screenX < Gdx.graphics.getWidth()/3*(this.getCharacter().getX())){
+            this.getCharacter().Left();
         }
-        if (screenX > 720/3*(((Character)this.getDisplayed().get(0)).getX()+1)){
-            ((Character)this.getDisplayed().get(0)).Right();
+        if (screenX > Gdx.graphics.getWidth()/3*(this.getCharacter().getX()+1)){
+            this.getCharacter().Right();
         }
     }
 }

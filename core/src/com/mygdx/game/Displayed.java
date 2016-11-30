@@ -35,7 +35,7 @@ public class Displayed extends Actor {
     }
 
     public int computeX(){
-        return (int) (this.getX()*720/3+(720/3-this.getWidth())/2);
+        return (int) (this.getX()*Gdx.graphics.getWidth()/3+(Gdx.graphics.getWidth()/3-this.getWidth())/2);
     }
 
     public void draw(Batch batch){

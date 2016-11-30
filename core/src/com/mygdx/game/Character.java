@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -66,6 +67,14 @@ public class Character extends Animated {
         }
         if (element == "air") {
             this.setStockAir(this.getStockAir() + 1);
+        }
+    }
+
+    public void checkCollision(ArrayList<Displayed> otherThanCharacter){
+        for (int i = 0; i < otherThanCharacter.size(); i++){
+            if (this.getX() == otherThanCharacter.get(i).getX() && this.getY() + this.getHeight() > otherThanCharacter.get(i).getY() && this.getY() < otherThanCharacter.get(i).getY() + otherThanCharacter.get(i).getHeight()){
+                System.out.println("collision");
+            }
         }
     }
 
