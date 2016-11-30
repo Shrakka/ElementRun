@@ -35,7 +35,7 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
-		this.ground.update();
+		this.ground.update(camera);
 		this.ground.draw(batch);
 		camera.translate(0,1);
 		camera.update();

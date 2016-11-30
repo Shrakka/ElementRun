@@ -5,7 +5,7 @@ package com.mygdx.game;
  */
 
 public class Ennemy extends Animated {
-    public Ennemy(String string, int x, int y, int width, int height, int life, int strength, int speed, String element){
-        super(string, x, y, width, height, life, strength, speed, element);
+    public Ennemy(int x, int y, int width, int height, int life, int strength, int speed, String element){
+        super("ennemy/"+element+"/"+element+".atlas", x, y, width, height, life, strength, speed, element);
     }
 }

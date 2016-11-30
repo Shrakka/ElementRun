@@ -15,8 +15,8 @@ public class Character extends Animated {
     private int stockFire;
     private int stockAir;
 
-    public Character(String string, int x, int y, int width, int height, int life, int strength, int speed, String element){
-        super(string, x, y, width, height, life, strength, speed, element);
+    public Character(int x, int y, int width, int height, int life, int strength, int speed, String element){
+        super("character/"+element+"/"+element+".atlas", x, y, width, height, life, strength, speed, element);
         this.stockWater = 0;
         this.stockFire = 0;
         this.stockAir = 0;
@@ -87,7 +87,6 @@ public class Character extends Animated {
                 if (this.getBlast().get(j).getX() == ennemy.get(i).getX() && this.getBlast().get(j).getY() + this.getBlast().get(j).getHeight() > ennemy.get(i).getY() && this.getBlast().get(j).getY() < ennemy.get(i).getY() + ennemy.get(i).getHeight()) {
                     this.getBlast().remove(j);
                     ennemy.get(i).setLife(ennemy.get(i).getLife()-10);
-                    System.out.println(ennemy.get(i).getElement()+" : "+ennemy.get(i).getLife());
                     if (ennemy.get(i).getLife() <= 0){
                         ennemy.remove(i);
                     }

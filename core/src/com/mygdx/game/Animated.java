@@ -59,6 +59,6 @@ public class Animated extends Displayed {
     }
 
     public void shootBlast () {
-        this.getBlast().add(new Blast("attack/blast/"+this.getElement()+"/"+this.getElement()+".atlas",(int)(this.getX()),(int)(this.getY()+this.getHeight()),24,24,this.getElement()));
+        this.getBlast().add(new Blast((int)(this.getX()),(int)(this.getY()+this.getHeight()),24,24,this.getElement()));
     }
 }

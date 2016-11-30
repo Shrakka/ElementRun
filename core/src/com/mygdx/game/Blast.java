@@ -9,8 +9,8 @@ import java.util.ArrayList;
 public class Blast extends Displayed {
     private String element;
 
-    public Blast(String string, int x, int y, int width, int height, String element){
-        super(string, x, y, width, height);
+    public Blast(int x, int y, int width, int height, String element){
+        super("attack/blast/"+element+"/"+element+".atlas", x, y, width, height);
         this.element = element;
     }
 

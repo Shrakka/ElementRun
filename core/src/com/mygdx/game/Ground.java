@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -19,10 +20,10 @@ public class Ground {
 
     public Ground(String string){
         this.string = string;
-        this.character = new Character("character/air/air.atlas",0,0,128,128,100,100,100,"air");
+        this.character = new Character(0,0,128,128,100,100,100,"air");
         this.ennemy = new ArrayList<Ennemy>();
-        this.ennemy.add(new Ennemy("ennemy/fire/fire.atlas",1,700,100,100,100,100,100,"fire"));
-        this.ennemy.add(new Ennemy("ennemy/water/water.atlas",2,1200,100,100,100,100,100,"water"));
+        this.ennemy.add(new Ennemy(1,700,100,100,100,100,100,"fire"));
+        this.ennemy.add(new Ennemy(2,1200,100,100,100,100,100,"water"));
         this.init();
     }
 
@@ -58,10 +59,11 @@ public class Ground {
         }
     }
 
-    public void update(){
+    public void update(OrthographicCamera camera){
         this.getCharacter().Up();
         this.getCharacter().checkCollision(this.getEnnemy());
         this.getCharacter().checkCollisionBlastEnnemy(this.getEnnemy());
+        this.checkOutScreen(camera);
     }
 
     public void click(int screenX){
@@ -73,6 +75,19 @@ public class Ground {
         }
         else {
             this.getCharacter().shootBlast();
+        }
+    }
+
+    public void checkOutScreen(OrthographicCamera camera){
+        for (int i = 0; i < this.getEnnemy().size(); i++){
+            if (this.getEnnemy().get(i).getY() + this.getEnnemy().get(i).getHeight() < camera.position.y - camera.viewportHeight / 2f){
+                this.getEnnemy().remove(i);
+            }
+        }
+        for (int i = 0; i < this.getCharacter().getBlast().size(); i++){
+            if (this.getCharacter().getBlast().get(i).getY() - 24 > camera.position.y + camera.viewportHeight / 2f){
+                this.getCharacter().getBlast().remove(i);
+            }
         }
     }
 }
