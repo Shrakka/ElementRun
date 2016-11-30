@@ -74,24 +74,30 @@ public class Character extends Animated {
     }
 
     public void checkCollision(ArrayList<Ennemy> ennemy){
-        for (int i = 0; i < ennemy.size(); i++){
-            if (this.getX() == ennemy.get(i).getX() && this.getY() + this.getHeight() > ennemy.get(i).getY() && this.getY() < ennemy.get(i).getY() + ennemy.get(i).getHeight()){
-                System.out.println("collision");
+        if (ennemy.size() > 0) {
+            for (int i = 0; i < ennemy.size(); i++) {
+                if (this.getX() == ennemy.get(i).getX() && this.getY() + this.getHeight() > ennemy.get(i).getY() && this.getY() < ennemy.get(i).getY() + ennemy.get(i).getHeight()) {
+                    System.out.println("collision");
+                }
             }
         }
     }
 
     public void checkCollisionBlastEnnemy(ArrayList<Ennemy> ennemy){
-        for (int i = 0; i < ennemy.size(); i++){
-            for (int j = 0; j < this.getBlast().size(); j++){
-                if (this.getBlast().get(j).getX() == ennemy.get(i).getX() && this.getBlast().get(j).getY() + this.getBlast().get(j).getHeight() > ennemy.get(i).getY() && this.getBlast().get(j).getY() < ennemy.get(i).getY() + ennemy.get(i).getHeight()) {
+        int i = 0;
+        int j = 0;
+        while (i < ennemy.size()){
+            while (j < this.getBlast().size()){
+                if (this.getBlast().size() > 0 && ennemy.size() > 0 && this.getBlast().get(j).getX() == ennemy.get(i).getX() && this.getBlast().get(j).getY() + this.getBlast().get(j).getHeight() > ennemy.get(i).getY() && this.getBlast().get(j).getY() < ennemy.get(i).getY() + ennemy.get(i).getHeight()) {
                     this.getBlast().remove(j);
                     ennemy.get(i).setLife(ennemy.get(i).getLife()-10);
                     if (ennemy.get(i).getLife() <= 0){
                         ennemy.remove(i);
                     }
                 }
+                j++;
             }
+            i++;
         }
     }
 

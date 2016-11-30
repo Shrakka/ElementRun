@@ -23,7 +23,7 @@ public class Ground {
         this.character = new Character(0,0,128,128,100,100,100,"air");
         this.ennemy = new ArrayList<Ennemy>();
         this.ennemy.add(new Ennemy(1,700,100,100,100,100,100,"fire"));
-        this.ennemy.add(new Ennemy(2,1200,100,100,100,100,100,"water"));
+        this.ennemy.add(new Ennemy(2,900,100,100,100,100,100,"water"));
         this.init();
     }
 
@@ -79,14 +79,18 @@ public class Ground {
     }
 
     public void checkOutScreen(OrthographicCamera camera){
-        for (int i = 0; i < this.getEnnemy().size(); i++){
-            if (this.getEnnemy().get(i).getY() + this.getEnnemy().get(i).getHeight() < camera.position.y - camera.viewportHeight / 2f){
-                this.getEnnemy().remove(i);
+        if (this.getEnnemy().size() > 0) {
+            for (int i = 0; i < this.getEnnemy().size(); i++) {
+                if (this.getEnnemy().get(i).getY() + this.getEnnemy().get(i).getHeight() < camera.position.y - camera.viewportHeight / 2f) {
+                    this.getEnnemy().remove(i);
+                }
             }
         }
-        for (int i = 0; i < this.getCharacter().getBlast().size(); i++){
-            if (this.getCharacter().getBlast().get(i).getY() - 24 > camera.position.y + camera.viewportHeight / 2f){
-                this.getCharacter().getBlast().remove(i);
+        if (this.getCharacter().getBlast().size() > 0) {
+            for (int i = 0; i < this.getCharacter().getBlast().size(); i++) {
+                if (this.getCharacter().getBlast().get(i).getY() - 24 > camera.position.y + camera.viewportHeight / 2f) {
+                    this.getCharacter().getBlast().remove(i);
+                }
             }
         }
     }
