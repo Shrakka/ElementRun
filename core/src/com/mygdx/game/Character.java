@@ -56,6 +56,9 @@ public class Character extends Animated {
 
     public void Up(){
         this.setY(this.getY() + 1);
+        for (int i = 0; i < this.getBlast().size(); i++){
+            this.getBlast().get(i).Up();
+        }
     }
 
     public void addElement(String element){
@@ -70,10 +73,25 @@ public class Character extends Animated {
         }
     }
 
-    public void checkCollision(ArrayList<Displayed> otherThanCharacter){
-        for (int i = 0; i < otherThanCharacter.size(); i++){
-            if (this.getX() == otherThanCharacter.get(i).getX() && this.getY() + this.getHeight() > otherThanCharacter.get(i).getY() && this.getY() < otherThanCharacter.get(i).getY() + otherThanCharacter.get(i).getHeight()){
+    public void checkCollision(ArrayList<Ennemy> ennemy){
+        for (int i = 0; i < ennemy.size(); i++){
+            if (this.getX() == ennemy.get(i).getX() && this.getY() + this.getHeight() > ennemy.get(i).getY() && this.getY() < ennemy.get(i).getY() + ennemy.get(i).getHeight()){
                 System.out.println("collision");
+            }
+        }
+    }
+
+    public void checkCollisionBlastEnnemy(ArrayList<Ennemy> ennemy){
+        for (int i = 0; i < ennemy.size(); i++){
+            for (int j = 0; j < this.getBlast().size(); j++){
+                if (this.getBlast().get(j).getX() == ennemy.get(i).getX() && this.getBlast().get(j).getY() + this.getBlast().get(j).getHeight() > ennemy.get(i).getY() && this.getBlast().get(j).getY() < ennemy.get(i).getY() + ennemy.get(i).getHeight()) {
+                    this.getBlast().remove(j);
+                    ennemy.get(i).setLife(ennemy.get(i).getLife()-10);
+                    System.out.println(ennemy.get(i).getElement()+" : "+ennemy.get(i).getLife());
+                    if (ennemy.get(i).getLife() <= 0){
+                        ennemy.remove(i);
+                    }
+                }
             }
         }
     }

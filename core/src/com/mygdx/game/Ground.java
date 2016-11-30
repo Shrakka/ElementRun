@@ -14,19 +14,20 @@ import java.util.ArrayList;
 public class Ground {
     private String string;
     private Sprite sprite;
-    private ArrayList<Displayed> otherThanCharacter;
+    private ArrayList<Ennemy> ennemy;
     private Character character;
 
     public Ground(String string){
         this.string = string;
         this.character = new Character("character/air/air.atlas",0,0,128,128,100,100,100,"air");
-        this.otherThanCharacter = new ArrayList<Displayed>();
-        this.otherThanCharacter.add(new Ennemy("ennemy/fire/fire.atlas",1,700,100,100,100,100,100,"fire"));
+        this.ennemy = new ArrayList<Ennemy>();
+        this.ennemy.add(new Ennemy("ennemy/fire/fire.atlas",1,700,100,100,100,100,100,"fire"));
+        this.ennemy.add(new Ennemy("ennemy/water/water.atlas",2,1200,100,100,100,100,100,"water"));
         this.init();
     }
 
-    public ArrayList<Displayed> getOtherThanCharacter(){
-        return this.otherThanCharacter;
+    public ArrayList<Ennemy> getEnnemy(){
+        return this.ennemy;
     }
 
     public Character getCharacter(){
@@ -49,14 +50,18 @@ public class Ground {
     public void draw(SpriteBatch batch){
         this.sprite.draw(batch);
         this.getCharacter().draw(batch);
-        for (int i = 0; i < this.getOtherThanCharacter().size(); i++){
-            this.getOtherThanCharacter().get(i).draw(batch);
+        for (int i = 0; i < this.getEnnemy().size(); i++){
+            this.getEnnemy().get(i).draw(batch);
+        }
+        for (int i = 0; i < this.getCharacter().getBlast().size(); i++){
+            this.getCharacter().getBlast().get(i).draw(batch);
         }
     }
 
     public void update(){
         this.getCharacter().Up();
-        this.getCharacter().checkCollision(this.getOtherThanCharacter());
+        this.getCharacter().checkCollision(this.getEnnemy());
+        this.getCharacter().checkCollisionBlastEnnemy(this.getEnnemy());
     }
 
     public void click(int screenX){
@@ -65,6 +70,9 @@ public class Ground {
         }
         if (screenX > Gdx.graphics.getWidth()/3*(this.getCharacter().getX()+1)){
             this.getCharacter().Right();
+        }
+        else {
+            this.getCharacter().shootBlast();
         }
     }
 }
