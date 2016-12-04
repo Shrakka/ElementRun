@@ -75,7 +75,7 @@ public class Character extends Animated {
         }
     }
 
-    public void checkCollision(ArrayList<Ennemy> ennemy){
+    public void checkCollisionEnnemy(ArrayList<Ennemy> ennemy){
         if (ennemy.size() > 0) {
             for (int i = 0; i < ennemy.size(); i++) {
                 if (this.getBounds().overlaps(ennemy.get(i).getBounds())) {
@@ -84,8 +84,19 @@ public class Character extends Animated {
         }
     }
 
+    public void checkCollisionModElement(ArrayList<ModElement> modelement){
+        if (modelement.size() > 0) {
+            for (int i = 0; i < modelement.size(); i++) {
+                if (this.getBounds().overlaps(modelement.get(i).getBounds())) {
+                    this.changeElement(modelement.get(i).getElement());
+                    modelement.remove(i);
+                }
+            }
+        }
+    }
 
-    public void checkCollisionBlastEnnemy(ArrayList<Ennemy> ennemy){
+
+    public void checkCollisionBlastEnnemy(ArrayList<Ennemy> ennemy, ArrayList<ModElement> modelement){
         int i = 0;
         int j = 0;
         while(i < this.getBlast().size()) {
@@ -94,6 +105,7 @@ public class Character extends Animated {
                 this.getBlast().remove(i);
                 ennemy.get(j).setLife(ennemy.get(j).getLife() - 10);
                 if (ennemy.get(j).getLife() <= 0){
+                    modelement.add(new ModElement(ennemy.get(j).getLine(), (int)ennemy.get(j).getY(), 64, 64, ennemy.get(j).getElement()));
                     ennemy.remove(j);
                 }
             }
@@ -104,5 +116,6 @@ public class Character extends Animated {
     public void changeElement(String element){
         this.setElement(element);
         this.addElement(element);
+        this.setAnimation("character/"+element+"/"+element+".atlas");
     }
 }

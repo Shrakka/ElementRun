@@ -16,17 +16,24 @@ public class Ground {
     private String string;
     private Sprite sprite;
     private ArrayList<Ennemy> ennemy;
+    private ArrayList<ModElement> modelement;
     private Character character;
 
     public Ground(String string){
         this.string = string;
         this.character = new Character(0,0,128,128,100,100,100,"water");
-        this.ennemy = LevelConstructor.getLevel(1);
+        this.ennemy = LevelConstructor.getEnnemyLevel(1);
+        this.modelement = new ArrayList<ModElement>();
+
         this.init();
     }
 
     public ArrayList<Ennemy> getEnnemy(){
         return this.ennemy;
+    }
+
+    public ArrayList<ModElement> getModElement() {
+        return this.modelement;
     }
 
     public Character getCharacter(){
@@ -55,12 +62,16 @@ public class Ground {
         for (int i = 0; i < this.getCharacter().getBlast().size(); i++){
             this.getCharacter().getBlast().get(i).draw(batch);
         }
+        for (int i = 0; i < this.getModElement().size(); i++){
+            this.getModElement().get(i).draw(batch);
+        }
     }
 
     public void update(OrthographicCamera camera){
         this.getCharacter().Up();
-        this.getCharacter().checkCollision(this.getEnnemy());
-        this.getCharacter().checkCollisionBlastEnnemy(this.getEnnemy());
+        this.getCharacter().checkCollisionEnnemy(this.getEnnemy());
+        this.getCharacter().checkCollisionModElement(this.getModElement());
+        this.getCharacter().checkCollisionBlastEnnemy(this.getEnnemy(),this.getModElement());
         this.checkOutScreen(camera);
     }
 

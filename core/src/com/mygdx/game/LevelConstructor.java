@@ -11,23 +11,21 @@ import java.util.ArrayList;
 
 public class LevelConstructor {
 
-    public static ArrayList<Ennemy> getLevel(int level) {
-        String type;
+    public static ArrayList<Ennemy> getEnnemyLevel(int level) {
+        String sep;
         ArrayList<Ennemy> ennemy = new ArrayList<Ennemy>();
         try {
-            BufferedReader lvl = new BufferedReader(new FileReader("levels/level"+level+".txt"));
+            BufferedReader lvl = new BufferedReader(new FileReader("levels/level"+level+"/ennemy.txt"));
             do {
-                type = lvl.readLine();
-                if (type != null) {
-                    if (type.equals("ennemy")) {
-                        ennemy.add(new Ennemy(Integer.parseInt(lvl.readLine()), Integer.parseInt(lvl.readLine()), Integer.parseInt(lvl.readLine()), Integer.parseInt(lvl.readLine()), Integer.parseInt(lvl.readLine()), Integer.parseInt(lvl.readLine()), Integer.parseInt(lvl.readLine()), lvl.readLine()));
-                    }
+                sep = lvl.readLine();
+                if (sep != null) {
+                    ennemy.add(new Ennemy(Integer.parseInt(lvl.readLine()), Integer.parseInt(lvl.readLine()), Integer.parseInt(lvl.readLine()), Integer.parseInt(lvl.readLine()), Integer.parseInt(lvl.readLine()), Integer.parseInt(lvl.readLine()), Integer.parseInt(lvl.readLine()), lvl.readLine()));
                 }
-            } while (type != null);
+            } while (sep != null);
             lvl.close();
         }
         catch (IOException e){
-            System.out.println("levels/level"+level+".txt");
+            System.out.println("levels/level"+level+"/ennemy.txt");
         }
         return ennemy;
     }

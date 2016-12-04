@@ -7,8 +7,12 @@ package com.mygdx.game;
 public class ModElement extends Unanimated {
     private String element;
 
-    public ModElement(String string, int x, int y, int width, int height, String element) {
-        super(string, x, y, width, height);
+    public ModElement(int x, int y, int width, int height, String element) {
+        super("character/"+element+"/"+element+".atlas", x, y, width, height);
         this.element = element;
+    }
+
+    public String getElement(){
+        return this.element;
     }
 }
