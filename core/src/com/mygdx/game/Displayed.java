@@ -18,9 +18,11 @@ public class Displayed extends Actor {
     private TextureAtlas textureAtlas;
     private float elapsedTime;
     private String string;
+    private int line;
 
-    public Displayed(String string, int x, int y, int width, int height){
-        this.setBounds(x,y,width,height);
+    public Displayed(String string, int line, int y, int width, int height){
+        this.line = line;
+        this.setBounds(this.computeX(width),y,width,height);
         this.string = string;
         this.elapsedTime = 0;
         this.setAnimation(string);
@@ -34,13 +36,24 @@ public class Displayed extends Actor {
         this.elapsedTime = 0;
     }
 
+    public int getLine(){
+        return this.line;
+    }
+    public void setLine(int line){
+        this.line = line;
+    }
+
+    public int computeX(int width){
+        return (int) (this.getLine()*Gdx.graphics.getWidth()/3+(Gdx.graphics.getWidth()/3-width)/2);
+    }
+
     public int computeX(){
-        return (int) (this.getX()*Gdx.graphics.getWidth()/3+(Gdx.graphics.getWidth()/3-this.getWidth())/2);
+        return (int) (this.getLine()*Gdx.graphics.getWidth()/3+(Gdx.graphics.getWidth()/3-this.getWidth())/2);
     }
 
     public void draw(Batch batch){
         this.elapsedTime += Gdx.graphics.getDeltaTime();
-        batch.draw(this.animation.getKeyFrame(this.elapsedTime, true),this.computeX(),this.getY(),this.getWidth(),this.getHeight());
+        batch.draw(this.animation.getKeyFrame(this.elapsedTime, true),this.getX(),this.getY(),this.getWidth(),this.getHeight());
     }
 
     public Rectangle getBounds(){

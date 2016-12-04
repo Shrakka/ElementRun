@@ -9,8 +9,8 @@ import java.util.ArrayList;
 public class Blast extends Displayed {
     private String element;
 
-    public Blast(int x, int y, int width, int height, String element){
-        super("attack/blast/"+element+"/"+element+".atlas", x, y, width, height);
+    public Blast(int line, int y, int width, int height, String element){
+        super("attack/blast/"+element+"/"+element+".atlas", line, y, width, height);
         this.element = element;
     }
 
@@ -18,11 +18,12 @@ public class Blast extends Displayed {
         this.setY(this.getY() + 8);
     }
 
-    public void checkCollision(ArrayList<Displayed> other){
-        for (int i = 0; i < other.size(); i++){
-            if (this.getX() == other.get(i).getX() && this.getY() + this.getHeight() > other.get(i).getY() && this.getY() < other.get(i).getY() + other.get(i).getHeight()){
-                System.out.println("collisiontir");
+    public int checkCollision(ArrayList<Ennemy> ennemy){
+        for (int i = 0; i < ennemy.size(); i++){
+            if (this.getBounds().overlaps(ennemy.get(i).getBounds())){
+                return i;
             }
         }
+        return -1;
     }
 }

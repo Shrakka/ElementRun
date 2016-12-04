@@ -20,10 +20,8 @@ public class Ground {
 
     public Ground(String string){
         this.string = string;
-        this.character = new Character(0,0,128,128,100,100,100,"air");
-        this.ennemy = new ArrayList<Ennemy>();
-        this.ennemy.add(new Ennemy(1,700,100,100,100,100,100,"fire"));
-        this.ennemy.add(new Ennemy(2,900,100,100,100,100,100,"water"));
+        this.character = new Character(0,0,128,128,100,100,100,"water");
+        this.ennemy = LevelConstructor.getLevel(1);
         this.init();
     }
 
@@ -67,10 +65,10 @@ public class Ground {
     }
 
     public void click(int screenX){
-        if (screenX < Gdx.graphics.getWidth()/3*(this.getCharacter().getX())){
+        if (screenX < Gdx.graphics.getWidth()/3*(this.getCharacter().getLine())){
             this.getCharacter().Left();
         }
-        if (screenX > Gdx.graphics.getWidth()/3*(this.getCharacter().getX()+1)){
+        else if (screenX > Gdx.graphics.getWidth()/3*(this.getCharacter().getLine()+1)){
             this.getCharacter().Right();
         }
         else {

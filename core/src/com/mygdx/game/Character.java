@@ -15,8 +15,8 @@ public class Character extends Animated {
     private int stockFire;
     private int stockAir;
 
-    public Character(int x, int y, int width, int height, int life, int strength, int speed, String element){
-        super("character/"+element+"/"+element+".atlas", x, y, width, height, life, strength, speed, element);
+    public Character(int line, int y, int width, int height, int life, int strength, int speed, String element){
+        super("character/"+element+"/"+element+".atlas", line, y, width, height, life, strength, speed, element);
         this.stockWater = 0;
         this.stockFire = 0;
         this.stockAir = 0;
@@ -47,11 +47,13 @@ public class Character extends Animated {
     }
 
     public void Left(){
-        this.setX(this.getX() - 1);
+        this.setLine(this.getLine() - 1);
+        this.setX(this.computeX());
     }
 
     public void Right(){
-        this.setX(this.getX() + 1);
+        this.setLine(this.getLine() + 1);
+        this.setX(this.computeX());
     }
 
     public void Up(){
@@ -76,26 +78,24 @@ public class Character extends Animated {
     public void checkCollision(ArrayList<Ennemy> ennemy){
         if (ennemy.size() > 0) {
             for (int i = 0; i < ennemy.size(); i++) {
-                if (this.getX() == ennemy.get(i).getX() && this.getY() + this.getHeight() > ennemy.get(i).getY() && this.getY() < ennemy.get(i).getY() + ennemy.get(i).getHeight()) {
-                    System.out.println("collision");
+                if (this.getBounds().overlaps(ennemy.get(i).getBounds())) {
                 }
             }
         }
     }
 
+
     public void checkCollisionBlastEnnemy(ArrayList<Ennemy> ennemy){
         int i = 0;
         int j = 0;
-        while (i < ennemy.size()){
-            while (j < this.getBlast().size()){
-                if (this.getBlast().size() > 0 && ennemy.size() > 0 && this.getBlast().get(j).getX() == ennemy.get(i).getX() && this.getBlast().get(j).getY() + this.getBlast().get(j).getHeight() > ennemy.get(i).getY() && this.getBlast().get(j).getY() < ennemy.get(i).getY() + ennemy.get(i).getHeight()) {
-                    this.getBlast().remove(j);
-                    ennemy.get(i).setLife(ennemy.get(i).getLife()-10);
-                    if (ennemy.get(i).getLife() <= 0){
-                        ennemy.remove(i);
-                    }
+        while(i < this.getBlast().size()) {
+            j = this.getBlast().get(i).checkCollision(ennemy);
+            if (j >= 0){
+                this.getBlast().remove(i);
+                ennemy.get(j).setLife(ennemy.get(j).getLife() - 10);
+                if (ennemy.get(j).getLife() <= 0){
+                    ennemy.remove(j);
                 }
-                j++;
             }
             i++;
         }

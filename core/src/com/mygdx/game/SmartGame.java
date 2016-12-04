@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class SmartGame implements ApplicationListener, InputProcessor {
 	private OrthographicCamera camera;
@@ -22,6 +23,8 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 		batch = new SpriteBatch();
 		this.ground = new Ground("map.jpg");
 		Gdx.input.setInputProcessor(this);
+
+
 	}
 
 	@Override

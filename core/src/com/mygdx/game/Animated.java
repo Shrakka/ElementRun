@@ -13,8 +13,8 @@ public class Animated extends Displayed {
     private String element;
     private ArrayList<Blast> blast;
 
-    public Animated(String string, int x, int y, int width, int height, int life, int strength, int speed, String element){
-        super(string,x,y,width,height);
+    public Animated(String string, int line, int y, int width, int height, int life, int strength, int speed, String element){
+        super(string,line,y,width,height);
         this.life = life;
         this.strength = strength;
         this.speed = speed;
@@ -59,6 +59,6 @@ public class Animated extends Displayed {
     }
 
     public void shootBlast () {
-        this.getBlast().add(new Blast((int)(this.getX()),(int)(this.getY()+this.getHeight()),24,24,this.getElement()));
+        this.getBlast().add(new Blast(this.getLine(),(int)(this.getY()+this.getHeight()),24,24,this.getElement()));
     }
 }
