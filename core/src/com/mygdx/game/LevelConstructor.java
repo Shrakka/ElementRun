@@ -1,13 +1,11 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
+
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-
-/**
- * Created by alexis on 01/12/16.
- */
 
 public class LevelConstructor {
 
@@ -15,7 +13,8 @@ public class LevelConstructor {
         String sep;
         ArrayList<Ennemy> ennemy = new ArrayList<Ennemy>();
         try {
-            BufferedReader lvl = new BufferedReader(new FileReader("levels/level"+level+"/ennemy.txt"));
+            FileHandle file = Gdx.files.internal("levels/level"+level+"/ennemy.txt");
+            BufferedReader lvl = new BufferedReader(file.reader());
             do {
                 sep = lvl.readLine();
                 if (sep != null) {
@@ -35,20 +34,21 @@ public class LevelConstructor {
         int longueur;
         int x;
         int y;
-        int height;
         int width;
+        int height;
         int value;
         ArrayList<Hole> hole = new ArrayList<Hole>();
         try {
-            BufferedReader lvl = new BufferedReader(new FileReader("levels/level"+level+"/hole.txt"));
+            FileHandle file = Gdx.files.internal("levels/level"+level+"/hole.txt");
+            BufferedReader lvl = new BufferedReader(file.reader());
             do {
                 sep = lvl.readLine();
                 if (sep != null) {
                     longueur = Integer.parseInt(lvl.readLine());
                     x = Integer.parseInt(lvl.readLine());
                     y = Integer.parseInt(lvl.readLine());
-                    height = Integer.parseInt(lvl.readLine());
                     width = Integer.parseInt(lvl.readLine());
+                    height = Integer.parseInt(lvl.readLine());
                     value = Integer.parseInt(lvl.readLine());
                     for (int i = 0; i < longueur; i++) {
                         hole.add(new Hole(longueur,x,y+i*height,height,width,value));
