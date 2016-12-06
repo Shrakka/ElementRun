@@ -12,17 +12,19 @@ import java.util.ArrayList;
  * Created by alexis on 27/11/16.
  */
 
-public class Ground {
+public class Game {
     private String string;
     private Sprite sprite;
     private ArrayList<Ennemy> ennemy;
     private ArrayList<ModElement> modelement;
+    private ArrayList<Hole> hole;
     private Character character;
 
-    public Ground(String string){
+    public Game(String string, int level){
         this.string = string;
         this.character = new Character(0,0,128,128,100,100,100,"water");
-        this.ennemy = LevelConstructor.getEnnemyLevel(1);
+        this.ennemy = LevelConstructor.getEnnemyLevel(level);
+        this.hole = LevelConstructor.getHoleLevel(level);
         this.modelement = new ArrayList<ModElement>();
 
         this.init();
@@ -30,6 +32,10 @@ public class Ground {
 
     public ArrayList<Ennemy> getEnnemy(){
         return this.ennemy;
+    }
+
+    public ArrayList<Hole> getHole(){
+        return this.hole;
     }
 
     public ArrayList<ModElement> getModElement() {
@@ -64,6 +70,9 @@ public class Ground {
         }
         for (int i = 0; i < this.getModElement().size(); i++){
             this.getModElement().get(i).draw(batch);
+        }
+        for (int i = 0; i < this.getHole().size(); i++){
+            this.getHole().get(i).draw(batch);
         }
     }
 

@@ -5,9 +5,9 @@ package com.mygdx.game;
  */
 
 public class Interface {
-    private Ground ground;
+    private Game game;
 
-    public Interface(Ground ground){
-        this.ground = ground;
+    public Interface(Game game){
+        this.game = game;
     }
 }

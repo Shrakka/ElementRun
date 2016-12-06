@@ -1,30 +1,47 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class SmartGame implements ApplicationListener, InputProcessor {
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
-	private Ground ground;
+	private Game game;
+	private Menu menu;
+	private LevelSelector lvlsct;
+	private int selector;
+	private int levelselected;
+
+	private final int MENU = 0;
+	private final int LVLSCT = 1;
+	private final int GAME = 2;
 	
 	@Override
 	public void create () {
 		camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
 		batch = new SpriteBatch();
-		this.ground = new Ground("map.jpg");
+		this.createMenu();
 		Gdx.input.setInputProcessor(this);
+		this.selector = MENU;
 
 
+	}
+
+	public void createMenu(){
+		this.menu = new Menu("menu/menu.jpg");
+	}
+
+	public void createGame(int level){
+		this.game = new Game("map.jpg",level);
+	}
+
+	public void createLevelSelector(){
+		this.lvlsct = new LevelSelector("menu/levels.jpg");
 	}
 
 	@Override
@@ -38,10 +55,24 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
-		this.ground.update(camera);
-		this.ground.draw(batch);
-		camera.translate(0,1);
-		camera.update();
+
+		if (this.selector == MENU){
+			this.menu.draw(batch);
+			camera.update();
+		}
+
+		else if (this.selector == GAME) {
+			this.game.update(camera);
+			this.game.draw(batch);
+			camera.translate(0, 1);
+			camera.update();
+		}
+
+		else if (this.selector == LVLSCT){
+			this.lvlsct.draw(batch);
+			camera.update();
+		}
+
 		batch.end();
 	}
 
@@ -77,7 +108,20 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		this.ground.click(screenX);
+		if (this.selector == GAME) {
+			this.game.click(screenX);
+		}
+		else if (this.selector == MENU) {
+			this.selector = LVLSCT;
+			this.createLevelSelector();
+		}
+		else if (this.selector == LVLSCT) {
+			int lvl = this.lvlsct.getLevel(screenX, screenY);
+			if (lvl > 0) {
+				this.selector = GAME;
+				this.createGame(lvl);
+			}
+		}
 		return true;
 	}
 
