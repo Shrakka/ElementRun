@@ -14,7 +14,7 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 	private Menu menu;
 	private LevelSelector lvlsct;
 	private int selector;
-	private int levelselected;
+	private NotAnimated rect;
 
 	private final int MENU = 0;
 	private final int LVLSCT = 1;
@@ -111,7 +111,7 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 		if (this.selector == GAME) {
 			this.game.click(screenX);
 		}
-		else if (this.selector == MENU) {
+		else if (this.selector == MENU && this.menu.getStartButton().click(screenX,screenY)) {
 			this.selector = LVLSCT;
 			this.createLevelSelector();
 		}

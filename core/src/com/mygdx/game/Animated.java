@@ -1,64 +1,62 @@
 package com.mygdx.game;
 
-import java.util.ArrayList;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+
 
 /**
- * Created by alexis on 27/11/16.
+ * Created by alexis on 24/11/16.
  */
 
-public class Animated extends Displayed {
-    private int life;
-    private int strength;
-    private int speed;
-    private String element;
-    private ArrayList<Blast> blast;
+public class Animated extends Actor {
+    private Animation animation;
+    private TextureAtlas textureAtlas;
+    private float elapsedTime;
+    private String string;
+    private int line;
 
-    public Animated(String string, int line, int y, int width, int height, int life, int strength, int speed, String element){
-        super(string,line,y,width,height);
-        this.life = life;
-        this.strength = strength;
-        this.speed = speed;
-        this.element = element;
-        this.blast = new ArrayList<Blast>();
+    public Animated(String string, int line, int y, int width, int height){
+        this.line = line;
+        this.setBounds(this.computeX(width),y,width,height);
+        this.string = string;
+        this.elapsedTime = 0;
+        this.setAnimation(string);
+        this.setTouchable(Touchable.enabled);
     }
 
-    public int getLife() {
-        return this.life;
+    public void setAnimation(String string){
+        this.setSize(this.getBounds().getWidth(),this.getBounds().getHeight());
+        this.textureAtlas = new TextureAtlas(Gdx.files.internal(string));
+        this.animation = new Animation(1f/this.textureAtlas.getRegions().size, this.textureAtlas.getRegions());
+        this.elapsedTime = 0;
     }
 
-    public int getStrength() {
-        return this.strength;
+    public int getLine(){
+        return this.line;
+    }
+    public void setLine(int line){
+        this.line = line;
     }
 
-    public int getSpeed() {
-        return this.speed;
+    public int computeX(int width){
+        return (int) (this.getLine()*Gdx.graphics.getWidth()/3+(Gdx.graphics.getWidth()/3-width)/2);
     }
 
-    public String getElement() {
-        return this.element;
+    public int computeX(){
+        return (int) (this.getLine()*Gdx.graphics.getWidth()/3+(Gdx.graphics.getWidth()/3-this.getWidth())/2);
     }
 
-    public void setLife(int life) {
-        this.life = life;
+    public void draw(Batch batch){
+        this.elapsedTime += Gdx.graphics.getDeltaTime();
+        batch.draw(this.animation.getKeyFrame(this.elapsedTime, true),this.getX(),this.getY(),this.getWidth(),this.getHeight());
     }
 
-    public void setStrength(int strength) {
-        this.strength = strength;
-    }
-
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
-
-    public void setElement(String element) {
-        this.element = element;
-    }
-
-    public ArrayList<Blast> getBlast() {
-        return this.blast;
-    }
-
-    public void shootBlast () {
-        this.getBlast().add(new Blast(this.getLine(),(int)(this.getY()+this.getHeight()),24,24,this.getElement()));
+    public Rectangle getBounds(){
+        return new Rectangle(this.getX(),this.getY(),this.getWidth(),this.getHeight());
     }
 }

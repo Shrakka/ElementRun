@@ -15,10 +15,16 @@ import java.util.ArrayList;
 public class Menu {
     private String string;
     private Sprite sprite;
+    private StartButton startbutton;
 
     public Menu(String string){
         this.string = string;
+        this.startbutton = new StartButton();
         this.init();
+    }
+
+    public StartButton getStartButton() {
+        return this.startbutton;
     }
 
     public String getString(){
@@ -36,5 +42,6 @@ public class Menu {
 
     public void draw(SpriteBatch batch){
         this.sprite.draw(batch);
+        this.getStartButton().draw(batch);
     }
 }

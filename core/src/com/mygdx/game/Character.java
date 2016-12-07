@@ -1,16 +1,12 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by alexis on 27/11/16.
  */
 
-public class Character extends Animated {
+public class Character extends Alive {
     private int stockWater;
     private int stockFire;
     private int stockAir;

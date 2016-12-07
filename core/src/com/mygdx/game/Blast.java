@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Created by alexis on 30/11/16.
  */
 
-public class Blast extends Displayed {
+public class Blast extends Animated {
     private String element;
 
     public Blast(int line, int y, int width, int height, String element){

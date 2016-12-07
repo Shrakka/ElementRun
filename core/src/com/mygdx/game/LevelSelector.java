@@ -15,14 +15,23 @@ import java.util.ArrayList;
 public class LevelSelector {
     private String string;
     private Sprite sprite;
+    private ArrayList<LevelButton> levelbuttons;
 
     public LevelSelector(String string){
         this.string = string;
+        this.levelbuttons = new ArrayList<LevelButton>();
+        this.levelbuttons.add(new LevelButton(1));
+        this.levelbuttons.add(new LevelButton(2));
+        this.levelbuttons.add(new LevelButton(3));
         this.init();
     }
 
     public String getString(){
         return this.string;
+    }
+
+    public ArrayList<LevelButton> getLevelButtons(){
+        return this.levelbuttons;
     }
 
     public void init(){
@@ -36,12 +45,16 @@ public class LevelSelector {
 
     public void draw(SpriteBatch batch){
         this.sprite.draw(batch);
+        for (int i = 0; i < this.getLevelButtons().size(); i++){
+            this.getLevelButtons().get(i).draw(batch);
+        }
     }
 
     public int getLevel(int X, int Y){
-        System.out.println(Y);
-        if (Y < Gdx.graphics.getHeight()/4 && X < Gdx.graphics.getWidth()/2){
-            return 1;
+        for (int i = 0; i < this.getLevelButtons().size(); i++){
+            if (this.getLevelButtons().get(i).click(X,Y)){
+                return i+1;
+            }
         }
         return 0;
     }
