@@ -1,8 +1,10 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -27,7 +29,6 @@ public class Game {
         this.ennemy = LevelConstructor.getEnnemyLevel(level);
         this.hole = LevelConstructor.getHoleLevel(level);
         this.modelement = new ArrayList<ModElement>();
-
         this.init();
     }
 
@@ -63,8 +64,10 @@ public class Game {
     public void draw(SpriteBatch batch){
         this.sprite.draw(batch);
         this.getCharacter().draw(batch);
+        this.getCharacter().getLifeBar().draw(batch);
         for (int i = 0; i < this.getEnnemy().size(); i++){
             this.getEnnemy().get(i).draw(batch);
+            this.getEnnemy().get(i).getLifeBar().draw(batch);
         }
         for (int i = 0; i < this.getCharacter().getBlast().size(); i++){
             this.getCharacter().getBlast().get(i).draw(batch);
@@ -89,10 +92,13 @@ public class Game {
             c = 0;
         }
         c++;
+        this.getCharacter().getStockElement().draw(batch);
+
     }
 
     public void update(OrthographicCamera camera){
         this.getCharacter().Up();
+        this.getCharacter().getLifeBar().update(this.getCharacter().getLife(),(int)this.getCharacter().getX(),(int)this.getCharacter().getY());
         for (int i = 0; i < this.getCharacter().getBlast().size(); i++){
             this.getCharacter().getBlast().get(i).Up();
         }
@@ -110,8 +116,10 @@ public class Game {
         }
         for (int i = 0; i < this.getEnnemy().size(); i++){
             this.getEnnemy().get(i).updateVisible((int)camera.position.y+Gdx.graphics.getHeight()/2);
+            this.getEnnemy().get(i).getLifeBar().update(this.getEnnemy().get(i).getLife(),(int)this.getEnnemy().get(i).getX(),(int)this.getEnnemy().get(i).getY());
         }
         this.checkOutScreen(camera);
+        this.getCharacter().getStockElement().update(this.getCharacter().getStockAir(),this.getCharacter().getStockFire(),this.getCharacter().getStockWater());
     }
 
     public void click(int screenX){

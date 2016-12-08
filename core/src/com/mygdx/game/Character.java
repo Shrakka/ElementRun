@@ -10,12 +10,18 @@ public class Character extends Alive {
     private int stockWater;
     private int stockFire;
     private int stockAir;
+    private StockElement stockelement;
 
     public Character(int line, int y, int width, int height, int life, int strength, int speed, String element){
         super("character/"+element+"/"+element+".atlas", line, y, width, height, life, strength, speed, element);
         this.stockWater = 0;
         this.stockFire = 0;
         this.stockAir = 0;
+        this.stockelement = new StockElement(0,750,this.getStockAir(),this.getStockFire(),this.getStockWater());
+    }
+
+    public StockElement getStockElement(){
+        return this.stockelement;
     }
 
     public int getStockWater() {
@@ -57,13 +63,13 @@ public class Character extends Alive {
     }
 
     public void addElement(String element){
-        if (element == "water") {
+        if (element.equals("water")) {
             this.setStockWater(this.getStockWater() + 1);
         }
-        if (element == "fire") {
+        if (element.equals("fire")) {
             this.setStockFire(this.getStockFire() + 1);
         }
-        if (element == "air") {
+        if (element.equals("air")) {
             this.setStockAir(this.getStockAir() + 1);
         }
     }

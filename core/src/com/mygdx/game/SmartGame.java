@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class SmartGame implements ApplicationListener, InputProcessor {
@@ -37,7 +38,7 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 	}
 
 	public void createGame(int level){
-		this.game = new Game("map.jpg",level);
+		this.game = new Game("menu/map.jpg",level);
 	}
 
 	public void createLevelSelector(){
