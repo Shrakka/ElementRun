@@ -57,8 +57,4 @@ public class Alive extends Animated {
     public ArrayList<Blast> getBlast() {
         return this.blast;
     }
-
-    public void shootBlast () {
-        this.getBlast().add(new Blast(this.getLine(),(int)(this.getY()+this.getHeight()),24,24,this.getElement()));
-    }
 }

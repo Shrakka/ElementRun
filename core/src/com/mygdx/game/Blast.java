@@ -18,9 +18,29 @@ public class Blast extends Animated {
         this.setY(this.getY() + 8);
     }
 
+    public void Down(){
+        this.setY(this.getY() - 8);
+    }
+
     public int checkCollision(ArrayList<Ennemy> ennemy){
         for (int i = 0; i < ennemy.size(); i++){
             if (this.getBounds().overlaps(ennemy.get(i).getBounds())){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public boolean checkCollision(Character character){
+        if (this.getBounds().overlaps(character.getBounds())){
+            return true;
+        }
+        return false;
+    }
+
+    public int checkCollisionBlast(Ennemy ennemy){
+        for (int i = 0; i < ennemy.getBlast().size(); i++){
+            if (this.getBounds().overlaps(ennemy.getBlast().get(i).getBounds())){
                 return i;
             }
         }

@@ -54,9 +54,6 @@ public class Character extends Alive {
 
     public void Up(){
         this.setY(this.getY() + 1);
-        for (int i = 0; i < this.getBlast().size(); i++){
-            this.getBlast().get(i).Up();
-        }
     }
 
     public void addElement(String element){
@@ -109,9 +106,31 @@ public class Character extends Alive {
         }
     }
 
+    public void checkCollisionBlastEnnemyBlast(ArrayList<Ennemy> ennemy){
+        int i = 0;
+        int k;
+        while (i < this.getBlast().size()) {
+            for (int j = 0; j < ennemy.size(); j++) {
+                ennemy.get(j).getBlast();
+                k = this.getBlast().get(i).checkCollisionBlast(ennemy.get(j));
+                if (k >= 0) {
+                    this.getBlast().remove(i);
+                    ennemy.get(j).getBlast().remove(k);
+                    j += ennemy.size();
+
+                }
+            }
+            i++;
+        }
+    }
+
     public void changeElement(String element){
         this.setElement(element);
         this.addElement(element);
         this.setAnimation("character/"+element+"/"+element+".atlas");
     }
+    public void shootBlast () {
+        this.getBlast().add(new Blast(this.getLine(),(int)(this.getY()+this.getHeight()),24,24,this.getElement()));
+    }
+
 }
