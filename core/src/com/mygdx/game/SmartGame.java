@@ -29,8 +29,6 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 		this.createMenu();
 		Gdx.input.setInputProcessor(this);
 		this.selector = MENU;
-
-
 	}
 
 	public void createMenu(){

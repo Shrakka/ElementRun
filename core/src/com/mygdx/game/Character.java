@@ -78,6 +78,19 @@ public class Character extends Alive {
         if (ennemy.size() > 0) {
             for (int i = 0; i < ennemy.size(); i++) {
                 if (this.getBounds().overlaps(ennemy.get(i).getBounds())) {
+                    this.setLife(this.getLife() - 50);
+                    ennemy.remove(i);
+                }
+            }
+        }
+    }
+
+    public void checkCollisionHole(ArrayList<Hole> hole){
+        if (hole.size() > 0) {
+            for (int i = 0; i < hole.size(); i++) {
+                if (this.getBounds().overlaps(hole.get(i).getBounds())) {
+                    this.setLife(this.getLife() - 50);
+                    this.setY(this.getY()+2*hole.get(i).getHeight());
                 }
             }
         }
@@ -95,38 +108,39 @@ public class Character extends Alive {
     }
 
 
-    public void checkCollisionBlastEnnemy(ArrayList<Ennemy> ennemy, ArrayList<ModElement> modelement){
+    public void checkCollisionAttackEnnemy(ArrayList<Ennemy> ennemy, ArrayList<ModElement> modelement){
         int i = 0;
         int j = 0;
-        while(i < this.getBlast().size()) {
-            j = this.getBlast().get(i).checkCollision(ennemy);
+        while(i < this.getAttack().size()) {
+            j = this.getAttack().get(i).checkCollision(ennemy);
             if (j >= 0){
-                this.getBlast().remove(i);
-                ennemy.get(j).setLife(ennemy.get(j).getLife() - 10);
-                if (ennemy.get(j).getLife() <= 0){
-                    modelement.add(new ModElement(ennemy.get(j).getLine(), (int)ennemy.get(j).getY(), 64, 64, ennemy.get(j).getElement()));
-                    ennemy.remove(j);
+                this.getAttack().remove(i);
+                ennemy.get(j).setLife(ennemy.get(j).getLife() - this.getStrength());
+            }
+            i++;
+        }
+    }
+
+    public void checkCollisionAttackEnnemyAttack(ArrayList<Ennemy> ennemy){
+        int i = 0;
+        int k;
+        while (i < this.getAttack().size()) {
+            for (int j = 0; j < ennemy.size(); j++) {
+                ennemy.get(j).getAttack();
+                k = this.getAttack().get(i).checkCollisionAttack(ennemy.get(j));
+                if (k >= 0) {
+                    this.getAttack().remove(i);
+                    ennemy.get(j).getAttack().remove(k);
+                    j += ennemy.size();
                 }
             }
             i++;
         }
     }
 
-    public void checkCollisionBlastEnnemyBlast(ArrayList<Ennemy> ennemy){
-        int i = 0;
-        int k;
-        while (i < this.getBlast().size()) {
-            for (int j = 0; j < ennemy.size(); j++) {
-                ennemy.get(j).getBlast();
-                k = this.getBlast().get(i).checkCollisionBlast(ennemy.get(j));
-                if (k >= 0) {
-                    this.getBlast().remove(i);
-                    ennemy.get(j).getBlast().remove(k);
-                    j += ennemy.size();
-
-                }
-            }
-            i++;
+    public void checkDeath(){
+        if (this.getLife() == 0) {
+            System.out.println("You're dead");
         }
     }
 
@@ -135,8 +149,8 @@ public class Character extends Alive {
         this.addElement(element);
         this.setAnimation("character/"+element+"/"+element+".atlas");
     }
-    public void shootBlast () {
-        this.getBlast().add(new Blast(this.getLine(),(int)(this.getY()+this.getHeight()),24,24,this.getElement()));
+    public void shoot() {
+        this.getAttack().add(new Blast(this.getLine(),(int)(this.getY()+this.getHeight()),24,24,this.getElement()));
     }
 
 }

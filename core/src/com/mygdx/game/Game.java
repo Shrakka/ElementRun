@@ -25,7 +25,7 @@ public class Game {
 
     public Game(String string, int level){
         this.string = string;
-        this.character = new Character(0,0,128,128,100,100,100,"water");
+        this.character = new Character(0,0,128,128,100,10,100,"water");
         this.ennemy = LevelConstructor.getEnnemyLevel(level);
         this.hole = LevelConstructor.getHoleLevel(level);
         this.modelement = new ArrayList<ModElement>();
@@ -63,63 +63,15 @@ public class Game {
 
     public void draw(SpriteBatch batch){
         this.sprite.draw(batch);
-        this.getCharacter().draw(batch);
-        this.getCharacter().getLifeBar().draw(batch);
-        for (int i = 0; i < this.getEnnemy().size(); i++){
-            this.getEnnemy().get(i).draw(batch);
-            this.getEnnemy().get(i).getLifeBar().draw(batch);
-        }
-        for (int i = 0; i < this.getCharacter().getBlast().size(); i++){
-            this.getCharacter().getBlast().get(i).draw(batch);
-        }
-        for (int i = 0; i < this.getEnnemy().size(); i++){
-            for (int j = 0; j < this.getEnnemy().get(i).getBlast().size(); j++){
-                this.getEnnemy().get(i).getBlast().get(j).draw(batch);
-            }
-        }
-        for (int i = 0; i < this.getModElement().size(); i++){
-            this.getModElement().get(i).draw(batch);
-        }
-        for (int i = 0; i < this.getHole().size(); i++){
-            this.getHole().get(i).draw(batch);
-        }
-        if (this.c == 50) {
-            for (int i = 0; i < this.getEnnemy().size(); i++) {
-                if (this.getEnnemy().get(i).getVisible()) {
-                    this.getEnnemy().get(i).shootBlast();
-                }
-            }
-            c = 0;
-        }
-        c++;
-        this.getCharacter().getStockElement().draw(batch);
-
+        this.drawOther(batch);
+        this.drawEnnemy(batch);
+        this.drawCharacter(batch);
     }
 
     public void update(OrthographicCamera camera){
-        this.getCharacter().Up();
-        this.getCharacter().getLifeBar().update(this.getCharacter().getLife(),(int)this.getCharacter().getX(),(int)this.getCharacter().getY());
-        for (int i = 0; i < this.getCharacter().getBlast().size(); i++){
-            this.getCharacter().getBlast().get(i).Up();
-        }
-        for (int i = 0; i < this.getEnnemy().size(); i++){
-            for (int j = 0; j < this.getEnnemy().get(i).getBlast().size(); j++){
-                this.getEnnemy().get(i).getBlast().get(j).Down();
-            }
-        }
-        this.getCharacter().checkCollisionEnnemy(this.getEnnemy());
-        this.getCharacter().checkCollisionModElement(this.getModElement());
-        this.getCharacter().checkCollisionBlastEnnemy(this.getEnnemy(),this.getModElement());
-        this.getCharacter().checkCollisionBlastEnnemyBlast(this.getEnnemy());
-        for (int i = 0; i < this.getEnnemy().size(); i++){
-            this.getEnnemy().get(i).checkCollisionBlastEnnemy(this.getCharacter());
-        }
-        for (int i = 0; i < this.getEnnemy().size(); i++){
-            this.getEnnemy().get(i).updateVisible((int)camera.position.y+Gdx.graphics.getHeight()/2);
-            this.getEnnemy().get(i).getLifeBar().update(this.getEnnemy().get(i).getLife(),(int)this.getEnnemy().get(i).getX(),(int)this.getEnnemy().get(i).getY());
-        }
+        this.updateCharacter();
+        this.updateEnnemy(camera);
         this.checkOutScreen(camera);
-        this.getCharacter().getStockElement().update(this.getCharacter().getStockAir(),this.getCharacter().getStockFire(),this.getCharacter().getStockWater());
     }
 
     public void click(int screenX){
@@ -130,7 +82,7 @@ public class Game {
             this.getCharacter().Right();
         }
         else {
-            this.getCharacter().shootBlast();
+            this.getCharacter().shoot();
         }
     }
 
@@ -142,20 +94,97 @@ public class Game {
                 }
             }
         }
-        if (this.getCharacter().getBlast().size() > 0) {
-            for (int i = 0; i < this.getCharacter().getBlast().size(); i++) {
-                if (this.getCharacter().getBlast().get(i).getY() - 24 > camera.position.y + camera.viewportHeight / 2f) {
-                    this.getCharacter().getBlast().remove(i);
+        if (this.getCharacter().getAttack().size() > 0) {
+            for (int i = 0; i < this.getCharacter().getAttack().size(); i++) {
+                if (this.getCharacter().getAttack().get(i).getY() - 24 > camera.position.y + camera.viewportHeight / 2f) {
+                    this.getCharacter().getAttack().remove(i);
                 }
             }
         }
         for (int j = 0; j < this.getEnnemy().size(); j++) {
-            if (this.getEnnemy().get(j).getBlast().size() > 0) {
-                for (int i = 0; i < this.getEnnemy().get(j).getBlast().size(); i++) {
-                    if (this.getEnnemy().get(j).getBlast().get(i).getY() + 24 < camera.position.y - camera.viewportHeight / 2f) {
-                        this.getEnnemy().get(j).getBlast().remove(i);
+            if (this.getEnnemy().get(j).getAttack().size() > 0) {
+                for (int i = 0; i < this.getEnnemy().get(j).getAttack().size(); i++) {
+                    if (this.getEnnemy().get(j).getAttack().get(i).getY() + 24 < camera.position.y - camera.viewportHeight / 2f) {
+                        this.getEnnemy().get(j).getAttack().remove(i);
                     }
                 }
+            }
+        }
+    }
+
+    public void drawCharacter(SpriteBatch batch){
+        this.getCharacter().draw(batch);
+        this.getCharacter().getLifeBar().draw(batch);
+        for (int i = 0; i < this.getCharacter().getAttack().size(); i++){
+            this.getCharacter().getAttack().get(i).draw(batch);
+        }
+        this.getCharacter().getStockElement().draw(batch);
+    }
+
+    public void drawEnnemy(SpriteBatch batch){
+        for (int i = 0; i < this.getEnnemy().size(); i++){
+            this.getEnnemy().get(i).draw(batch);
+            this.getEnnemy().get(i).getLifeBar().draw(batch);
+        }
+        for (int i = 0; i < this.getEnnemy().size(); i++){
+            for (int j = 0; j < this.getEnnemy().get(i).getAttack().size(); j++){
+                this.getEnnemy().get(i).getAttack().get(j).draw(batch);
+            }
+        }
+        if (this.c == 25) {
+            for (int i = 0; i < this.getEnnemy().size(); i++) {
+                if (this.getEnnemy().get(i).getVisible()) {
+                    this.getEnnemy().get(i).shoot();
+                }
+            }
+            this.c = 0;
+        }
+        this.c++;
+    }
+
+    public void drawOther(SpriteBatch batch){
+        for (int i = 0; i < this.getModElement().size(); i++){
+            this.getModElement().get(i).draw(batch);
+        }
+        for (int i = 0; i < this.getHole().size(); i++){
+            this.getHole().get(i).draw(batch);
+        }
+    }
+
+    public void updateCharacter(){
+        this.getCharacter().Up();
+        this.getCharacter().getLifeBar().update(this.getCharacter().getLife(),(int)this.getCharacter().getX(),(int)this.getCharacter().getY());
+        for (int i = 0; i < this.getCharacter().getAttack().size(); i++){
+            this.getCharacter().getAttack().get(i).Up();
+        }
+        this.getCharacter().checkCollisionHole(this.getHole());
+        this.getCharacter().checkCollisionEnnemy(this.getEnnemy());
+        this.getCharacter().checkCollisionModElement(this.getModElement());
+        this.getCharacter().checkCollisionAttackEnnemy(this.getEnnemy(),this.getModElement());
+        this.getCharacter().checkCollisionAttackEnnemyAttack(this.getEnnemy());
+        this.getCharacter().getStockElement().update(this.getCharacter().getStockAir(),this.getCharacter().getStockFire(),this.getCharacter().getStockWater());
+        this.getCharacter().checkDeath();
+    }
+
+    public void updateEnnemy(OrthographicCamera camera){
+        for (int i = 0; i < this.getEnnemy().size(); i++){
+            for (int j = 0; j < this.getEnnemy().get(i).getAttack().size(); j++){
+                if (this.getEnnemy().get(i).getType().equals("blast")){
+                    this.getEnnemy().get(i).getAttack().get(j).Down();
+                }
+            }
+        }
+        for (int i = 0; i < this.getEnnemy().size(); i++){
+            this.getEnnemy().get(i).checkCollisionBlastEnnemy(this.getCharacter());
+        }
+        for (int i = 0; i < this.getEnnemy().size(); i++){
+            this.getEnnemy().get(i).updateVisible((int)camera.position.y+Gdx.graphics.getHeight()/2);
+            this.getEnnemy().get(i).getLifeBar().update(this.getEnnemy().get(i).getLife(),(int)this.getEnnemy().get(i).getX(),(int)this.getEnnemy().get(i).getY());
+        }
+        for (int i = 0; i < this.getEnnemy().size(); i++){
+            if (this.getEnnemy().get(i).checkDeath()){
+                this.getEnnemy().remove(i);
+                this.getModElement().add(new ModElement(this.getEnnemy().get(i).getLine(), (int)this.getEnnemy().get(i).getY(), 64, 64, this.getEnnemy().get(i).getElement()));
             }
         }
     }

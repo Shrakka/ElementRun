@@ -11,7 +11,7 @@ public class Alive extends Animated {
     private int strength;
     private int speed;
     private String element;
-    private ArrayList<Blast> blast;
+    private ArrayList<Attack> attack;
     private LifeBar lifebar;
 
     public Alive(String string, int line, int y, int width, int height, int life, int strength, int speed, String element){
@@ -20,7 +20,7 @@ public class Alive extends Animated {
         this.strength = strength;
         this.speed = speed;
         this.element = element;
-        this.blast = new ArrayList<Blast>();
+        this.attack = new ArrayList<Attack>();
         this.lifebar = new LifeBar(this.computeX(), (int)this.getY(), this.getLife());
     }
 
@@ -45,7 +45,12 @@ public class Alive extends Animated {
     }
 
     public void setLife(int life) {
-        this.life = life;
+        if (life >= 0){
+            this.life = life;
+        }
+        else{
+            this.life = 0;
+        }
     }
 
     public void setStrength(int strength) {
@@ -60,7 +65,7 @@ public class Alive extends Animated {
         this.element = element;
     }
 
-    public ArrayList<Blast> getBlast() {
-        return this.blast;
+    public ArrayList<Attack> getAttack() {
+        return this.attack;
     }
 }

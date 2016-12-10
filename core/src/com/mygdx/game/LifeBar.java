@@ -25,9 +25,7 @@ public class LifeBar{
     }
 
     public void update(int life, int x, int y){
-        if (life >= 0) {
-            this.life.setWidth(life);
-        }
+        this.life.setWidth(life);
         this.background.setY(y);
         this.life.setY(y);
         this.background.setX(this.computeX(x));
