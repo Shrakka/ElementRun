@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 import java.util.ArrayList;
 
@@ -21,6 +23,7 @@ public class Game {
     private ArrayList<ModElement> modelement;
     private ArrayList<Hole> hole;
     private Character character;
+    private OrthogonalTiledMapRenderer map;
     private int mapheight;
     private int mapwidth;
     private int c = 0;
@@ -55,25 +58,22 @@ public class Game {
         return this.string;
     }
 
+
     public void init(){
-        Texture texture = new Texture(Gdx.files.internal(this.getString()));
-        texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        this.sprite = new Sprite(texture);
         this.mapwidth = Gdx.graphics.getWidth();
-        this.mapheight = (int)(this.sprite.getHeight()*Gdx.graphics.getWidth()/this.sprite.getWidth());
-        this.sprite.setSize(this.mapwidth,this.mapheight);
-        this.sprite.setOrigin(0,0);
-        this.sprite.setPosition(0,0);
+        this.mapheight = (10*Gdx.graphics.getWidth());
+        this.map = new OrthogonalTiledMapRenderer(new TmxMapLoader().load(this.getString()),(float)(this.mapwidth)/768);
     }
 
     public void draw(SpriteBatch batch){
-        this.sprite.draw(batch);
         this.drawOther(batch);
         this.drawEnnemy(batch);
         this.drawCharacter(batch);
     }
 
     public void update(OrthographicCamera camera){
+        this.map.setView(camera);
+        this.map.render();
         this.updateCharacter();
         this.updateEnnemy(camera);
         this.checkOutScreen(camera);

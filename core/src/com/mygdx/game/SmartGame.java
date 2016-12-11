@@ -36,7 +36,7 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 	}
 
 	public void createGame(int level){
-		this.game = new Game("menu/map.jpg",level);
+		this.game = new Game("menu/map.tmx",level);
 	}
 
 	public void createLevelSelector(){
@@ -52,6 +52,9 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 	public void render () {
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		if (this.selector == GAME) {
+			this.game.update(camera);
+		}
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 
@@ -61,7 +64,6 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 		}
 
 		else if (this.selector == GAME) {
-			this.game.update(camera);
 			this.game.draw(batch);
 			camera.translate(0, 1);
 			camera.update();
