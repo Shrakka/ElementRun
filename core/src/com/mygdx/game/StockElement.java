@@ -64,8 +64,8 @@ public class StockElement {
     }
 
     public void Up(){
-        this.setY(this.getY()+1);
-        this.background.setY(this.background.getY()+1);
+        this.setY(this.getY()+Gdx.graphics.getHeight()/480);
+        this.background.setY(this.background.getY()+Gdx.graphics.getHeight()/480);
 
     }
 }

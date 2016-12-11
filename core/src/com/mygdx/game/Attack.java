@@ -1,5 +1,7 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
+
 import java.util.ArrayList;
 
 /**
@@ -15,11 +17,11 @@ public class Attack extends Animated{
     }
 
     public void Up(){
-        this.setY(this.getY() + 8);
+        this.setY(this.getY() + 8* Gdx.graphics.getHeight()/480);
     }
 
     public void Down(){
-        this.setY(this.getY() - 8);
+        this.setY(this.getY() - 8* Gdx.graphics.getHeight()/480);
     }
 
     public int checkCollision(ArrayList<Ennemy> ennemy){

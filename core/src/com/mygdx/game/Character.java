@@ -1,5 +1,7 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
+
 import java.util.ArrayList;
 
 /**
@@ -59,7 +61,7 @@ public class Character extends Alive {
     }
 
     public void Up(){
-        this.setY(this.getY() + 1);
+        this.setY(this.getY() + Gdx.graphics.getHeight()/480);
     }
 
     public void addElement(String element){

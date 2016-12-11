@@ -65,7 +65,7 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 
 		else if (this.selector == GAME) {
 			this.game.draw(batch);
-			camera.translate(0, 1);
+			camera.translate(0, Gdx.graphics.getHeight()/480);
 			camera.update();
 		}
 
