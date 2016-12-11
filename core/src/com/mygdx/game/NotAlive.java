@@ -5,7 +5,7 @@ package com.mygdx.game;
  */
 
 public class NotAlive extends Animated {
-    public NotAlive(String string, int x, int y, int width, int height) {
-        super(string, x, y, width, height);
+    public NotAlive(String string, int line, int y, int width, int height) {
+        super(string, line, y, width, height);
     }
 }

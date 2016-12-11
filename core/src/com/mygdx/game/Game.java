@@ -31,7 +31,7 @@ public class Game {
     public Game(String string, int level){
         this.string = string;
         this.init();
-        this.character = new Character(0,0,128,128,100,10,100,"water");
+        this.character = new Character(0,0,100,10,100,"water");
         Level lvl = LevelConstructor.getLevel(level,this.mapwidth,this.mapheight);
         this.ennemy = lvl.getEnnemy();
         this.hole = lvl.getHole();
@@ -188,7 +188,7 @@ public class Game {
         }
         for (int i = 0; i < this.getEnnemy().size(); i++){
             if (this.getEnnemy().get(i).checkDeath()){
-                this.getModElement().add(new ModElement(this.getEnnemy().get(i).getLine(), (int)this.getEnnemy().get(i).getY(), 64, 64, this.getEnnemy().get(i).getElement()));
+                this.getModElement().add(new ModElement(this.getEnnemy().get(i).getLine(), (int)this.getEnnemy().get(i).getY(), (int)this.getEnnemy().get(i).getWidth(), this.getEnnemy().get(i).getElement()));
                 this.getEnnemy().remove(i);
             }
         }

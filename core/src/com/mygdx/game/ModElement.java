@@ -1,5 +1,7 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
+
 /**
  * Created by alexis on 27/11/16.
  */
@@ -7,8 +9,8 @@ package com.mygdx.game;
 public class ModElement extends NotAlive {
     private String element;
 
-    public ModElement(int x, int y, int width, int height, String element) {
-        super("character/"+element+"/"+element+".atlas", x, y, width, height);
+    public ModElement(int line, int ye, int we, String element) {
+        super("character/"+element+"/"+element+".atlas", line, ye+(we-(int)(0.4* Gdx.graphics.getWidth()/3))/2,(int)(0.4* Gdx.graphics.getWidth()/3), (int)(0.4* Gdx.graphics.getWidth()/3));
         this.element = element;
     }
 

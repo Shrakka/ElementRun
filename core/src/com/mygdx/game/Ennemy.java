@@ -11,8 +11,8 @@ public class Ennemy extends Alive {
     private boolean visible;
     private boolean on;
 
-    public Ennemy(int line, int y, int width, int height, int life, int strength, int speed, String type, String element){
-        super("ennemy/"+element+"/"+element+".atlas", line, y, width, height, life, strength, speed, element);
+    public Ennemy(int line, int y, int life, int strength, int speed, String type, String element){
+        super("ennemy/"+element+"/"+element+".atlas", line, y, life, strength, speed, element);
         this.type = type;
         this.visible = false;
         this.on = false;
@@ -52,10 +52,10 @@ public class Ennemy extends Alive {
         this.toggleOn();
         if (this.getOn()) {
             if (this.getType().equals("blast")) {
-                this.getAttack().add(new Blast(this.getLine(), (int) (this.getY()) - 24, 24, 24, this.getElement()));
+                this.getAttack().add(new Blast(this.getLine(), (int) (this.getY()) - 24, this.getElement()));
             }
             if (this.getType().equals("ray")) {
-                this.getAttack().add(new Ray(this.getLine(), (int) (this.getY()) - 5 * 24, 24, 5 * 24, this.getElement()));
+                this.getAttack().add(new Ray(this.getLine(), (int) (this.getY()) - 5 * 24, this.getElement()));
             }
         } else {
             if (this.getAttack().size() > 0 && this.getType().equals("ray")) {

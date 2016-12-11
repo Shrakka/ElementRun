@@ -1,5 +1,7 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
+
 import java.util.ArrayList;
 
 /**
@@ -14,8 +16,8 @@ public class Alive extends Animated {
     private ArrayList<Attack> attack;
     private LifeBar lifebar;
 
-    public Alive(String string, int line, int y, int width, int height, int life, int strength, int speed, String element){
-        super(string,line,y,width,height);
+    public Alive(String string, int line, int y, int life, int strength, int speed, String element){
+        super(string,line,y,(int)(0.8* Gdx.graphics.getWidth()/3),(int)(0.8*Gdx.graphics.getWidth()/3));
         this.life = life;
         this.strength = strength;
         this.speed = speed;

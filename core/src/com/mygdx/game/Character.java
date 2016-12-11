@@ -12,12 +12,12 @@ public class Character extends Alive {
     private int stockAir;
     private StockElement stockelement;
 
-    public Character(int line, int y, int width, int height, int life, int strength, int speed, String element){
-        super("character/"+element+"/"+element+".atlas", line, y, width, height, life, strength, speed, element);
+    public Character(int line, int y, int life, int strength, int speed, String element){
+        super("character/"+element+"/"+element+".atlas", line, y, life, strength, speed, element);
         this.stockWater = 0;
         this.stockFire = 0;
         this.stockAir = 0;
-        this.stockelement = new StockElement(0,750,this.getStockAir(),this.getStockFire(),this.getStockWater());
+        this.stockelement = new StockElement(this.getStockAir(),this.getStockFire(),this.getStockWater());
     }
 
     public StockElement getStockElement(){
@@ -79,7 +79,7 @@ public class Character extends Alive {
             for (int i = 0; i < ennemy.size(); i++) {
                 if (this.getBounds().overlaps(ennemy.get(i).getBounds())) {
                     this.setLife(this.getLife() - 50);
-                    ennemy.remove(i);
+                    ennemy.get(i).setLife(0);
                 }
             }
         }
@@ -149,7 +149,7 @@ public class Character extends Alive {
         this.setAnimation("character/"+element+"/"+element+".atlas");
     }
     public void shoot() {
-        this.getAttack().add(new Blast(this.getLine(),(int)(this.getY()+this.getHeight()),24,24,this.getElement()));
+        this.getAttack().add(new Blast(this.getLine(),(int)(this.getY()+this.getHeight()),this.getElement()));
     }
 
 }

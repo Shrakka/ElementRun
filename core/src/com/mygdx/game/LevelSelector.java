@@ -23,6 +23,7 @@ public class LevelSelector {
         this.levelbuttons.add(new LevelButton(1));
         this.levelbuttons.add(new LevelButton(2));
         this.levelbuttons.add(new LevelButton(3));
+        this.levelbuttons.add(new LevelButton(4));
         this.init();
     }
 
