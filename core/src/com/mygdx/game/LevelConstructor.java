@@ -30,6 +30,15 @@ public class LevelConstructor {
                         if (line.charAt(i) == 'A'){
                             ennemy.add(new Ennemy(i,mapheight-128*x, 128, 128, 100, 10, 10, "blast", "air"));
                         }
+                        if (line.charAt(i) == 'w'){
+                            ennemy.add(new Ennemy(i,mapheight-128*x, 128, 128, 100, 10, 10, "ray", "water"));
+                        }
+                        if (line.charAt(i) == 'f'){
+                            ennemy.add(new Ennemy(i,mapheight-128*x, 128, 128, 100, 10, 10, "ray", "fire"));
+                        }
+                        if (line.charAt(i) == 'a'){
+                            ennemy.add(new Ennemy(i,mapheight-128*x, 128, 128, 100, 10, 10, "ray", "air"));
+                        }
                         if (line.charAt(i) == 'H'){
                             hole.add(new Hole(1,i,mapheight-128*x, 128, 128, 10));
                         }
