@@ -21,15 +21,18 @@ public class Game {
     private ArrayList<ModElement> modelement;
     private ArrayList<Hole> hole;
     private Character character;
+    private int mapheight;
+    private int mapwidth;
     private int c = 0;
 
     public Game(String string, int level){
         this.string = string;
-        this.character = new Character(0,0,128,128,100,10,100,"water");
-        this.ennemy = LevelConstructor.getEnnemyLevel(level);
-        this.hole = LevelConstructor.getHoleLevel(level);
-        this.modelement = new ArrayList<ModElement>();
         this.init();
+        this.character = new Character(0,0,128,128,100,10,100,"water");
+        Level lvl = LevelConstructor.getLevel(level,this.mapwidth,this.mapheight);
+        this.ennemy = lvl.getEnnemy();
+        this.hole = lvl.getHole();
+        this.modelement = new ArrayList<ModElement>();
     }
 
     public ArrayList<Ennemy> getEnnemy(){
@@ -56,7 +59,9 @@ public class Game {
         Texture texture = new Texture(Gdx.files.internal(this.getString()));
         texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         this.sprite = new Sprite(texture);
-        this.sprite.setSize(Gdx.graphics.getWidth(), this.sprite.getHeight()*Gdx.graphics.getWidth()/this.sprite.getWidth());
+        this.mapwidth = Gdx.graphics.getWidth();
+        this.mapheight = (int)(this.sprite.getHeight()*Gdx.graphics.getWidth()/this.sprite.getWidth());
+        this.sprite.setSize(this.mapwidth,this.mapheight);
         this.sprite.setOrigin(0,0);
         this.sprite.setPosition(0,0);
     }
@@ -183,8 +188,8 @@ public class Game {
         }
         for (int i = 0; i < this.getEnnemy().size(); i++){
             if (this.getEnnemy().get(i).checkDeath()){
-                this.getEnnemy().remove(i);
                 this.getModElement().add(new ModElement(this.getEnnemy().get(i).getLine(), (int)this.getEnnemy().get(i).getY(), 64, 64, this.getEnnemy().get(i).getElement()));
+                this.getEnnemy().remove(i);
             }
         }
     }

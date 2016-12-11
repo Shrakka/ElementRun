@@ -9,57 +9,39 @@ import java.util.ArrayList;
 
 public class LevelConstructor {
 
-    public static ArrayList<Ennemy> getEnnemyLevel(int level) {
-        String sep;
+    public static Level getLevel(int level, int mapwidth, int mapheight) {
+        String line;
         ArrayList<Ennemy> ennemy = new ArrayList<Ennemy>();
+        ArrayList<Hole> hole = new ArrayList<Hole>();
         try {
-            FileHandle file = Gdx.files.internal("levels/level"+level+"/ennemy.txt");
+            FileHandle file = Gdx.files.internal("levels/level"+level+".txt");
             BufferedReader lvl = new BufferedReader(file.reader());
+            int x = 0;
             do {
-                sep = lvl.readLine();
-                if (sep != null) {
-                    ennemy.add(new Ennemy(Integer.parseInt(lvl.readLine()), Integer.parseInt(lvl.readLine()), Integer.parseInt(lvl.readLine()), Integer.parseInt(lvl.readLine()), Integer.parseInt(lvl.readLine()), Integer.parseInt(lvl.readLine()), Integer.parseInt(lvl.readLine()), lvl.readLine(), lvl.readLine()));
+                line = lvl.readLine();
+                if (line != null) {
+                    for (int i = 0; i < line.length(); i++){
+                        if (line.charAt(i) == 'W'){
+                            ennemy.add(new Ennemy(i,mapheight-128*x, 128, 128, 100, 10, 10, "blast", "water"));
+                        }
+                        if (line.charAt(i) == 'F'){
+                            ennemy.add(new Ennemy(i,mapheight-128*x, 128, 128, 100, 10, 10, "blast", "fire"));
+                        }
+                        if (line.charAt(i) == 'A'){
+                            ennemy.add(new Ennemy(i,mapheight-128*x, 128, 128, 100, 10, 10, "blast", "air"));
+                        }
+                        if (line.charAt(i) == 'H'){
+                            hole.add(new Hole(1,i,mapheight-128*x, 128, 128, 10));
+                        }
+                    }
                 }
-            } while (sep != null);
+                x++;
+            } while (line != null);
             lvl.close();
         }
         catch (IOException e){
             System.out.println("levels/level"+level+"/ennemy.txt");
         }
-        return ennemy;
-    }
-
-    public static ArrayList<Hole> getHoleLevel(int level) {
-        String sep;
-        int longueur;
-        int x;
-        int y;
-        int width;
-        int height;
-        int value;
-        ArrayList<Hole> hole = new ArrayList<Hole>();
-        try {
-            FileHandle file = Gdx.files.internal("levels/level"+level+"/hole.txt");
-            BufferedReader lvl = new BufferedReader(file.reader());
-            do {
-                sep = lvl.readLine();
-                if (sep != null) {
-                    longueur = Integer.parseInt(lvl.readLine());
-                    x = Integer.parseInt(lvl.readLine());
-                    y = Integer.parseInt(lvl.readLine());
-                    width = Integer.parseInt(lvl.readLine());
-                    height = Integer.parseInt(lvl.readLine());
-                    value = Integer.parseInt(lvl.readLine());
-                    for (int i = 0; i < longueur; i++) {
-                        hole.add(new Hole(longueur,x,y+i*height,height,width,value));
-                    }
-                }
-            } while (sep != null);
-            lvl.close();
-        }
-        catch (IOException e){
-            System.out.println("levels/level"+level+"/hole.txt");
-        }
-        return hole;
+        return new Level(ennemy,hole);
     }
 }

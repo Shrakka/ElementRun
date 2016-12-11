@@ -11,7 +11,7 @@ public class Ennemy extends Alive {
     private boolean visible;
     private boolean on;
 
-    public Ennemy(int line, int y, int width, int height, int life, int strength, int speed, String type, String element/*, String type*/){
+    public Ennemy(int line, int y, int width, int height, int life, int strength, int speed, String type, String element){
         super("ennemy/"+element+"/"+element+".atlas", line, y, width, height, life, strength, speed, element);
         this.type = type;
         this.visible = false;

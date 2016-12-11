@@ -90,7 +90,6 @@ public class Character extends Alive {
             for (int i = 0; i < hole.size(); i++) {
                 if (this.getBounds().overlaps(hole.get(i).getBounds())) {
                     this.setLife(this.getLife() - 50);
-                    this.setY(this.getY()+2*hole.get(i).getHeight());
                 }
             }
         }
