@@ -8,7 +8,7 @@ import com.badlogic.gdx.Gdx;
 
 public class StartButton extends NotAnimated {
     public StartButton(){
-        super((Gdx.graphics.getWidth()-400*Gdx.graphics.getWidth()/720)/2,(Gdx.graphics.getHeight()-100*Gdx.graphics.getHeight()/1280)/2,400*Gdx.graphics.getWidth()/720,100*Gdx.graphics.getHeight()/1280,"menu/startbutton.jpg");
+        super((Gdx.graphics.getWidth()-400*Gdx.graphics.getWidth()/720)/2,(Gdx.graphics.getHeight()-100*Gdx.graphics.getHeight()/1280)/2,400*Gdx.graphics.getWidth()/720,100*Gdx.graphics.getHeight()/1280,"startscreen/startbutton.jpg");
     }
 
     public boolean click(int x, int y){

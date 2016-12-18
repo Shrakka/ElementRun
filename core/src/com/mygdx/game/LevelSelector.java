@@ -16,9 +16,11 @@ public class LevelSelector {
     private String string;
     private Sprite sprite;
     private ArrayList<LevelButton> levelbuttons;
+    private int lvl;
 
     public LevelSelector(String string){
         this.string = string;
+        this.lvl = 0;
         this.levelbuttons = new ArrayList<LevelButton>();
         this.levelbuttons.add(new LevelButton(1));
         this.levelbuttons.add(new LevelButton(2));
@@ -51,12 +53,24 @@ public class LevelSelector {
         }
     }
 
-    public int getLevel(int X, int Y){
+    public void setLevel(int lvl){
+        this.lvl = lvl;
+    }
+
+    public int getLevel(){
+        return this.lvl;
+    }
+
+    public void clickLevel(int X, int Y){
+        boolean b = false;
         for (int i = 0; i < this.getLevelButtons().size(); i++){
             if (this.getLevelButtons().get(i).click(X,Y)){
-                return i+1;
+                this.setLevel(i+1);
+                b = true;
             }
         }
-        return 0;
+        if (!b){
+            this.setLevel(0);
+        }
     }
 }

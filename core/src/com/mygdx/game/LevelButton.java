@@ -9,7 +9,7 @@ import com.badlogic.gdx.Gdx;
 public class LevelButton extends NotAnimated {
     private int lvl;
     public LevelButton(int lvl){
-        super(0,0,244*Gdx.graphics.getWidth()/720,244*Gdx.graphics.getHeight()/1280,"menu/level"+lvl+"button.jpg");
+        super(0,0,244*Gdx.graphics.getWidth()/720,244*Gdx.graphics.getHeight()/1280,"levelscreen/level"+lvl+"button.jpg");
         this.lvl = lvl;
         this.setX(this.computeX());
         this.setY(this.computeY());

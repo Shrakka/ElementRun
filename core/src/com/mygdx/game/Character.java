@@ -139,10 +139,8 @@ public class Character extends Alive {
         }
     }
 
-    public void checkDeath(){
-        if (this.getLife() == 0) {
-            System.out.println("You're dead");
-        }
+    public boolean checkDeath(){
+        return this.getLife() == 0;
     }
 
     public void changeElement(String element){

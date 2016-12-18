@@ -13,6 +13,8 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 	private SpriteBatch batch;
 	private Game game;
 	private Menu menu;
+	private DeadMenu dmenu;
+	private WinMenu wmenu;
 	private LevelSelector lvlsct;
 	private int selector;
 	private NotAnimated rect;
@@ -20,6 +22,8 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 	private final int MENU = 0;
 	private final int LVLSCT = 1;
 	private final int GAME = 2;
+	private final int DEAD = 3;
+	private final int WIN = 4;
 	
 	@Override
 	public void create () {
@@ -32,15 +36,23 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 	}
 
 	public void createMenu(){
-		this.menu = new Menu("menu/menu.jpg");
+		this.menu = new Menu("startscreen/menu.jpg");
 	}
 
 	public void createGame(int level){
-		this.game = new Game("menu/map.tmx",level);
+		this.game = new Game("ground/map.tmx",level);
 	}
 
 	public void createLevelSelector(){
-		this.lvlsct = new LevelSelector("menu/levels.jpg");
+		this.lvlsct = new LevelSelector("levelscreen/levels.jpg");
+	}
+
+	public void createDeadMenu(){
+		this.dmenu = new DeadMenu("deadscreen/screen.jpg");
+	}
+
+	public void createWinMenu() {
+		this.wmenu = new WinMenu("winscreen/screen.jpg",this.game.getCharacter().getStockAir(),this.game.getCharacter().getStockFire(),this.game.getCharacter().getStockWater());
 	}
 
 	@Override
@@ -67,10 +79,30 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 			this.game.draw(batch);
 			camera.translate(0, Gdx.graphics.getHeight()/480);
 			camera.update();
+			if (this.game.checkDeath()){
+				this.selector = DEAD;
+			}
+			if (this.camera.position.y > this.game.getMapheight()-Gdx.graphics.getHeight()/2){
+				this.selector = WIN;
+			}
 		}
 
 		else if (this.selector == LVLSCT){
 			this.lvlsct.draw(batch);
+			camera.update();
+		}
+
+		else if (this.selector == DEAD){
+			this.createDeadMenu();
+			this.dmenu.draw(batch);
+			camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
+			camera.update();
+		}
+
+		else if (this.selector == WIN){
+			this.createWinMenu();
+			this.wmenu.draw(batch);
+			camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
 			camera.update();
 		}
 
@@ -117,10 +149,29 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 			this.createLevelSelector();
 		}
 		else if (this.selector == LVLSCT) {
-			int lvl = this.lvlsct.getLevel(screenX, screenY);
+			this.lvlsct.clickLevel(screenX, screenY);
+			int lvl = this.lvlsct.getLevel();
 			if (lvl > 0) {
 				this.selector = GAME;
 				this.createGame(lvl);
+			}
+		}
+		else if (this.selector == DEAD){
+			if (this.dmenu.getRetryButton().click(screenX,screenY)){
+				this.selector = GAME;
+				this.createGame(this.lvlsct.getLevel());
+			}
+			if (this.dmenu.getExitButton().click(screenX,screenY)){
+				this.selector = LVLSCT;
+			}
+		}
+		else if (this.selector == WIN){
+			if (this.wmenu.getRetryButton().click(screenX,screenY)){
+				this.selector = GAME;
+				this.createGame(this.lvlsct.getLevel());
+			}
+			if (this.wmenu.getExitButton().click(screenX,screenY)){
+				this.selector = LVLSCT;
 			}
 		}
 		return true;

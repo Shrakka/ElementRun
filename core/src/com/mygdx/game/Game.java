@@ -58,6 +58,9 @@ public class Game {
         return this.string;
     }
 
+    public int getMapheight(){
+        return this.mapheight;
+    }
 
     public void init(){
         this.mapwidth = Gdx.graphics.getWidth();
@@ -168,7 +171,6 @@ public class Game {
         this.getCharacter().checkCollisionAttackEnnemy(this.getEnnemy(),this.getModElement());
         this.getCharacter().checkCollisionAttackEnnemyAttack(this.getEnnemy());
         this.getCharacter().getStockElement().update(this.getCharacter().getStockAir(),this.getCharacter().getStockFire(),this.getCharacter().getStockWater());
-        this.getCharacter().checkDeath();
     }
 
     public void updateEnnemy(OrthographicCamera camera){
@@ -192,5 +194,9 @@ public class Game {
                 this.getEnnemy().remove(i);
             }
         }
+    }
+
+    public boolean checkDeath(){
+        return this.getCharacter().checkDeath();
     }
 }
