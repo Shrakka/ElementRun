@@ -1,6 +1,9 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
  * Created by alexis on 07/12/16.
@@ -30,5 +33,17 @@ public class LevelButton extends NotAnimated {
 
     public int computeY(){
         return (4*Gdx.graphics.getHeight()/5-244*Gdx.graphics.getHeight()/1280/2) - (int)((this.lvl-1)/2) * (244*Gdx.graphics.getHeight()/1280+80);
+    }
+
+    public void draw(SpriteBatch batch, Account account){
+        super.draw(batch);
+        BitmapFont font = new BitmapFont(Gdx.files.internal("font/theboldfont.fnt"));
+        font.getData().setScale(Gdx.graphics.getHeight()*0.06f*0.02f);
+        font.setColor(1,0.9f,0.8f,1);
+        font.draw(batch, ""+account.getElements().get(this.lvl-1).get(0), this.computeX(), this.computeY());
+        font.setColor(Color.RED);
+        font.draw(batch, ""+account.getElements().get(this.lvl-1).get(1), this.computeX()+this.getWidth()/3, this.computeY());
+        font.setColor(0,0.8f,0.8f,1);
+        font.draw(batch, ""+account.getElements().get(this.lvl-1).get(2), this.computeX()+2*this.getWidth()/3, this.computeY());
     }
 }

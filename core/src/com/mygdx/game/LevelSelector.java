@@ -17,15 +17,18 @@ public class LevelSelector {
     private Sprite sprite;
     private ArrayList<LevelButton> levelbuttons;
     private int lvl;
+    private Account account;
+    private int nblvl;
 
-    public LevelSelector(String string){
+    public LevelSelector(String string, Account account, int nblvl){
         this.string = string;
         this.lvl = 0;
+        this.nblvl = nblvl;
+        this.account = account;
         this.levelbuttons = new ArrayList<LevelButton>();
-        this.levelbuttons.add(new LevelButton(1));
-        this.levelbuttons.add(new LevelButton(2));
-        this.levelbuttons.add(new LevelButton(3));
-        this.levelbuttons.add(new LevelButton(4));
+        for (int i = 1; i <= nblvl; i++) {
+            this.levelbuttons.add(new LevelButton(i));
+        }
         this.init();
     }
 
@@ -46,10 +49,14 @@ public class LevelSelector {
         this.sprite.setPosition(0,0);
     }
 
+    public Account getAccount() {
+        return this.account;
+    }
+
     public void draw(SpriteBatch batch){
         this.sprite.draw(batch);
         for (int i = 0; i < this.getLevelButtons().size(); i++){
-            this.getLevelButtons().get(i).draw(batch);
+            this.getLevelButtons().get(i).draw(batch, this.account);
         }
     }
 

@@ -17,7 +17,8 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 	private WinMenu wmenu;
 	private LevelSelector lvlsct;
 	private int selector;
-	private NotAnimated rect;
+	private Account account;
+	private int nblvl;
 
 	private final int MENU = 0;
 	private final int LVLSCT = 1;
@@ -31,8 +32,10 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 		camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
 		batch = new SpriteBatch();
 		this.createMenu();
+		this.nblvl = Gdx.files.local("levels/").list().length;
 		Gdx.input.setInputProcessor(this);
 		this.selector = MENU;
+		this.account = new Account("Android", this.nblvl);
 	}
 
 	public void createMenu(){
@@ -44,7 +47,7 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 	}
 
 	public void createLevelSelector(){
-		this.lvlsct = new LevelSelector("levelscreen/levels.jpg");
+		this.lvlsct = new LevelSelector("levelscreen/levels.jpg", this.account, this.nblvl);
 	}
 
 	public void createDeadMenu(){
@@ -166,6 +169,10 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 			}
 		}
 		else if (this.selector == WIN){
+			if (this.wmenu.getRetryButton().click(screenX,screenY) || this.wmenu.getExitButton().click(screenX,screenY)){
+				UserConstructor.setUser("Android",this.game.getCharacter(), this.lvlsct.getLevel());
+				this.account.setElements(UserConstructor.getUser("Android",this.nblvl));
+			}
 			if (this.wmenu.getRetryButton().click(screenX,screenY)){
 				this.selector = GAME;
 				this.createGame(this.lvlsct.getLevel());
