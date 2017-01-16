@@ -10,10 +10,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class LifeBar{
     private NotAnimated background;
     private NotAnimated life;
+    private int bwidth;
 
-    public LifeBar(int x, int y, int life){
-        this.background = new NotAnimated(this.computeX(x),y,(int)(0.8* Gdx.graphics.getWidth()/3),(int)(0.1* Gdx.graphics.getWidth()/3),"lifebar/background.png");
-        this.life = new NotAnimated(this.computeX(x),y,(int)(0.8* Gdx.graphics.getWidth()/3)*life/100,(int)(0.1* Gdx.graphics.getWidth()/3),"lifebar/life.png");
+    public LifeBar(int x, int y){
+        this.bwidth = (int)(0.8* Gdx.graphics.getWidth()/3);
+        this.background = new NotAnimated(this.computeX(x),y,this.bwidth,(int)(0.1* Gdx.graphics.getWidth()/3),"lifebar/background.png");
+        this.life = new NotAnimated(this.computeX(x),y,this.bwidth,(int)(0.1* Gdx.graphics.getWidth()/3),"lifebar/life.png");
     }
 
     public void draw(SpriteBatch batch){
@@ -25,12 +27,16 @@ public class LifeBar{
         return x;
     }
 
-    public void update(int life, int x, int y){
-        this.life.setWidth((int)(0.8* Gdx.graphics.getWidth()/3)*life/100);
+    public void update(int life, int maxlife, int x, int y){
+        this.life.setWidth(this.bwidth*life/maxlife);
         this.background.setY(y);
         this.life.setY(y);
         this.background.setX(this.computeX(x));
         this.life.setX(this.computeX(x));
+    }
+
+    public int getHeight(){
+        return (int)this.background.getHeight();
     }
 
 }

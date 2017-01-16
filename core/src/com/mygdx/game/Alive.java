@@ -9,21 +9,24 @@ import java.util.ArrayList;
  */
 
 public class Alive extends Animated {
+    private int maxlife;
     private int life;
     private int strength;
-    private int speed;
     private String element;
     private ArrayList<Attack> attack;
     private LifeBar lifebar;
 
-    public Alive(String string, int line, int y, int life, int strength, int speed, String element){
+    public Alive(String string, int line, int y, int life, int strength, String element){
         super(string,line,y,(int)(0.8* Gdx.graphics.getWidth()/3),(int)(0.8*Gdx.graphics.getWidth()/3));
         this.life = life;
+        this.maxlife = life;
         this.strength = strength;
-        this.speed = speed;
         this.element = element;
         this.attack = new ArrayList<Attack>();
-        this.lifebar = new LifeBar(this.computeX(), (int)this.getY(), this.getLife());
+        this.lifebar = new LifeBar((int)this.getX(), (int)this.getY());
+    }
+    public int getMaxlife() {
+        return this.maxlife;
     }
 
     public LifeBar getLifeBar(){
@@ -38,9 +41,6 @@ public class Alive extends Animated {
         return this.strength;
     }
 
-    public int getSpeed() {
-        return this.speed;
-    }
 
     public String getElement() {
         return this.element;
@@ -59,9 +59,6 @@ public class Alive extends Animated {
         this.strength = strength;
     }
 
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
 
     public void setElement(String element) {
         this.element = element;

@@ -14,8 +14,8 @@ public class Character extends Alive {
     private int stockAir;
     private StockElement stockelement;
 
-    public Character(int line, int y, int life, int strength, int speed, String element){
-        super("character/"+element+"/"+element+".atlas", line, y, life, strength, speed, element);
+    public Character(int line, int y, int life, int strength, String element){
+        super("character/"+element+"/"+element+".atlas", line, y, life, strength, element);
         this.stockWater = 0;
         this.stockFire = 0;
         this.stockAir = 0;
@@ -80,7 +80,7 @@ public class Character extends Alive {
         if (ennemy.size() > 0) {
             for (int i = 0; i < ennemy.size(); i++) {
                 if (this.getBounds().overlaps(ennemy.get(i).getBounds())) {
-                    this.setLife(this.getLife() - 50);
+                    this.setLife(this.getLife() - ennemy.get(i).getLife()/2);
                     ennemy.get(i).setLife(0);
                 }
             }
@@ -116,7 +116,8 @@ public class Character extends Alive {
             j = this.getAttack().get(i).checkCollision(ennemy);
             if (j >= 0){
                 this.getAttack().remove(i);
-                ennemy.get(j).setLife(ennemy.get(j).getLife() - this.getStrength());
+                int coeff = TriangleElement.get(this,ennemy.get(j));
+                ennemy.get(j).setLife((int)(ennemy.get(j).getLife() - this.getStrength()*(1+0.5*coeff)));
             }
             i++;
         }

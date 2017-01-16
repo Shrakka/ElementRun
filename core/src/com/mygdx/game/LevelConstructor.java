@@ -22,22 +22,22 @@ public class LevelConstructor {
                 if (line != null) {
                     for (int i = 0; i < line.length(); i++){
                         if (line.charAt(i) == 'W'){
-                            ennemy.add(new Ennemy(i,mapheight-(int)(0.8* Gdx.graphics.getWidth()/3)*x-Gdx.graphics.getHeight(), 100, 10, 10, "blast", "water"));
+                            ennemy.add(new Ennemy(i,mapheight-(int)(0.8* Gdx.graphics.getWidth()/3)*x-Gdx.graphics.getHeight(), (int)(50*(1+level/2.0)), (int)(10*(1+level/10.0)), "blast", "water"));
                         }
                         if (line.charAt(i) == 'F'){
-                            ennemy.add(new Ennemy(i,mapheight-(int)(0.8* Gdx.graphics.getWidth()/3)*x-Gdx.graphics.getHeight(), 100, 10, 10, "blast", "fire"));
+                            ennemy.add(new Ennemy(i,mapheight-(int)(0.8* Gdx.graphics.getWidth()/3)*x-Gdx.graphics.getHeight(), (int)(50*(1+level/2.0)), (int)(10*(1+level/10.0)), "blast", "fire"));
                         }
                         if (line.charAt(i) == 'A'){
-                            ennemy.add(new Ennemy(i,mapheight-(int)(0.8* Gdx.graphics.getWidth()/3)*x-Gdx.graphics.getHeight(), 100, 10, 10, "blast", "air"));
+                            ennemy.add(new Ennemy(i,mapheight-(int)(0.8* Gdx.graphics.getWidth()/3)*x-Gdx.graphics.getHeight(), (int)(50*(1+level/2.0)), (int)(10*(1+level/10.0)), "blast", "air"));
                         }
                         if (line.charAt(i) == 'w'){
-                            ennemy.add(new Ennemy(i,mapheight-(int)(0.8* Gdx.graphics.getWidth()/3)*x-Gdx.graphics.getHeight(), 100, 10, 10, "ray", "water"));
+                            ennemy.add(new Ennemy(i,mapheight-(int)(0.8* Gdx.graphics.getWidth()/3)*x-Gdx.graphics.getHeight(), (int)(50*(1+level/2.0)), (int)(10*(1+level/10.0)), "ray", "water"));
                         }
                         if (line.charAt(i) == 'f'){
-                            ennemy.add(new Ennemy(i,mapheight-(int)(0.8* Gdx.graphics.getWidth()/3)*x-Gdx.graphics.getHeight(), 100, 10, 10, "ray", "fire"));
+                            ennemy.add(new Ennemy(i,mapheight-(int)(0.8* Gdx.graphics.getWidth()/3)*x-Gdx.graphics.getHeight(), (int)(50*(1+level/2.0)), (int)(10*(1+level/10.0)), "ray", "fire"));
                         }
                         if (line.charAt(i) == 'a'){
-                            ennemy.add(new Ennemy(i,mapheight-(int)(0.8* Gdx.graphics.getWidth()/3)*x-Gdx.graphics.getHeight(), 100, 10, 10, "ray", "air"));
+                            ennemy.add(new Ennemy(i,mapheight-(int)(0.8* Gdx.graphics.getWidth()/3)*x-Gdx.graphics.getHeight(), (int)(50*(1+level/2.0)), (int)(10*(1+level/10.0)), "ray", "air"));
                         }
                         if (line.charAt(i) == 'H'){
                             hole.add(new Hole(1,i,mapheight-(int)(0.8* Gdx.graphics.getWidth()/3)*x-Gdx.graphics.getHeight(), 10));

@@ -32,10 +32,10 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 		this.camera.position.set(this.camera.viewportWidth / 2f, this.camera.viewportHeight / 2f, 0);
 		this.batch = new SpriteBatch();
 		this.nblvl = Gdx.files.internal("smartgame/levels/").list().length;
+		this.account = new Account("Android", this.nblvl);
 		this.createMenu();
 		Gdx.input.setInputProcessor(this);
 		this.selector = MENU;
-		this.account = new Account("Poutipout", this.nblvl);
 	}
 
 	public void createMenu(){
@@ -91,6 +91,7 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 		}
 
 		else if (this.selector == LVLSCT){
+			this.lvlsct.getLevel();
 			this.lvlsct.draw(this.batch);
 			this.camera.update();
 		}
@@ -170,8 +171,10 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 		}
 		else if (this.selector == WIN){
 			if (this.wmenu.getRetryButton().click(screenX,screenY) || this.wmenu.getExitButton().click(screenX,screenY)){
-				UserConstructor.setUser("Android",this.game.getCharacter(), this.lvlsct.getLevel());
-				this.account.setElements(UserConstructor.getUser("Android",this.nblvl));
+				this.account.getCharacterElements(this.game.getCharacter(), this.lvlsct.getLevel());
+				this.account.addElementsStock(this.lvlsct.getLevel());
+				UserConstructor.setUser(this.account.getUser(), this.account.getElements(), this.account.getStock());
+				this.lvlsct.updateStock();
 			}
 			if (this.wmenu.getRetryButton().click(screenX,screenY)){
 				this.selector = GAME;

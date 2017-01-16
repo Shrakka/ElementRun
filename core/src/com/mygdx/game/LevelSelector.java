@@ -19,17 +19,23 @@ public class LevelSelector {
     private int lvl;
     private Account account;
     private int nblvl;
+    private StockElement stockelement;
 
     public LevelSelector(String string, Account account, int nblvl){
         this.string = string;
         this.lvl = 0;
         this.nblvl = nblvl;
         this.account = account;
+        this.stockelement = new StockElement(this.getAccount().getStock().get(0),this.getAccount().getStock().get(1),this.getAccount().getStock().get(2));
         this.levelbuttons = new ArrayList<LevelButton>();
         for (int i = 1; i <= this.nblvl; i++) {
             this.levelbuttons.add(new LevelButton(i));
         }
         this.init();
+    }
+
+    public void updateStock(){
+        this.stockelement.updateValues(this.getAccount().getStock());
     }
 
     public String getString(){
@@ -58,6 +64,7 @@ public class LevelSelector {
         for (int i = 0; i < this.getLevelButtons().size(); i++){
             this.getLevelButtons().get(i).draw(batch, this.account);
         }
+        this.stockelement.draw(batch);
     }
 
     public void setLevel(int lvl){

@@ -30,7 +30,7 @@ public class Game {
     public Game(String string, int level){
         this.string = string;
         this.init();
-        this.character = new Character(0,0,100,10,100,"water");
+        this.character = new Character(0,0,100,10,"water");
         Level lvl = LevelConstructor.getLevel(level,this.mapwidth,this.mapheight);
         this.ennemy = lvl.getEnnemy();
         this.hole = lvl.getHole();
@@ -160,7 +160,7 @@ public class Game {
 
     public void updateCharacter(){
         this.getCharacter().Up();
-        this.getCharacter().getLifeBar().update(this.getCharacter().getLife(),(int)this.getCharacter().getX(),(int)this.getCharacter().getY());
+        this.getCharacter().getLifeBar().update(this.getCharacter().getLife(), this.getCharacter().getMaxlife(), (int)this.getCharacter().getX(),(int)this.getCharacter().getY());
         for (int i = 0; i < this.getCharacter().getAttack().size(); i++){
             this.getCharacter().getAttack().get(i).Up();
         }
@@ -185,7 +185,7 @@ public class Game {
         }
         for (int i = 0; i < this.getEnnemy().size(); i++){
             this.getEnnemy().get(i).updateVisible((int)camera.position.y+Gdx.graphics.getHeight()/2);
-            this.getEnnemy().get(i).getLifeBar().update(this.getEnnemy().get(i).getLife(),(int)this.getEnnemy().get(i).getX(),(int)this.getEnnemy().get(i).getY());
+            this.getEnnemy().get(i).getLifeBar().update(this.getEnnemy().get(i).getLife(), this.getEnnemy().get(i).getMaxlife(), (int)this.getEnnemy().get(i).getX(),(int)this.getEnnemy().get(i).getY());
         }
         for (int i = 0; i < this.getEnnemy().size(); i++){
             if (this.getEnnemy().get(i).checkDeath()){

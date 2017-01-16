@@ -11,8 +11,8 @@ public class Ennemy extends Alive {
     private boolean visible;
     private boolean on;
 
-    public Ennemy(int line, int y, int life, int strength, int speed, String type, String element){
-        super("ennemy/"+element+"/"+element+".atlas", line, y, life, strength, speed, element);
+    public Ennemy(int line, int y, int life, int strength, String type, String element){
+        super("ennemy/"+element+"/"+element+".atlas", line, y, life, strength, element);
         this.type = type;
         this.visible = false;
         this.on = false;
@@ -35,7 +35,8 @@ public class Ennemy extends Alive {
         while(i < this.getAttack().size()){
             if (this.getAttack().get(i).checkCollision(character)){
                 this.getAttack().remove(i);
-                character.setLife(character.getLife() - this.getStrength());
+                int coeff = TriangleElement.get(this,character);
+                character.setLife((int)(character.getLife() - this.getStrength()*(1+0.5*coeff)));
             }
             i++;
         }

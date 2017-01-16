@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import java.util.ArrayList;
+
 /**
  * Created by alexis on 08/12/16.
  */
@@ -35,6 +37,12 @@ public class StockElement {
         this.fire = fire;
         this.water = water;
         this.Up();
+    }
+
+    public void updateValues(ArrayList<Integer> values){
+        this.air = values.get(0);
+        this.fire = values.get(1);
+        this.water = values.get(2);
     }
 
     public void draw(SpriteBatch batch){

@@ -15,6 +15,11 @@ public class UserConstructor {
         try {
             FileHandle file = Gdx.files.local("smartgame/users/"+user+".txt");
             BufferedReader userreader = new BufferedReader(file.reader());
+            ArrayList<Integer> stock = new ArrayList<Integer>();
+            for (int i = 0; i < 3; i++){
+                stock.add(Integer.parseInt(userreader.readLine()));
+            }
+            elements.add(stock);
             userreader.readLine();
             do {
                 ArrayList<Integer> lvl = new ArrayList<Integer>();
@@ -26,8 +31,13 @@ public class UserConstructor {
             userreader.close();
         }
         catch (Exception e){
-
+            ArrayList<Integer> stock = new ArrayList<Integer>();
+            for (int i = 0; i < 3; i++){
+                stock.add(0);
+            }
+            elements.add(stock);
             FileHandle file = Gdx.files.local("smartgame/users/"+user+".txt");
+            file.writeString("0\n"+"0\n"+"0\n", true);
             for (int i = 1; i <= nblvl; i++){
                 file.writeString(i+"\n", true);
                 file.writeString("0\n"+"0\n"+"0\n", true);
@@ -41,30 +51,17 @@ public class UserConstructor {
         return elements;
     }
 
-    public static void setUser(String user, Character character, int lvl) {
+    public static void setUser(String user, ArrayList<ArrayList<Integer>> elements, ArrayList<Integer> stock) {
         try {
             FileHandle file = Gdx.files.local("smartgame/users/"+user+".txt");
-            BufferedReader userreader = new BufferedReader(file.reader());
             FileHandle filetmp = Gdx.files.local("smartgame/users/"+user+"tmp.txt");
-            String l = userreader.readLine();
-            while (l != null) {
-                filetmp.writeString(l+"\n",true);
-                if (Integer.parseInt(l) == lvl){
-                    filetmp.writeString(character.getStockAir()+"\n", true);
-                    filetmp.writeString(character.getStockFire()+"\n", true);
-                    filetmp.writeString(character.getStockWater()+"\n", true);
-                    userreader.readLine();
-                    userreader.readLine();
-                    userreader.readLine();
+            filetmp.writeString(stock.get(0)+"\n"+stock.get(1)+"\n"+stock.get(2)+"\n",true);
+            for (int i = 0; i < elements.size(); i++){
+                filetmp.writeString(i+1+"\n",true);
+                for (int j = 0; j < elements.get(i).size(); j++){
+                    filetmp.writeString(elements.get(i).get(j)+"\n",true);
                 }
-                else{
-                    for (int i = 0; i < 3; i++){
-                        filetmp.writeString(userreader.readLine()+"\n", true);
-                    }
-                }
-                l = userreader.readLine();
             }
-            userreader.close();
             Gdx.files.local("smartgame/users/"+user+".txt").delete();
             filetmp.copyTo(Gdx.files.local("smartgame/users/"+user+".txt"));
             Gdx.files.local("smartgame/users/"+user+"tmp.txt").delete();
