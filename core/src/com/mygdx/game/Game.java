@@ -18,7 +18,6 @@ import java.util.ArrayList;
 
 public class Game {
     private String string;
-    private Sprite sprite;
     private ArrayList<Ennemy> ennemy;
     private ArrayList<ModElement> modelement;
     private ArrayList<Hole> hole;
@@ -198,5 +197,17 @@ public class Game {
 
     public boolean checkDeath(){
         return this.getCharacter().checkDeath();
+    }
+
+    public void dispose(){
+        ennemy = null;
+        modelement = null;
+        hole = null;
+        string = null;
+        character = null;
+        map = null;
+        mapheight = 0;
+        mapwidth = 0;
+        c = 0;
     }
 }

@@ -26,7 +26,7 @@ public class LevelSelector {
         this.nblvl = nblvl;
         this.account = account;
         this.levelbuttons = new ArrayList<LevelButton>();
-        for (int i = 1; i <= nblvl; i++) {
+        for (int i = 1; i <= this.nblvl; i++) {
             this.levelbuttons.add(new LevelButton(i));
         }
         this.init();

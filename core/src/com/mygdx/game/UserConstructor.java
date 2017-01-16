@@ -13,7 +13,7 @@ public class UserConstructor {
         ArrayList<ArrayList<Integer>> elements = new ArrayList<ArrayList<Integer>>();
         String line;
         try {
-            FileHandle file = Gdx.files.internal("users/"+user+".txt");
+            FileHandle file = Gdx.files.local("smartgame/users/"+user+".txt");
             BufferedReader userreader = new BufferedReader(file.reader());
             userreader.readLine();
             do {
@@ -26,7 +26,8 @@ public class UserConstructor {
             userreader.close();
         }
         catch (Exception e){
-            FileHandle file = Gdx.files.local("users/"+user+".txt");
+
+            FileHandle file = Gdx.files.local("smartgame/users/"+user+".txt");
             for (int i = 1; i <= nblvl; i++){
                 file.writeString(i+"\n", true);
                 file.writeString("0\n"+"0\n"+"0\n", true);
@@ -42,9 +43,9 @@ public class UserConstructor {
 
     public static void setUser(String user, Character character, int lvl) {
         try {
-            FileHandle file = Gdx.files.internal("users/"+user+".txt");
+            FileHandle file = Gdx.files.local("smartgame/users/"+user+".txt");
             BufferedReader userreader = new BufferedReader(file.reader());
-            FileHandle filetmp = Gdx.files.local("users/"+user+"tmp.txt");
+            FileHandle filetmp = Gdx.files.local("smartgame/users/"+user+"tmp.txt");
             String l = userreader.readLine();
             while (l != null) {
                 filetmp.writeString(l+"\n",true);
@@ -64,9 +65,9 @@ public class UserConstructor {
                 l = userreader.readLine();
             }
             userreader.close();
-            Gdx.files.local("users/"+user+".txt").delete();
-            filetmp.copyTo(Gdx.files.local("users/"+user+".txt"));
-            Gdx.files.local("users/"+user+"tmp.txt").delete();
+            Gdx.files.local("smartgame/users/"+user+".txt").delete();
+            filetmp.copyTo(Gdx.files.local("smartgame/users/"+user+".txt"));
+            Gdx.files.local("smartgame/users/"+user+"tmp.txt").delete();
         }
         catch (Exception e){
             System.out.println("Problème d'écriture");

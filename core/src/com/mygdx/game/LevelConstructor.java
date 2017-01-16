@@ -14,7 +14,7 @@ public class LevelConstructor {
         ArrayList<Ennemy> ennemy = new ArrayList<Ennemy>();
         ArrayList<Hole> hole = new ArrayList<Hole>();
         try {
-            FileHandle file = Gdx.files.internal("levels/level"+level+".txt");
+            FileHandle file = Gdx.files.internal("smartgame/levels/level"+level+".txt");
             BufferedReader lvl = new BufferedReader(file.reader());
             int x = 0;
             do {
@@ -49,7 +49,7 @@ public class LevelConstructor {
             lvl.close();
         }
         catch (IOException e){
-            System.out.println("levels/level"+level+"/ennemy.txt");
+            System.out.println("smartgame/levels/level"+level+"/ennemy.txt");
         }
         return new Level(ennemy,hole);
     }

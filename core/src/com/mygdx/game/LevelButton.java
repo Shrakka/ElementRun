@@ -11,11 +11,15 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class LevelButton extends NotAnimated {
     private int lvl;
+    private BitmapFont font;
+
     public LevelButton(int lvl){
         super(0,0,244*Gdx.graphics.getWidth()/720,244*Gdx.graphics.getHeight()/1280,"levelscreen/level"+lvl+"button.jpg");
         this.lvl = lvl;
         this.setX(this.computeX());
         this.setY(this.computeY());
+        this.font = new BitmapFont(Gdx.files.internal("font/theboldfont.fnt"));
+        this.font.getData().setScale(Gdx.graphics.getHeight()*0.06f*0.02f);
     }
 
     public boolean click(int x, int y){
@@ -37,8 +41,6 @@ public class LevelButton extends NotAnimated {
 
     public void draw(SpriteBatch batch, Account account){
         super.draw(batch);
-        BitmapFont font = new BitmapFont(Gdx.files.internal("font/theboldfont.fnt"));
-        font.getData().setScale(Gdx.graphics.getHeight()*0.06f*0.02f);
         font.setColor(1,0.9f,0.8f,1);
         font.draw(batch, ""+account.getElements().get(this.lvl-1).get(0), this.computeX(), this.computeY());
         font.setColor(Color.RED);
