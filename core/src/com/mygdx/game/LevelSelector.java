@@ -1,7 +1,6 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -20,18 +19,24 @@ public class LevelSelector {
     private Account account;
     private int nblvl;
     private StockElement stockelement;
+    private BottomLevelPanel bottompanel;
 
     public LevelSelector(String string, Account account, int nblvl){
         this.string = string;
         this.lvl = 0;
         this.nblvl = nblvl;
         this.account = account;
-        this.stockelement = new StockElement(this.getAccount().getStock().get(0),this.getAccount().getStock().get(1),this.getAccount().getStock().get(2));
+        this.stockelement = new StockElement(this.getAccount().getStock().get(0),this.getAccount().getStock().get(1),this.getAccount().getStock().get(2),this.getAccount().getCriskill().get(0));
         this.levelbuttons = new ArrayList<LevelButton>();
+        this.bottompanel = new BottomLevelPanel();
         for (int i = 1; i <= this.nblvl; i++) {
             this.levelbuttons.add(new LevelButton(i));
         }
         this.init();
+    }
+
+    public BottomLevelPanel getPanel(){
+        return this.bottompanel;
     }
 
     public void updateStock(){
@@ -65,6 +70,7 @@ public class LevelSelector {
             this.getLevelButtons().get(i).draw(batch, this.account);
         }
         this.stockelement.draw(batch);
+        this.bottompanel.draw(batch);
     }
 
     public void setLevel(int lvl){

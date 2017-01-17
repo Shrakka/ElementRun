@@ -9,17 +9,19 @@ import java.util.ArrayList;
  */
 
 public class Character extends Alive {
+    private int speed;
     private int stockWater;
     private int stockFire;
     private int stockAir;
     private StockElement stockelement;
 
-    public Character(int line, int y, int life, int strength, String element){
+    public Character(int line, int y, int life, int strength, int speed, int cristals, String element){
         super("character/"+element+"/"+element+".atlas", line, y, life, strength, element);
+        this.speed = speed;
         this.stockWater = 0;
         this.stockFire = 0;
         this.stockAir = 0;
-        this.stockelement = new StockElement(this.getStockAir(),this.getStockFire(),this.getStockWater());
+        this.stockelement = new StockElement(this.getStockAir(),this.getStockFire(),this.getStockWater(),cristals);
     }
 
     public StockElement getStockElement(){
@@ -61,7 +63,7 @@ public class Character extends Alive {
     }
 
     public void Up(){
-        this.setY(this.getY() + Gdx.graphics.getHeight()/480);
+        this.setY(this.getY() + this.speed*Gdx.graphics.getHeight()/480);
     }
 
     public void addElement(String element){

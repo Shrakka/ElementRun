@@ -11,6 +11,7 @@ public class Account {
     private ArrayList<ArrayList<Integer>> elements;
     private ArrayList<Integer> stock;
     private int nblvl;
+    private ArrayList<Integer> criskill;
 
     public Account(String user, int nblvl){
         this.user = user;
@@ -20,9 +21,10 @@ public class Account {
 
     public void update() {
         ArrayList<ArrayList<Integer>> values = UserConstructor.getUser(user, this.nblvl);
+        this.criskill = values.remove(0);
         this.stock = values.remove(0);
         this.elements = values;
-        System.out.println(this.stock.get(0)+","+this.stock.get(1)+","+this.stock.get(2)+";"+this.elements.size());
+        System.out.println(criskill.get(0));
     }
 
     public void getCharacterElements(Character C, int lvl){
@@ -48,6 +50,10 @@ public class Account {
     public ArrayList<Integer> getStock() {
         return this.stock;
 
+    }
+
+    public ArrayList<Integer> getCriskill(){
+        return this.criskill;
     }
 
     public void setElements(ArrayList<ArrayList<Integer>> elements) {

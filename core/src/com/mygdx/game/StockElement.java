@@ -16,20 +16,22 @@ public class StockElement {
     private int air;
     private int fire;
     private int water;
+    private int cristals;
     private int x;
     private int y;
     private NotAnimated background;
 
-    public StockElement(int air,int fire,int water){
+    public StockElement(int air,int fire,int water, int cristals){
         this.x = 0;
         int height = (int)(0.06*Gdx.graphics.getHeight());
         this.y = Gdx.graphics.getHeight()-height;
         this.font = new BitmapFont(Gdx.files.internal("font/theboldfont.fnt"));
-        this.font.getData().setScale(height*0.02f);
+        this.font.getData().setScale(height*0.015f);
         this.background = new NotAnimated(x,y,Gdx.graphics.getWidth(),height,"font/black.png");
         this.fire = fire;
         this.air = air;
         this.water = water;
+        this.cristals = cristals;
     }
 
     public void update(int air, int fire, int water){
@@ -47,12 +49,14 @@ public class StockElement {
 
     public void draw(SpriteBatch batch){
         this.background.draw(batch);
-        this.font.setColor(1,0.9f,0.8f,1);
+        this.font.setColor(0,0.9f,0,1);
         this.font.draw(batch, "Air : "+this.air, this.getX()+Gdx.graphics.getHeight()/100, this.getY()+this.font.getXHeight()+this.background.getHeight()*0.25f);
         this.font.setColor(Color.RED);
-        this.font.draw(batch, "Fire : "+this.fire, this.getX()+Gdx.graphics.getWidth()/3, this.getY()+this.font.getXHeight()+this.background.getHeight()*0.25f);
+        this.font.draw(batch, "Fire : "+this.fire, this.getX()+(int)(0.8*Gdx.graphics.getWidth()/4), this.getY()+this.font.getXHeight()+this.background.getHeight()*0.25f);
         this.font.setColor(0,0.8f,0.8f,1);
-        this.font.draw(batch, "Water : "+this.water, this.getX()+2*Gdx.graphics.getWidth()/3, this.getY()+this.font.getXHeight()+this.background.getHeight()*0.25f);
+        this.font.draw(batch, "Water : "+this.water, this.getX()+(int)(1.6*Gdx.graphics.getWidth()/4), this.getY()+this.font.getXHeight()+this.background.getHeight()*0.25f);
+        this.font.setColor(1,1,1,1);
+        this.font.draw(batch, "Cristals : "+this.cristals, this.getX()+(int)(2.7*Gdx.graphics.getWidth()/4), this.getY()+this.font.getXHeight()+this.background.getHeight()*0.25f);
     }
 
     public int getX() {

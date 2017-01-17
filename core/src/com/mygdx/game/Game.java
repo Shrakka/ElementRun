@@ -27,10 +27,10 @@ public class Game {
     private int mapwidth;
     private int c = 0;
 
-    public Game(String string, int level){
+    public Game(String string, int level, Account account){
         this.string = string;
         this.init();
-        this.character = new Character(0,0,100,10,"water");
+        this.character = new Character(0,0,account.getCriskill().get(1),account.getCriskill().get(2),account.getCriskill().get(3),account.getCriskill().get(0),"water");
         Level lvl = LevelConstructor.getLevel(level,this.mapwidth,this.mapheight);
         this.ennemy = lvl.getEnnemy();
         this.hole = lvl.getHole();
