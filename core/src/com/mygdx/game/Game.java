@@ -30,7 +30,7 @@ public class Game {
     public Game(String string, int level, Account account){
         this.string = string;
         this.init();
-        this.character = new Character(0,0,account.getCriskill().get(1),account.getCriskill().get(2),account.getCriskill().get(3),account.getCriskill().get(0),"water");
+        this.character = new Character(0,0,account.getSkills().get(0),account.getSkills().get(1),(level-1)*5+account.getSkills().get(2),account.getCristals(),"air");
         Level lvl = LevelConstructor.getLevel(level,this.mapwidth,this.mapheight);
         this.ennemy = lvl.getEnnemy();
         this.hole = lvl.getHole();
@@ -110,9 +110,18 @@ public class Game {
         }
         for (int j = 0; j < this.getEnnemy().size(); j++) {
             if (this.getEnnemy().get(j).getAttack().size() > 0) {
-                for (int i = 0; i < this.getEnnemy().get(j).getAttack().size(); i++) {
-                    if (this.getEnnemy().get(j).getAttack().get(i).getY() + 24 < camera.position.y - camera.viewportHeight / 2f) {
-                        this.getEnnemy().get(j).getAttack().remove(i);
+                if (this.getEnnemy().get(j).getType().equals("blast")){
+                    for (int i = 0; i < this.getEnnemy().get(j).getAttack().size(); i++) {
+                        if (this.getEnnemy().get(j).getAttack().get(i).getY() + 24 < camera.position.y - camera.viewportHeight / 2f) {
+                            this.getEnnemy().get(j).getAttack().remove(i);
+                        }
+                    }
+                }
+                else if (this.getEnnemy().get(j).getType().equals("ray")){
+                    for (int i = 0; i < this.getEnnemy().get(j).getAttack().size(); i++) {
+                        if (this.getEnnemy().get(j).getAttack().get(i).getY() + Dimensions.Height(100) < camera.position.y - camera.viewportHeight / 2f) {
+                            this.getEnnemy().get(j).getAttack().remove(i);
+                        }
                     }
                 }
             }

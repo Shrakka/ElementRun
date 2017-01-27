@@ -14,16 +14,16 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class WinMenu {
     private String string;
     private Sprite sprite;
-    private RetryButton retrybutton;
-    private ExitButton exitbutton;
+    private Button retrybutton;
+    private Button exitbutton;
     private int air;
     private int fire;
     private int water;
 
     public WinMenu(String string, int air, int fire, int water){
         this.string = string;
-        this.retrybutton = new RetryButton();
-        this.exitbutton = new ExitButton();
+        this.retrybutton = new Button("center", Dimensions.Height(40), "deadscreen/retrybutton.png");
+        this.exitbutton = new Button("center", Dimensions.Height(60), "deadscreen/exitbutton.png");
         this.air = air;
         this.fire = fire;
         this.water = water;
@@ -42,11 +42,11 @@ public class WinMenu {
         return this.water;
     }
 
-    public RetryButton getRetryButton() {
+    public Button getRetryButton() {
         return this.retrybutton;
     }
 
-    public ExitButton getExitButton() {
+    public Button getExitButton() {
         return this.exitbutton;
     }
 

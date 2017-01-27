@@ -15,21 +15,21 @@ import java.util.ArrayList;
 public class DeadMenu {
     private String string;
     private Sprite sprite;
-    private RetryButton retrybutton;
-    private ExitButton exitbutton;
+    private Button retrybutton;
+    private Button exitbutton;
 
     public DeadMenu(String string){
         this.string = string;
-        this.retrybutton = new RetryButton();
-        this.exitbutton = new ExitButton();
+        this.retrybutton = new Button("center",Dimensions.Height(40), "deadscreen/retrybutton.png");
+        this.exitbutton = new Button("center",Dimensions.Height(60), "deadscreen/exitbutton.png");
         this.init();
     }
 
-    public RetryButton getRetryButton() {
+    public Button getRetryButton() {
         return this.retrybutton;
     }
 
-    public ExitButton getExitButton() {
+    public Button getExitButton() {
         return this.exitbutton;
     }
 

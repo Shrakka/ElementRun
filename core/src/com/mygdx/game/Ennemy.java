@@ -32,13 +32,24 @@ public class Ennemy extends Alive {
 
     public void checkCollisionBlastEnnemy(Character character){
         int i = 0;
-        while(i < this.getAttack().size()){
-            if (this.getAttack().get(i).checkCollision(character)){
-                this.getAttack().remove(i);
-                int coeff = TriangleElement.get(this,character);
-                character.setLife((int)(character.getLife() - this.getStrength()*(1+0.5*coeff)));
+        if (this.getType().equals("blast")) {
+            while (i < this.getAttack().size()) {
+                if (this.getAttack().get(i).checkCollision(character)) {
+                    this.getAttack().remove(i);
+                    int coeff = TriangleElement.get(this, character);
+                    character.setLife((int) (character.getLife() - this.getStrength() * (1 + 0.5 * coeff)));
+                }
+                i++;
             }
-            i++;
+        }
+        else if (this.getType().equals("ray")) {
+            while (i < this.getAttack().size()) {
+                if (this.getAttack().get(i).checkCollision(character)) {
+                    int coeff = TriangleElement.get(this, character);
+                    character.setLife((int) (character.getLife() - this.getStrength() * (1 + 0.5 * coeff)));
+                }
+                i++;
+            }
         }
     }
 
@@ -56,7 +67,7 @@ public class Ennemy extends Alive {
                 this.getAttack().add(new Blast(this.getLine(), (int) (this.getY()) - 24, this.getElement()));
             }
             if (this.getType().equals("ray")) {
-                this.getAttack().add(new Ray(this.getLine(), (int) (this.getY()) - 5 * 24, this.getElement()));
+                this.getAttack().add(new Ray(this.getLine(), (int) (this.getY()) - Dimensions.Height(100), this.getElement()));
             }
         } else {
             if (this.getAttack().size() > 0 && this.getType().equals("ray")) {

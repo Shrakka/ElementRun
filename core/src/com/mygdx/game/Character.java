@@ -14,14 +14,18 @@ public class Character extends Alive {
     private int stockFire;
     private int stockAir;
     private StockElement stockelement;
+    private boolean holeflagafter;
+    private boolean holeflagbefore;
 
     public Character(int line, int y, int life, int strength, int speed, int cristals, String element){
         super("character/"+element+"/"+element+".atlas", line, y, life, strength, element);
         this.speed = speed;
+        this.holeflagafter = false;
+        this.holeflagbefore = false;
         this.stockWater = 0;
         this.stockFire = 0;
         this.stockAir = 0;
-        this.stockelement = new StockElement(this.getStockAir(),this.getStockFire(),this.getStockWater(),cristals);
+        this.stockelement = new StockElement(this.getStockAir(),this.getStockFire(),this.getStockWater());
     }
 
     public StockElement getStockElement(){
@@ -52,6 +56,10 @@ public class Character extends Alive {
         this.stockAir = stockAir;
     }
 
+    public int getSpeed(){
+        return this.speed;
+    }
+
     public void Left(){
         this.setLine(this.getLine() - 1);
         this.setX(this.computeX());
@@ -63,7 +71,8 @@ public class Character extends Alive {
     }
 
     public void Up(){
-        this.setY(this.getY() + this.speed*Gdx.graphics.getHeight()/480);
+        this.setY(this.getY() + (int)(this.speed*0.02*Dimensions.Height(1)));
+        this.getStockElement().Up(this.speed);
     }
 
     public void addElement(String element){
@@ -91,10 +100,18 @@ public class Character extends Alive {
 
     public void checkCollisionHole(ArrayList<Hole> hole){
         if (hole.size() > 0) {
+            this.holeflagbefore = this.holeflagafter;
             for (int i = 0; i < hole.size(); i++) {
                 if (this.getBounds().overlaps(hole.get(i).getBounds())) {
-                    this.setLife(this.getLife() - 50);
+                    this.holeflagafter = true;
+                    break;
                 }
+                else {
+                    this.holeflagafter = false;
+                }
+            }
+            if (this.holeflagafter && !this.holeflagbefore){
+                this.setLife(this.getLife()-30);
             }
         }
     }

@@ -5,14 +5,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class SmartGame implements ApplicationListener, InputProcessor {
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
 	private Game game;
-	private Menu menu;
+	private StartMenu menu;
 	private DeadMenu dmenu;
 	private WinMenu wmenu;
 	private SkillsMenu smenu;
@@ -41,7 +40,7 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 	}
 
 	public void createMenu(){
-		this.menu = new Menu("startscreen/menu.jpg");
+		this.menu = new StartMenu("startscreen/menu.jpg");
 	}
 
 	public void createGame(int level){
@@ -86,7 +85,7 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 
 		else if (this.selector == GAME) {
 			this.game.draw(this.batch);
-			this.camera.translate(0, Gdx.graphics.getHeight()/480);
+			this.camera.translate(0, (int)(this.game.getCharacter().getSpeed()*0.02*Dimensions.Height(1)));
 			this.camera.update();
 			if (this.game.checkDeath()){
 				this.selector = DEAD;
@@ -189,7 +188,7 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 			if (this.wmenu.getRetryButton().click(screenX,screenY) || this.wmenu.getExitButton().click(screenX,screenY)){
 				this.account.getCharacterElements(this.game.getCharacter(), this.lvlsct.getLevel());
 				this.account.addElementsStock(this.lvlsct.getLevel());
-				UserConstructor.setUser(this.account.getUser(), this.account.getCriskill(), this.account.getElements(), this.account.getStock());
+				UserConstructor.setUser(this.account.getUser(), this.account.getCristals(), this.account.getSkills(), this.account.getElements(), this.account.getStock());
 				this.lvlsct.updateStock();
 			}
 			if (this.wmenu.getRetryButton().click(screenX,screenY)){
@@ -205,8 +204,27 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 			}
 		}
 
-		else if (this.selector == SKILLS && this.smenu.getPanel().getMenubutton().click(screenX,screenY)){
-			this.selector = LVLSCT;
+		else if (this.selector == SKILLS){
+			if (this.smenu.getPanel().getMenubutton().click(screenX,screenY)){
+				UserConstructor.setUser(this.account.getUser(), this.account.getCristals(), this.account.getSkills(), this.account.getElements(), this.account.getStock());
+				this.selector = LVLSCT;
+			}
+			else if (this.smenu.checkPlus(screenX, screenY) == 0 && this.account.getStock().get(0) > 0){
+				this.account.downAir();
+				this.lvlsct.updateStock();
+				this.account.upLife();
+			}
+			else if (this.smenu.checkPlus(screenX, screenY) == 1  && this.account.getStock().get(1) > 0){
+				this.account.downFire();
+				this.lvlsct.updateStock();
+				this.account.upStrength();
+			}
+			else if (this.smenu.checkPlus(screenX, screenY) == 2  && this.account.getStock().get(2) > 0){
+				this.account.downWater();
+				this.lvlsct.updateStock();
+				this.account.upSpeed();
+			}
+
 		}
 
 		return true;

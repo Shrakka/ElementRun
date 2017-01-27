@@ -1,7 +1,9 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -15,12 +17,19 @@ public class SkillsMenu {
     private BottomSkillPanel panel;
     private StockElement stockelement;
     private Account account;
+    private Button[] plusbuttons;
+    private BitmapFont font;
 
     public SkillsMenu(String string, Account account){
+        this.font = new BitmapFont(Gdx.files.internal("font/cantarell.fnt"));
         this.account = account;
-        this.stockelement = new StockElement(this.getAccount().getStock().get(0),this.getAccount().getStock().get(1),this.getAccount().getStock().get(2),this.getAccount().getCriskill().get(0));
+        this.stockelement = new StockElement(this.getAccount().getStock().get(0),this.getAccount().getStock().get(1),this.getAccount().getStock().get(2));
         this.string = string;
         this.panel = new BottomSkillPanel();
+        this.plusbuttons = new Button[3];
+        for (int i = 0; i < this.plusbuttons.length; i++){
+            this.plusbuttons[i] = new Button(Dimensions.Width(80),Dimensions.Height(76)-i*Dimensions.Height(10),0.5,"skillscreen/plusbutton.png");
+        }
         this.init();
     }
 
@@ -53,5 +62,26 @@ public class SkillsMenu {
         this.sprite.draw(batch);
         this.stockelement.draw(batch);
         this.getPanel().draw(batch);
+        this.drawText(batch);
+        for (int i = 0; i < this.plusbuttons.length; i++){
+            this.plusbuttons[i].draw(batch);
+        }
+    }
+
+    public void drawText(SpriteBatch batch){
+        this.font.getData().setScale(1);
+        this.font.draw(batch,this.getAccount().getUser(), Dimensions.Width(20), Dimensions.Height(90));
+        this.font.draw(batch, "Life : "+this.getAccount().getSkills().get(0), Dimensions.Width(10), Dimensions.Height(80));
+        this.font.draw(batch, "Strength : "+this.getAccount().getSkills().get(1), Dimensions.Width(10), Dimensions.Height(70));
+        this.font.draw(batch, "Speed : "+this.getAccount().getSkills().get(2), Dimensions.Width(10), Dimensions.Height(60));
+    }
+
+    public int checkPlus(int x, int y){
+        for (int i = 0; i < this.plusbuttons.length; i++){
+            if (this.plusbuttons[i].click(x,y)){
+                return i;
+            }
+        }
+        return -1;
     }
 }

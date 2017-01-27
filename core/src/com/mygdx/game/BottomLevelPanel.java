@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
@@ -8,25 +9,30 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  */
 
 public class BottomLevelPanel {
-    private NotAnimated background;
-    private SkillsButton skillsbutton;
+    private Button skillsbutton;
+    private Button cristalsbutton;
     private int x;
     private int y;
+    private int cristals;
+    private BitmapFont font;
 
-    public BottomLevelPanel(){
+    public BottomLevelPanel(int cristals){
         this.x = 0;
-        int height = (int)(0.06*Gdx.graphics.getHeight());
         this.y = 0;
-        this.background = new NotAnimated(x,y, Gdx.graphics.getWidth(),height,"font/black.png");
-        this.skillsbutton = new SkillsButton();
+        this.font = new BitmapFont(Gdx.files.internal("font/cantarell.fnt"));
+        this.skillsbutton = new Button(Dimensions.Width(5),Dimensions.Height(2),1,"levelscreen/skillsbutton.png");
+        this.cristalsbutton = new Button(Dimensions.Width(75),Dimensions.Height(2),0.4,"levelscreen/cristalsbutton.png");
+        this.cristals = cristals;
+
     }
 
     public void draw(SpriteBatch batch){
-        this.background.draw(batch);
         this.skillsbutton.draw(batch);
+        this.cristalsbutton.draw(batch);
+        this.font.draw(batch, ""+this.cristals, Dimensions.Width(85),Dimensions.Height(5));
     }
 
-    public SkillsButton getSkillsbutton() {
+    public Button getSkillsbutton() {
         return this.skillsbutton;
     }
 }

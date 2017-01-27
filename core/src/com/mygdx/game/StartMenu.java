@@ -12,18 +12,18 @@ import java.util.ArrayList;
  * Created by alexis on 06/12/16.
  */
 
-public class Menu {
+public class StartMenu {
     private String string;
     private Sprite sprite;
-    private StartButton startbutton;
+    private Button startbutton;
 
-    public Menu(String string){
+    public StartMenu(String string){
         this.string = string;
-        this.startbutton = new StartButton();
+        this.startbutton = new Button("center",Dimensions.Height(40),"startscreen/startbutton.png");
         this.init();
     }
 
-    public StartButton getStartButton() {
+    public Button getStartButton() {
         return this.startbutton;
     }
 

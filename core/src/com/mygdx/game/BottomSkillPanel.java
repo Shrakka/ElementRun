@@ -8,25 +8,21 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  */
 
 public class BottomSkillPanel {
-    private NotAnimated background;
-    private MenuButton menubutton;
+    private Button menubutton;
     private int x;
     private int y;
 
     public BottomSkillPanel(){
         this.x = 0;
-        int height = (int)(0.06*Gdx.graphics.getHeight());
         this.y = 0;
-        this.background = new NotAnimated(x,y, Gdx.graphics.getWidth(),height,"font/black.png");
-        this.menubutton = new MenuButton();
+        this.menubutton = new Button(Dimensions.Width(5),Dimensions.Height(2),1,"skillscreen/menubutton.png");
     }
 
-    public MenuButton getMenubutton(){
+    public Button getMenubutton(){
         return this.menubutton;
     }
 
     public void draw(SpriteBatch batch){
-        this.background.draw(batch);
         this.menubutton.draw(batch);
     }
 }

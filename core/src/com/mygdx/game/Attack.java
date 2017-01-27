@@ -41,9 +41,11 @@ public class Attack extends Animated{
     }
 
     public int checkCollisionAttack(Ennemy ennemy){
-        for (int i = 0; i < ennemy.getAttack().size(); i++){
-            if (this.getBounds().overlaps(ennemy.getAttack().get(i).getBounds())){
-                return i;
+        if (ennemy.getType().equals("blast")) {
+            for (int i = 0; i < ennemy.getAttack().size(); i++) {
+                if (this.getBounds().overlaps(ennemy.getAttack().get(i).getBounds())) {
+                    return i;
+                }
             }
         }
         return -1;

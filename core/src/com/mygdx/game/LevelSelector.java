@@ -26,12 +26,13 @@ public class LevelSelector {
         this.lvl = 0;
         this.nblvl = nblvl;
         this.account = account;
-        this.stockelement = new StockElement(this.getAccount().getStock().get(0),this.getAccount().getStock().get(1),this.getAccount().getStock().get(2),this.getAccount().getCriskill().get(0));
+        this.stockelement = new StockElement(this.getAccount().getStock().get(0),this.getAccount().getStock().get(1),this.getAccount().getStock().get(2));
         this.levelbuttons = new ArrayList<LevelButton>();
-        this.bottompanel = new BottomLevelPanel();
-        for (int i = 1; i <= this.nblvl; i++) {
-            this.levelbuttons.add(new LevelButton(i));
-        }
+        this.bottompanel = new BottomLevelPanel(this.account.getCristals());
+        this.levelbuttons.add(new LevelButton(1,Dimensions.Width(10),Dimensions.Height(70)));
+        this.levelbuttons.add(new LevelButton(2,Dimensions.Width(60),Dimensions.Height(70)));
+        this.levelbuttons.add(new LevelButton(3,Dimensions.Width(15),Dimensions.Height(40)));
+        this.levelbuttons.add(new LevelButton(4,Dimensions.Width(70),Dimensions.Height(30)));
         this.init();
     }
 
@@ -67,7 +68,7 @@ public class LevelSelector {
     public void draw(SpriteBatch batch){
         this.sprite.draw(batch);
         for (int i = 0; i < this.getLevelButtons().size(); i++){
-            this.getLevelButtons().get(i).draw(batch, this.account);
+            this.getLevelButtons().get(i).draw(batch);
         }
         this.stockelement.draw(batch);
         this.bottompanel.draw(batch);
