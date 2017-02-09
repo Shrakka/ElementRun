@@ -13,9 +13,9 @@ public class LifeBar{
     private int bwidth;
 
     public LifeBar(int x, int y){
-        this.bwidth = (int)(0.8* Gdx.graphics.getWidth()/3);
-        this.background = new NotAnimated(this.computeX(x),y,this.bwidth,(int)(0.1* Gdx.graphics.getWidth()/3),"lifebar/background.png");
-        this.life = new NotAnimated(this.computeX(x),y,this.bwidth,(int)(0.1* Gdx.graphics.getWidth()/3),"lifebar/life.png");
+        this.bwidth = Dimensions.Width(27);
+        this.background = new NotAnimated(this.computeX(x),y,this.bwidth,Dimensions.Width(3),"lifebar/background.png");
+        this.life = new NotAnimated(this.computeX(x),y,this.bwidth,Dimensions.Width(3),"lifebar/life.png");
     }
 
     public void draw(SpriteBatch batch){
