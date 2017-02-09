@@ -22,7 +22,7 @@ public class SkillsMenu {
     private BitmapFont font;
 
     public SkillsMenu(String string, Account account){
-        this.font = new BitmapFont(Gdx.files.internal("font/cantarell.fnt"));
+        this.font = Dimensions.Font();
         this.account = account;
         this.stockelement = new StockElement(this.getAccount().getStock().get(0),this.getAccount().getStock().get(1),this.getAccount().getStock().get(2));
         this.string = string;
@@ -77,7 +77,6 @@ public class SkillsMenu {
     }
 
     public void drawText(SpriteBatch batch){
-        this.font.getData().setScale(1);
         this.font.draw(batch,this.getAccount().getUser(), Dimensions.Width(20), Dimensions.Height(90));
         this.font.draw(batch, "Life : "+this.getAccount().getSkills().get(0), Dimensions.Width(10), Dimensions.Height(80));
         this.font.draw(batch, "Strength : "+this.getAccount().getSkills().get(1), Dimensions.Width(10), Dimensions.Height(70));

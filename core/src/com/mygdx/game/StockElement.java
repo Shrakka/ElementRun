@@ -23,7 +23,7 @@ public class StockElement {
 
     public StockElement(int air,int fire,int water){
         this.y = Dimensions.Height(95);
-        this.font = new BitmapFont(Gdx.files.internal("font/cantarell.fnt"));
+        this.font = Dimensions.Font();
         this.fire = fire;
         this.air = air;
         this.water = water;

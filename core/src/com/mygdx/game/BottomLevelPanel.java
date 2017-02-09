@@ -20,7 +20,7 @@ public class BottomLevelPanel {
     public BottomLevelPanel(int cristals){
         this.x = 0;
         this.y = 0;
-        this.font = new BitmapFont(Gdx.files.internal("font/cantarell.fnt"));
+        this.font = Dimensions.Font();
         this.skillsbutton = new Button(Dimensions.Width(5),Dimensions.Height(2),0.178,"levelscreen/skillsbutton.png");
         this.storebutton = new Button(Dimensions.Width(25),Dimensions.Height(2),0.178,"levelscreen/storebutton.png");
         this.cristalsbutton = new Button(Dimensions.Width(75),Dimensions.Height(2),0.07,"levelscreen/cristalsbutton.png");

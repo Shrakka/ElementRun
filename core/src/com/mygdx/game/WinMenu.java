@@ -22,8 +22,8 @@ public class WinMenu {
 
     public WinMenu(String string, int air, int fire, int water){
         this.string = string;
-        this.retrybutton = new Button("center", Dimensions.Height(40), 0.128, "deadscreen/retrybutton.png");
-        this.exitbutton = new Button("center", Dimensions.Height(60), 0.128, "deadscreen/exitbutton.png");
+        this.retrybutton = new Button("center", Dimensions.Height(40), 0.178, "deadscreen/retrybutton.png");
+        this.exitbutton = new Button("center", Dimensions.Height(60), 0.178, "deadscreen/exitbutton.png");
         this.air = air;
         this.fire = fire;
         this.water = water;

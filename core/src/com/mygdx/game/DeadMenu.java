@@ -20,8 +20,8 @@ public class DeadMenu {
 
     public DeadMenu(String string){
         this.string = string;
-        this.retrybutton = new Button("center",Dimensions.Height(40), 0.128, "deadscreen/retrybutton.png");
-        this.exitbutton = new Button("center",Dimensions.Height(60), 0.128, "deadscreen/exitbutton.png");
+        this.retrybutton = new Button("center",Dimensions.Height(40), 0.178, "deadscreen/retrybutton.png");
+        this.exitbutton = new Button("center",Dimensions.Height(60), 0.178, "deadscreen/exitbutton.png");
         this.init();
     }
 
