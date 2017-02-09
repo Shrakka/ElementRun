@@ -29,6 +29,7 @@ public class Animated extends Actor {
         this.setTouchable(Touchable.enabled);
     }
 
+
     public void setAnimation(String string){
         this.setSize(this.getBounds().getWidth(),this.getBounds().getHeight());
         this.textureAtlas = new TextureAtlas(Gdx.files.internal(string));
