@@ -11,8 +11,8 @@ import java.util.ArrayList;
 public class Attack extends Animated{
     private String element;
 
-    public Attack(String string, int line, int y, int width, int height, String element){
-        super(string, line, y, width, height);
+    public Attack(String string, int line, int y, double s, String element){
+        super(string, line, y, s);
         this.element = element;
     }
 

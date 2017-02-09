@@ -20,18 +20,21 @@ public class Animated extends Actor {
     private String string;
     private int line;
 
-    public Animated(String string, int line, int y, int width, int height){
+    public Animated(String string, int line, int y, double s){
         this.line = line;
-        this.setBounds(this.computeX(width),y,width,height);
-        this.string = string;
-        this.elapsedTime = 0;
         this.setAnimation(string);
         this.setTouchable(Touchable.enabled);
+        double scale = s * Gdx.graphics.getWidth() / this.textureAtlas.getRegions().get(0).originalWidth;
+        int width = (int)(this.textureAtlas.getRegions().get(0).originalHeight*scale);
+        int height = (int)(this.textureAtlas.getRegions().get(0).originalWidth*scale);
+        this.setBounds(this.computeX(width),y,width,height);
+        this.setSize(this.getBounds().getWidth(),this.getBounds().getHeight());
+        this.string = string;
+        this.elapsedTime = 0;
     }
 
 
     public void setAnimation(String string){
-        this.setSize(this.getBounds().getWidth(),this.getBounds().getHeight());
         this.textureAtlas = new TextureAtlas(Gdx.files.internal(string));
         this.animation = new Animation(1f/this.textureAtlas.getRegions().size, this.textureAtlas.getRegions());
         this.elapsedTime = 0;

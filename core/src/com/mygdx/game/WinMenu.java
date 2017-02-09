@@ -67,8 +67,7 @@ public class WinMenu {
         this.sprite.draw(batch);
         this.getRetryButton().draw(batch);
         this.getExitButton().draw(batch);
-        BitmapFont font = new BitmapFont(Gdx.files.internal("font/theboldfont.fnt"));
-        font.getData().setScale(Gdx.graphics.getHeight()*0.06f*0.02f);
+        BitmapFont font = Dimensions.Font();
         font.setColor(1,0.9f,0.8f,1);
         font.draw(batch, ""+this.air, 0.23f*Gdx.graphics.getWidth(), 0.66f*Gdx.graphics.getHeight());
         font.setColor(Color.RED);

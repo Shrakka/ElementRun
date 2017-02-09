@@ -11,6 +11,6 @@ import java.util.ArrayList;
 public class Ray extends Attack {
 
     public Ray(int line, int y, String element){
-        super("attack/ray/"+element+"/"+element+".atlas", line, y, (int)(0.2* Gdx.graphics.getWidth()/3), Dimensions.Height(100), element);
+        super("attack/ray/"+element+"/"+element+".atlas", line, y, 0.05, element);
     }
 }

@@ -5,7 +5,7 @@ package com.mygdx.game;
  */
 
 public class MalusLife extends Malus {
-    public MalusLife(String string, int x, int y, int width, int height, int value) {
-        super(string, x, y, width, height, value);
+    public MalusLife(String string, int x, int y, double s, int value) {
+        super(string, x, y, s, value);
     }
 }

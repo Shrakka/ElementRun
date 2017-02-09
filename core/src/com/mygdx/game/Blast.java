@@ -11,6 +11,6 @@ import java.util.ArrayList;
 public class Blast extends Attack {
 
     public Blast(int line, int y, String element){
-        super("attack/blast/"+element+"/"+element+".atlas", line, y, (int)(0.2* Gdx.graphics.getWidth()/3), (int)(0.2* Gdx.graphics.getWidth()/3), element);
+        super("attack/blast/"+element+"/"+element+".atlas", line, y, 0.08, element);
     }
 }

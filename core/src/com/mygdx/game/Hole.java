@@ -10,7 +10,7 @@ public class Hole extends MalusLife {
     private int longueur;
 
     public Hole(int longueur, int x, int y, int value) {
-        super("malus/hole.atlas", x, y, (int)(0.8* Gdx.graphics.getWidth()/3), (int)(0.8* Gdx.graphics.getWidth()/3), value);
+        super("malus/hole.atlas", x, y, 0.27, value);
         this.longueur = longueur;
     }
 }

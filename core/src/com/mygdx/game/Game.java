@@ -198,7 +198,7 @@ public class Game {
         }
         for (int i = 0; i < this.getEnnemy().size(); i++){
             if (this.getEnnemy().get(i).checkDeath()){
-                this.getModElement().add(new ModElement(this.getEnnemy().get(i).getLine(), (int)this.getEnnemy().get(i).getY(), (int)this.getEnnemy().get(i).getWidth(), this.getEnnemy().get(i).getElement()));
+                this.getModElement().add(new ModElement(this.getEnnemy().get(i).getLine(), (int)this.getEnnemy().get(i).getY(), this.getEnnemy().get(i).getElement()));
                 this.getEnnemy().remove(i);
             }
         }

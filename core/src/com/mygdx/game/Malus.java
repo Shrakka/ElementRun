@@ -7,8 +7,8 @@ package com.mygdx.game;
 public class Malus extends NotAlive {
     private int value;
 
-    public Malus(String string, int x, int y, int width, int height, int value) {
-        super(string, x, y, width, height);
+    public Malus(String string, int x, int y, double s, int value) {
+        super(string, x, y, s);
         this.value = value;
     }
 }
