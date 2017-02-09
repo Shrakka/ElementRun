@@ -13,6 +13,7 @@ public class Account {
     private int nblvl;
     private int cristals;
     private ArrayList<Integer> skills;
+    private ArrayList<Integer> costs;
 
     public Account(String user, int nblvl){
         this.user = user;
@@ -26,6 +27,20 @@ public class Account {
         this.skills = data.remove(0);
         this.stock = data.remove(0);
         this.elements = data;
+        this.costs = new ArrayList<Integer>();
+    }
+
+    public void computeCosts(){
+        if (this.costs.size() == 0){
+            this.costs.add(0,this.skills.get(0)-99);
+            this.costs.add(1,this.skills.get(1)-9);
+            this.costs.add(2,this.skills.get(2)-9);
+        }
+        else {
+            this.costs.set(0,this.skills.get(0)-99);
+            this.costs.set(1,this.skills.get(1)-9);
+            this.costs.set(2,this.skills.get(2)-9);
+        }
     }
 
     public void getCharacterElements(Character C, int lvl){
@@ -61,6 +76,11 @@ public class Account {
         return this.cristals;
     }
 
+    public ArrayList<Integer> getCosts(){
+        return this.costs;
+    }
+
+
     public void setElements(ArrayList<ArrayList<Integer>> elements) {
         this.elements = elements;
     }
@@ -79,22 +99,24 @@ public class Account {
     }
 
     public void downAir(){
-        this.stock.set(0,this.stock.get(0)-1);
+        if (this.stock.get(0) >= this.costs.get(0)){
+            this.stock.set(0,this.stock.get(0)-this.costs.get(0));
+            this.skills.set(0,this.skills.get(0)+5);
+            this.computeCosts();
+        }
     }
     public void downFire(){
-        this.stock.set(1,this.stock.get(1)-1);
+        if (this.stock.get(1) >= this.costs.get(1)) {
+            this.stock.set(1, this.stock.get(1) - this.costs.get(1));
+            this.skills.set(1, this.skills.get(1) + 1);
+            this.computeCosts();
+        }
     }
     public void downWater(){
-        this.stock.set(2,this.stock.get(2)-1);
-    }
-
-    public void upLife() {
-        this.skills.set(0,this.skills.get(0)+1);
-    }
-    public void upStrength() {
-        this.skills.set(1,this.skills.get(1)+1);
-    }
-    public void upSpeed() {
-        this.skills.set(2,this.skills.get(2)+1);
+        if (this.stock.get(2) >= this.costs.get(2)) {
+            this.stock.set(2, this.stock.get(2) - this.costs.get(2));
+            this.skills.set(2, this.skills.get(2) + 1);
+            this.computeCosts();
+        }
     }
 }

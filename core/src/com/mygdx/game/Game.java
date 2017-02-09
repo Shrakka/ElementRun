@@ -30,7 +30,7 @@ public class Game {
     public Game(String string, int level, Account account){
         this.string = string;
         this.init();
-        this.character = new Character(0,0,account.getSkills().get(0),account.getSkills().get(1),(level-1)*5+account.getSkills().get(2),account.getCristals(),"air");
+        this.character = new Character(0,0,account.getSkills().get(0),account.getSkills().get(1),22+level*3-account.getSkills().get(2),account.getCristals(),"air");
         Level lvl = LevelConstructor.getLevel(level,this.mapwidth,this.mapheight);
         this.ennemy = lvl.getEnnemy();
         this.hole = lvl.getHole();
@@ -147,7 +147,7 @@ public class Game {
                 this.getEnnemy().get(i).getAttack().get(j).draw(batch);
             }
         }
-        if (this.c == 25) {
+        if (this.c == 50) {
             for (int i = 0; i < this.getEnnemy().size(); i++) {
                 if (this.getEnnemy().get(i).getVisible()) {
                     this.getEnnemy().get(i).shoot();

@@ -19,19 +19,20 @@ public class NotAnimated extends Actor {
         this.sprite = new Sprite(texture);
     }
 
-    public NotAnimated(int x, int y, double scale, String string){
+    public NotAnimated(int x, int y, double s, String string){
         this.string = string;
         Texture texture = new Texture(Gdx.files.internal(this.string));
         this.sprite = new Sprite(texture);
+        double scale = s * Gdx.graphics.getWidth() / this.sprite.getWidth();
         this.setBounds(x,y,(int)(this.sprite.getWidth()*scale),(int)(this.sprite.getHeight()*scale));
     }
 
-    public NotAnimated(String type, int y, String string){
+    public NotAnimated(String type, int y, double s, String string){
         if (type.equals("center")){
             this.string = string;
             Texture texture = new Texture(Gdx.files.internal(this.string));
             this.sprite = new Sprite(texture);
-            double scale = 1;
+            double scale = s * Gdx.graphics.getWidth() / this.sprite.getWidth();
             this.setBounds((int)((Gdx.graphics.getWidth()-this.sprite.getWidth()*scale)/2),y,(int)(this.sprite.getWidth()*scale),(int)(this.sprite.getHeight()*scale));
         }
     }

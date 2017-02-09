@@ -15,7 +15,7 @@ public class BottomSkillPanel {
     public BottomSkillPanel(){
         this.x = 0;
         this.y = 0;
-        this.menubutton = new Button(Dimensions.Width(5),Dimensions.Height(2),1,"skillscreen/menubutton.png");
+        this.menubutton = new Button(Dimensions.Width(5),Dimensions.Height(2),0.178,"skillscreen/menubutton.png");
     }
 
     public Button getMenubutton(){

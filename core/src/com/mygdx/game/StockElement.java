@@ -28,9 +28,9 @@ public class StockElement {
         this.air = air;
         this.water = water;
 
-        this.airbutton = new Button(Dimensions.Width(5),this.y,0.4,"elements/air.png");
-        this.firebutton = new Button(Dimensions.Width(40),this.y,0.4,"elements/fire.png");
-        this.waterbutton = new Button(Dimensions.Width(75),this.y,0.4,"elements/water.png");
+        this.airbutton = new Button(Dimensions.Width(5),this.y,0.07,"elements/air.png");
+        this.firebutton = new Button(Dimensions.Width(40),this.y,0.07,"elements/fire.png");
+        this.waterbutton = new Button(Dimensions.Width(75),this.y,0.07,"elements/water.png");
     }
 
     public void update(int air, int fire, int water){

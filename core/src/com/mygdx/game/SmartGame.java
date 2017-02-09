@@ -117,6 +117,7 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 
 		else if (this.selector == SKILLS){
 			this.createSkillMenu();
+			this.smenu.getAccount().computeCosts();
 			this.smenu.draw(this.batch);
 			this.camera.position.set(this.camera.viewportWidth / 2f, this.camera.viewportHeight / 2f, 0);
 			this.camera.update();
@@ -209,20 +210,17 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 				UserConstructor.setUser(this.account.getUser(), this.account.getCristals(), this.account.getSkills(), this.account.getElements(), this.account.getStock());
 				this.selector = LVLSCT;
 			}
-			else if (this.smenu.checkPlus(screenX, screenY) == 0 && this.account.getStock().get(0) > 0){
+			else if (this.smenu.checkPlus(screenX, screenY) == 0){
 				this.account.downAir();
 				this.lvlsct.updateStock();
-				this.account.upLife();
 			}
-			else if (this.smenu.checkPlus(screenX, screenY) == 1  && this.account.getStock().get(1) > 0){
+			else if (this.smenu.checkPlus(screenX, screenY) == 1){
 				this.account.downFire();
 				this.lvlsct.updateStock();
-				this.account.upStrength();
 			}
-			else if (this.smenu.checkPlus(screenX, screenY) == 2  && this.account.getStock().get(2) > 0){
+			else if (this.smenu.checkPlus(screenX, screenY) == 2){
 				this.account.downWater();
 				this.lvlsct.updateStock();
-				this.account.upSpeed();
 			}
 
 		}

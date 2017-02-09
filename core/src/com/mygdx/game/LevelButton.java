@@ -13,7 +13,7 @@ public class LevelButton extends Button {
     private int lvl;
 
     public LevelButton(int lvl, int x, int y){
-        super(x,y,1,"levelscreen/level"+lvl+"button.png");
+        super(x,y,0.178,"levelscreen/level"+lvl+"button.png");
         this.lvl = lvl;
     }
 }

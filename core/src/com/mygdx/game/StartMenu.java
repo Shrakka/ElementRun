@@ -19,7 +19,7 @@ public class StartMenu {
 
     public StartMenu(String string){
         this.string = string;
-        this.startbutton = new Button("center",Dimensions.Height(40),"startscreen/startbutton.png");
+        this.startbutton = new Button("center",Dimensions.Height(40),0.178,"startscreen/startbutton.png");
         this.init();
     }
 

@@ -18,6 +18,7 @@ public class SkillsMenu {
     private StockElement stockelement;
     private Account account;
     private Button[] plusbuttons;
+    private Button[] elementsbuttons;
     private BitmapFont font;
 
     public SkillsMenu(String string, Account account){
@@ -28,8 +29,12 @@ public class SkillsMenu {
         this.panel = new BottomSkillPanel();
         this.plusbuttons = new Button[3];
         for (int i = 0; i < this.plusbuttons.length; i++){
-            this.plusbuttons[i] = new Button(Dimensions.Width(80),Dimensions.Height(76)-i*Dimensions.Height(10),0.5,"skillscreen/plusbutton.png");
+            this.plusbuttons[i] = new Button(Dimensions.Width(60),Dimensions.Height(76)-i*Dimensions.Height(10),0.1,"skillscreen/plusbutton.png");
         }
+        this.elementsbuttons = new Button[3];
+        this.elementsbuttons[0] = new Button(Dimensions.Width(80),Dimensions.Height(76),0.1,"elements/air.png");
+        this.elementsbuttons[1] = new Button(Dimensions.Width(80),Dimensions.Height(66),0.1,"elements/fire.png");
+        this.elementsbuttons[2] = new Button(Dimensions.Width(80),Dimensions.Height(56),0.1,"elements/water.png");
         this.init();
     }
 
@@ -66,6 +71,9 @@ public class SkillsMenu {
         for (int i = 0; i < this.plusbuttons.length; i++){
             this.plusbuttons[i].draw(batch);
         }
+        for (int i = 0; i < this.plusbuttons.length; i++){
+            this.elementsbuttons[i].draw(batch);
+        }
     }
 
     public void drawText(SpriteBatch batch){
@@ -74,6 +82,10 @@ public class SkillsMenu {
         this.font.draw(batch, "Life : "+this.getAccount().getSkills().get(0), Dimensions.Width(10), Dimensions.Height(80));
         this.font.draw(batch, "Strength : "+this.getAccount().getSkills().get(1), Dimensions.Width(10), Dimensions.Height(70));
         this.font.draw(batch, "Speed : "+this.getAccount().getSkills().get(2), Dimensions.Width(10), Dimensions.Height(60));
+
+        this.font.draw(batch, ""+this.getAccount().getCosts().get(0), Dimensions.Width(72), Dimensions.Height(80));
+        this.font.draw(batch, ""+this.getAccount().getCosts().get(1), Dimensions.Width(72), Dimensions.Height(70));
+        this.font.draw(batch, ""+this.getAccount().getCosts().get(2), Dimensions.Width(72), Dimensions.Height(60));
     }
 
     public int checkPlus(int x, int y){
