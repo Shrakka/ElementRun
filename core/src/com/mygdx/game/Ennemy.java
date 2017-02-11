@@ -64,10 +64,10 @@ public class Ennemy extends Alive {
         this.toggleOn();
         if (this.getOn()) {
             if (this.getType().equals("blast")) {
-                this.getAttack().add(new Blast(this.getLine(), (int) (this.getY()) - 24, this.getElement()));
+                this.getAttack().add(new Blast(this.getLine(), (int)this.getY(), this.getElement()));
             }
             if (this.getType().equals("ray")) {
-                this.getAttack().add(new Ray(this.getLine(), (int) (this.getY()) - Dimensions.Height(100), this.getElement()));
+                this.getAttack().add(new Ray(this.getLine(), (int)this.getY(), this.getElement()));
             }
         } else {
             if (this.getAttack().size() > 0 && this.getType().equals("ray")) {

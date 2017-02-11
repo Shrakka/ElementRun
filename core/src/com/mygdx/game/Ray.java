@@ -10,7 +10,8 @@ import java.util.ArrayList;
 
 public class Ray extends Attack {
 
-    public Ray(int line, int y, String element){
-        super("attack/ray/"+element+"/"+element+".atlas", line, y, 0.05, element);
+    public Ray(int line, int persoy, String element){
+        super("attack/ray/"+element+"/"+element+".atlas", line, 0, 0.1, element);
+        this.setY(persoy - this.getHeight());
     }
 }

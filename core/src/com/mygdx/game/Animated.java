@@ -25,8 +25,8 @@ public class Animated extends Actor {
         this.setAnimation(string);
         this.setTouchable(Touchable.enabled);
         double scale = s * Gdx.graphics.getWidth() / this.textureAtlas.getRegions().get(0).originalWidth;
-        int width = (int)(this.textureAtlas.getRegions().get(0).originalHeight*scale);
-        int height = (int)(this.textureAtlas.getRegions().get(0).originalWidth*scale);
+        int width = (int)(this.textureAtlas.getRegions().get(0).originalWidth*scale);
+        int height = (int)(this.textureAtlas.getRegions().get(0).originalHeight*scale);
         this.setBounds(this.computeX(width),y,width,height);
         this.setSize(this.getBounds().getWidth(),this.getBounds().getHeight());
         this.string = string;

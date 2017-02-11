@@ -10,7 +10,8 @@ import java.util.ArrayList;
 
 public class Blast extends Attack {
 
-    public Blast(int line, int y, String element){
-        super("attack/blast/"+element+"/"+element+".atlas", line, y, 0.08, element);
+    public Blast(int line, int persoy, String element){
+        super("attack/blast/"+element+"/"+element+".atlas", line, 0, 0.08, element);
+        this.setY(persoy - this.getHeight());
     }
 }
