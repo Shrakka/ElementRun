@@ -19,6 +19,7 @@ public class WinMenu {
     private int air;
     private int fire;
     private int water;
+    private StockElement stockelement;
 
     public WinMenu(String string, int air, int fire, int water){
         this.string = string;
@@ -27,6 +28,7 @@ public class WinMenu {
         this.air = air;
         this.fire = fire;
         this.water = water;
+        this.stockelement = new StockElement(this.air,this.fire,this.water);
         this.init();
     }
 
@@ -67,12 +69,6 @@ public class WinMenu {
         this.sprite.draw(batch);
         this.getRetryButton().draw(batch);
         this.getExitButton().draw(batch);
-        BitmapFont font = Dimensions.Font();
-        font.setColor(1,0.9f,0.8f,1);
-        font.draw(batch, ""+this.air, 0.23f*Gdx.graphics.getWidth(), 0.66f*Gdx.graphics.getHeight());
-        font.setColor(Color.RED);
-        font.draw(batch, ""+this.fire, 0.48f*Gdx.graphics.getWidth(), 0.66f*Gdx.graphics.getHeight());
-        font.setColor(0,0.8f,0.8f,1);
-        font.draw(batch, ""+this.water, 0.73f*Gdx.graphics.getWidth(), 0.66f*Gdx.graphics.getHeight());
+        this.stockelement.draw(batch);
     }
 }
