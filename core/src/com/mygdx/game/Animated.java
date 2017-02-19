@@ -63,4 +63,8 @@ public class Animated extends Actor {
     public Rectangle getBounds(){
         return new Rectangle(this.getX(),this.getY(),this.getWidth(),this.getHeight());
     }
+
+    public void dispose(){
+        this.textureAtlas.dispose();
+    }
 }

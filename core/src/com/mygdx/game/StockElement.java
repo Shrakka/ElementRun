@@ -68,4 +68,8 @@ public class StockElement {
         this.firebutton.setY(this.y);
         this.waterbutton.setY(this.y);
     }
+    public void dispose(){
+        this.font.dispose();
+    }
+
 }

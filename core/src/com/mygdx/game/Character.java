@@ -125,6 +125,7 @@ public class Character extends Alive {
             for (int i = 0; i < modelement.size(); i++) {
                 if (this.getBounds().overlaps(modelement.get(i).getBounds())) {
                     this.changeElement(modelement.get(i).getElement());
+                    modelement.get(i).dispose();
                     modelement.remove(i);
                 }
             }
@@ -138,6 +139,7 @@ public class Character extends Alive {
         while(i < this.getAttack().size()) {
             j = this.getAttack().get(i).checkCollision(ennemy);
             if (j >= 0){
+                this.getAttack().get(i).dispose();
                 this.getAttack().remove(i);
                 int coeff = TriangleElement.get(this,ennemy.get(j));
                 ennemy.get(j).setLife((int)(ennemy.get(j).getLife() - this.getStrength()*(1+0.5*coeff)));
@@ -154,6 +156,7 @@ public class Character extends Alive {
                 ennemy.get(j).getAttack();
                 k = this.getAttack().get(i).checkCollisionAttack(ennemy.get(j));
                 if (k >= 0) {
+                    this.getAttack().get(i).dispose();
                     this.getAttack().remove(i);
                     ennemy.get(j).getAttack().remove(k);
                     j += ennemy.size();

@@ -105,6 +105,7 @@ public class Game {
         if (this.getCharacter().getAttack().size() > 0) {
             for (int i = 0; i < this.getCharacter().getAttack().size(); i++) {
                 if (this.getCharacter().getAttack().get(i).getY() - 24 > camera.position.y + camera.viewportHeight / 2f) {
+                    this.getCharacter().getAttack().get(i).dispose();
                     this.getCharacter().getAttack().remove(i);
                 }
             }
@@ -114,6 +115,7 @@ public class Game {
                 if (this.getEnnemy().get(j).getType().equals("blast")){
                     for (int i = 0; i < this.getEnnemy().get(j).getAttack().size(); i++) {
                         if (this.getEnnemy().get(j).getAttack().get(i).getY() + 24 < camera.position.y - camera.viewportHeight / 2f) {
+                            this.getEnnemy().get(j).getAttack().get(i).dispose();
                             this.getEnnemy().get(j).getAttack().remove(i);
                         }
                     }
@@ -121,6 +123,7 @@ public class Game {
                 else if (this.getEnnemy().get(j).getType().equals("ray")){
                     for (int i = 0; i < this.getEnnemy().get(j).getAttack().size(); i++) {
                         if (this.getEnnemy().get(j).getAttack().get(i).getY() + Dimensions.Height(100) < camera.position.y - camera.viewportHeight / 2f) {
+                            this.getEnnemy().get(j).getAttack().get(i).dispose();
                             this.getEnnemy().get(j).getAttack().remove(i);
                         }
                     }
@@ -200,6 +203,7 @@ public class Game {
         for (int i = 0; i < this.getEnnemy().size(); i++){
             if (this.getEnnemy().get(i).checkDeath()){
                 this.getModElement().add(new ModElement(this.getEnnemy().get(i).getLine(), (int)this.getEnnemy().get(i).getY(), this.getEnnemy().get(i).getElement()));
+                this.getEnnemy().get(i).dispose();
                 this.getEnnemy().remove(i);
             }
         }
@@ -210,14 +214,16 @@ public class Game {
     }
 
     public void dispose(){
-        ennemy = null;
-        modelement = null;
-        hole = null;
-        string = null;
-        character = null;
-        map = null;
-        mapheight = 0;
-        mapwidth = 0;
-        c = 0;
+        this.character.dispose();
+        //this.map.dispose();
+        for (int i = 0; i < this.ennemy.size(); i++){
+            this.ennemy.get(i).dispose();
+        }
+        for (int i = 0; i < this.modelement.size(); i++){
+            this.modelement.get(i).dispose();
+        }
+        for (int i = 0; i < this.hole.size(); i++){
+            this.hole.get(i).dispose();
+        }
     }
 }

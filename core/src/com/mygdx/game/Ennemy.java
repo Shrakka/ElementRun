@@ -35,6 +35,7 @@ public class Ennemy extends Alive {
         if (this.getType().equals("blast")) {
             while (i < this.getAttack().size()) {
                 if (this.getAttack().get(i).checkCollision(character)) {
+                    this.getAttack().get(i).dispose();
                     this.getAttack().remove(i);
                     int coeff = TriangleElement.get(this, character);
                     character.setLife((int) (character.getLife() - this.getStrength() * (1 + 0.5 * coeff)));
@@ -71,6 +72,7 @@ public class Ennemy extends Alive {
             }
         } else {
             if (this.getAttack().size() > 0 && this.getType().equals("ray")) {
+                this.getAttack().get(0).dispose();
                 this.getAttack().remove(0);
             }
         }

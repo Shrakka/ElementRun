@@ -1,14 +1,14 @@
 cristals: 0
-life: 100
-strength: 10
+life: 110
+strength: 12
 speed: 10
-water: 3
+water: 4
 fire: 1
-air: 1
+air: 6
 1
-3
+2
 1
-1
+2
 2
 0
 0

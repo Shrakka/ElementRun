@@ -95,4 +95,8 @@ public class SkillsMenu {
         }
         return -1;
     }
+    public void dispose(){
+        this.font.dispose();
+    }
+
 }

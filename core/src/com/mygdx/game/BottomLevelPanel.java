@@ -38,4 +38,8 @@ public class BottomLevelPanel {
     public Button getSkillsbutton() {
         return this.skillsbutton;
     }
+
+    public void dispose(){
+        this.font.dispose();
+    }
 }
