@@ -61,13 +61,17 @@ public class Character extends Alive {
     }
 
     public void Left(){
-        this.setLine(this.getLine() - 1);
-        this.setX(this.computeX());
+        if (this.getLine() > 0) {
+            this.setLine(this.getLine() - 1);
+            this.setX(this.computeX());
+        }
     }
 
     public void Right(){
-        this.setLine(this.getLine() + 1);
-        this.setX(this.computeX());
+        if (this.getLine() < 2) {
+            this.setLine(this.getLine() + 1);
+            this.setX(this.computeX());
+        }
     }
 
     public void Up(){

@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
 
 /**
@@ -82,10 +83,10 @@ public class Game {
     }
 
     public void click(int screenX){
-        if (screenX < Gdx.graphics.getWidth()/3*(this.getCharacter().getLine())){
+        if (screenX < Dimensions.Width(20)+Dimensions.Width(20)*(this.getCharacter().getLine())){
             this.getCharacter().Left();
         }
-        else if (screenX > Gdx.graphics.getWidth()/3*(this.getCharacter().getLine()+1)){
+        else if (screenX > Dimensions.Width(20)+Dimensions.Width(20)*(this.getCharacter().getLine()+1)){
             this.getCharacter().Right();
         }
         else {

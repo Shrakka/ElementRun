@@ -13,7 +13,7 @@ public class LifeBar{
     private int bwidth;
 
     public LifeBar(int x, int y){
-        this.bwidth = Dimensions.Width(27);
+        this.bwidth = Dimensions.Width(16);
         this.background = new NotAnimated(this.computeX(x),y,this.bwidth,Dimensions.Width(3),"lifebar/background.png");
         this.life = new NotAnimated(this.computeX(x),y,this.bwidth,Dimensions.Width(3),"lifebar/life.png");
     }
@@ -24,7 +24,7 @@ public class LifeBar{
     }
 
     public int computeX(int x){
-        return x;
+        return (x+(Dimensions.Width(20)-this.bwidth)/2);
     }
 
     public void update(int life, int maxlife, int x, int y){

@@ -17,7 +17,7 @@ public class Alive extends Animated {
     private LifeBar lifebar;
 
     public Alive(String string, int line, int y, int life, int strength, String element){
-        super(string,line,y,0.27);
+        super(string,line,y,0.2);
         this.life = life;
         this.maxlife = life;
         this.strength = strength;

@@ -48,11 +48,11 @@ public class Animated extends Actor {
     }
 
     public int computeX(int width){
-        return (int) (this.getLine()*Gdx.graphics.getWidth()/3+(Gdx.graphics.getWidth()/3-width)/2);
+        return (Dimensions.Width(20)+this.getLine()*Dimensions.Width(20)+(Dimensions.Width(20)-width)/2);
     }
 
     public int computeX(){
-        return (int) (this.getLine()*Gdx.graphics.getWidth()/3+(Gdx.graphics.getWidth()/3-this.getWidth())/2);
+        return (int) (Dimensions.Width(20)+this.getLine()*Dimensions.Width(20)+(Dimensions.Width(20)-this.getWidth())/2);
     }
 
     public void draw(Batch batch){
