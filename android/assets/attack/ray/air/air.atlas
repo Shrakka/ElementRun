@@ -1,0 +1,13 @@
+
+air.png
+size: 128,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+1
+  rotate: false
+  xy: 2, 2
+  size: 96, 960
+  orig: 96, 960
+  offset: 0, 0
+  index: -1
