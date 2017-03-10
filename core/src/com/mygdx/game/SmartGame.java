@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import static com.badlogic.gdx.Input.Keys.LEFT;
 import static com.badlogic.gdx.Input.Keys.RIGHT;
 import static com.badlogic.gdx.Input.Keys.SPACE;
+import static com.badlogic.gdx.Input.Keys.UP;
 
 public class SmartGame implements ApplicationListener, InputProcessor {
 	private OrthographicCamera camera;
@@ -166,7 +167,7 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 			if (keycode == RIGHT){
 				this.game.getCharacter().Right();
 			}
-			if (keycode == SPACE){
+			if (keycode == SPACE || keycode == UP){
 				this.game.getCharacter().shoot();
 			}
 		}
