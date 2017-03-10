@@ -176,7 +176,7 @@ public class Character extends Alive {
         this.setAnimation("character/"+element+"/"+element+".atlas");
     }
     public void shoot() {
-        this.getAttack().add(new Blast(this.getLine(),(int)(this.getY()+this.getHeight()),this.getElement()));
+        this.getAttack().add(new CharacBlast(this.getLine(),(int)(this.getY()+this.getHeight()),this.getElement()));
     }
 
 }

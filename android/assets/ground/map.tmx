@@ -6,9 +6,12 @@
  <tileset firstgid="2" name="tile2" tilewidth="768" tileheight="1348" tilecount="1" columns="1">
   <image source="tile2.jpg" width="768" height="1348"/>
  </tileset>
+ <tileset firstgid="3" name="tilearr" tilewidth="768" tileheight="1348" tilecount="1" columns="1">
+  <image source="tilearr.jpg" width="768" height="1348"/>
+ </tileset>
  <layer name="Calque de Tile 1" width="1" height="6">
   <data encoding="base64" compression="zlib">
-   eJxjZGBgYAJiRjQaAACQAAo=
+   eJxjZmBgYAJiRjQaAADAAAw=
   </data>
  </layer>
 </map>

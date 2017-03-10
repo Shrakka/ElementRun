@@ -7,6 +7,10 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import static com.badlogic.gdx.Input.Keys.LEFT;
+import static com.badlogic.gdx.Input.Keys.RIGHT;
+import static com.badlogic.gdx.Input.Keys.SPACE;
+
 public class SmartGame implements ApplicationListener, InputProcessor {
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
@@ -16,6 +20,7 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 	private WinMenu wmenu;
 	private SkillsMenu smenu;
 	private LevelSelector lvlsct;
+	private LevelMenu lmenu;
 	private int selector;
 	private Account account;
 	private int nblvl;
@@ -26,6 +31,7 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 	private final int DEAD = 3;
 	private final int WIN = 4;
 	private final int SKILLS = 5;
+	private final int LVL = 6;
 	
 	@Override
 	public void create () {
@@ -49,14 +55,20 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 
 	public void createLevelSelector(){
 		this.lvlsct = new LevelSelector("levelscreen/levels.jpg", this.account, this.nblvl);
+		this.createSkillMenu();
+	}
+
+	public void createLevelMenu(int lvl){
+		this.lmenu = new LevelMenu("levelmenuscreen/screen.jpg", this.account, lvl);
 	}
 
 	public void createDeadMenu(){
-		this.dmenu = new DeadMenu("deadscreen/screen.jpg");
+		this.dmenu = new DeadMenu("deadscreen/screen.jpg",this.account);
 	}
 
 	public void createWinMenu() {
-		this.wmenu = new WinMenu("winscreen/screen.jpg",this.game.getCharacter().getStockAir(),this.game.getCharacter().getStockFire(),this.game.getCharacter().getStockWater());
+		this.wmenu = new WinMenu("winscreen/screen.jpg",this.game.getCharacter().getStockAir(),this.game.getCharacter().getStockFire(),this.game.getCharacter().getStockWater(),this.account);
+		//this.wmenu = new WinMenu("winscreen/screen.jpg",1,2,3,this.account);
 	}
 
 	public void createSkillMenu(){
@@ -70,13 +82,18 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
+		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		if (this.selector == GAME) {
 			this.game.update(camera);
 		}
 		this.batch.setProjectionMatrix(camera.combined);
 		this.batch.begin();
+
+		if (this.selector == LVL){
+			this.lmenu.draw(this.batch);
+			this.camera.update();
+		}
 
 		if (this.selector == MENU){
 			this.menu.draw(this.batch);
@@ -110,7 +127,6 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 		}
 
 		else if (this.selector == WIN){
-			this.createWinMenu();
 			this.wmenu.draw(this.batch);
 			this.camera.position.set(this.camera.viewportWidth / 2f, this.camera.viewportHeight / 2f, 0);
 			this.camera.update();
@@ -143,6 +159,17 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 
 	@Override
 	public boolean keyDown(int keycode) {
+		if (this.selector == GAME){
+			if (keycode == LEFT){
+				this.game.getCharacter().Left();
+			}
+			if (keycode == RIGHT){
+				this.game.getCharacter().Right();
+			}
+			if (keycode == SPACE){
+				this.game.getCharacter().shoot();
+			}
+		}
 		return true;
 	}
 
@@ -165,15 +192,31 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 			this.selector = LVLSCT;
 			this.createLevelSelector();
 		}
+
+		else if (this.selector == LVL){
+			if (this.lmenu.getRunButton().click(screenX,screenY)) {
+				this.selector = GAME;
+				this.createGame(this.lmenu.getLvl());
+			}
+
+			else if (this.lmenu.getPanel().getSkillsbutton().click(screenX,screenY)){
+				this.selector = SKILLS;
+			}
+
+			else {
+				this.selector = LVLSCT;
+			}
+		}
+
 		else if (this.selector == LVLSCT) {
 			this.lvlsct.clickLevel(screenX, screenY);
 			int lvl = this.lvlsct.getLevel();
 			if (lvl > 0) {
-				this.selector = GAME;
-				this.createGame(lvl);
+
+				this.selector = LVL;
+				this.createLevelMenu(lvl);
 			}
 			else if (this.lvlsct.getPanel().getSkillsbutton().click(screenX,screenY)){
-				this.createSkillMenu();
 				this.selector = SKILLS;
 			}
 		}
@@ -186,13 +229,17 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 			if (this.dmenu.getExitButton().click(screenX,screenY)){
 				this.selector = LVLSCT;
 			}
+			if (this.dmenu.getPanel().getSkillsbutton().click(screenX,screenY)){
+				this.selector = SKILLS;
+			}
 		}
 		else if (this.selector == WIN){
-			if (this.wmenu.getRetryButton().click(screenX,screenY) || this.wmenu.getExitButton().click(screenX,screenY)){
+			if (this.wmenu.getRetryButton().click(screenX,screenY) || this.wmenu.getExitButton().click(screenX,screenY) || this.wmenu.getPanel().getSkillsbutton().click(screenX,screenY)){
 				this.account.getCharacterElements(this.game.getCharacter(), this.lvlsct.getLevel());
 				this.account.addElementsStock(this.lvlsct.getLevel());
 				UserConstructor.setUser(this.account.getUser(), this.account.getCristals(), this.account.getSkills(), this.account.getElements(), this.account.getStock());
 				this.lvlsct.updateStock();
+				this.smenu.updateStock();
 				this.game.dispose();
 			}
 			if (this.wmenu.getRetryButton().click(screenX,screenY)){
@@ -201,6 +248,9 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 			}
 			if (this.wmenu.getExitButton().click(screenX,screenY)){
 				this.selector = LVLSCT;
+			}
+			if (this.wmenu.getPanel().getSkillsbutton().click(screenX,screenY)){
+				this.selector = SKILLS;
 			}
 		}
 

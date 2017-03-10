@@ -20,10 +20,13 @@ public class StockElement {
     private Button airbutton;
     private Button firebutton;
     private Button waterbutton;
+    private NotAnimated background;
 
     public StockElement(int air,int fire,int water){
         this.y = Dimensions.Height(95);
         this.font = Dimensions.Font();
+        this.background = new NotAnimated(0,this.y-Dimensions.Height(1),Dimensions.Width(100),Dimensions.Height(6),"interface/tpanelbg.png");
+
         this.fire = fire;
         this.air = air;
         this.water = water;
@@ -46,6 +49,7 @@ public class StockElement {
     }
 
     public void draw(SpriteBatch batch){
+        this.background.draw(batch);
         this.font.draw(batch, ""+this.air, Dimensions.Width(15),this.y+Dimensions.Height(3));
         this.font.draw(batch, ""+this.fire, Dimensions.Width(50),this.y+Dimensions.Height(3));
         this.font.draw(batch, ""+this.water, Dimensions.Width(85),this.y+Dimensions.Height(3));
@@ -64,6 +68,7 @@ public class StockElement {
 
     public void Up(int speed){
         this.setY(this.getY()+(int)(speed*0.02*Dimensions.Height(1)));
+        this.background.setY(this.y-Dimensions.Height(1));
         this.airbutton.setY(this.y);
         this.firebutton.setY(this.y);
         this.waterbutton.setY(this.y);

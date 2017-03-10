@@ -29,10 +29,10 @@ public class LevelSelector {
         this.stockelement = new StockElement(this.getAccount().getStock().get(0),this.getAccount().getStock().get(1),this.getAccount().getStock().get(2));
         this.levelbuttons = new ArrayList<LevelButton>();
         this.bottompanel = new BottomLevelPanel(this.account.getCristals());
-        this.levelbuttons.add(new LevelButton(1,Dimensions.Width(10),Dimensions.Height(70)));
-        this.levelbuttons.add(new LevelButton(2,Dimensions.Width(60),Dimensions.Height(70)));
-        this.levelbuttons.add(new LevelButton(3,Dimensions.Width(15),Dimensions.Height(40)));
-        this.levelbuttons.add(new LevelButton(4,Dimensions.Width(70),Dimensions.Height(30)));
+        this.levelbuttons.add(new LevelButton(1,Dimensions.Width(38),Dimensions.Height(75)));
+        this.levelbuttons.add(new LevelButton(2,Dimensions.Width(35),Dimensions.Height(58)));
+        this.levelbuttons.add(new LevelButton(3,Dimensions.Width(46),Dimensions.Height(41)));
+        this.levelbuttons.add(new LevelButton(4,Dimensions.Width(40),Dimensions.Height(24)));
         this.init();
     }
 

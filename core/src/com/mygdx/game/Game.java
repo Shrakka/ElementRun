@@ -151,7 +151,7 @@ public class Game {
                 this.getEnnemy().get(i).getAttack().get(j).draw(batch);
             }
         }
-        if (this.c == 50) {
+        if (this.c == 100) {
             for (int i = 0; i < this.getEnnemy().size(); i++) {
                 if (this.getEnnemy().get(i).getVisible()) {
                     this.getEnnemy().get(i).shoot();

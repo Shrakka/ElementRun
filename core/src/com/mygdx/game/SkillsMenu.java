@@ -29,12 +29,12 @@ public class SkillsMenu {
         this.panel = new BottomSkillPanel();
         this.plusbuttons = new Button[3];
         for (int i = 0; i < this.plusbuttons.length; i++){
-            this.plusbuttons[i] = new Button(Dimensions.Width(60),Dimensions.Height(76)-i*Dimensions.Height(10),0.1,"skillscreen/plusbutton.png");
+            this.plusbuttons[i] = new Button(Dimensions.Width(74),Dimensions.Height(70)-i*Dimensions.Height(15),0.1,"skillscreen/plusbutton.png");
         }
         this.elementsbuttons = new Button[3];
-        this.elementsbuttons[0] = new Button(Dimensions.Width(80),Dimensions.Height(76),0.1,"elements/air.png");
-        this.elementsbuttons[1] = new Button(Dimensions.Width(80),Dimensions.Height(66),0.1,"elements/fire.png");
-        this.elementsbuttons[2] = new Button(Dimensions.Width(80),Dimensions.Height(56),0.1,"elements/water.png");
+        this.elementsbuttons[0] = new Button(Dimensions.Width(30),Dimensions.Height(71),0.08,"elements/air.png");
+        this.elementsbuttons[1] = new Button(Dimensions.Width(30),Dimensions.Height(56),0.08,"elements/fire.png");
+        this.elementsbuttons[2] = new Button(Dimensions.Width(30),Dimensions.Height(41),0.08,"elements/water.png");
         this.init();
     }
 
@@ -77,14 +77,20 @@ public class SkillsMenu {
     }
 
     public void drawText(SpriteBatch batch){
-        this.font.draw(batch,this.getAccount().getUser(), Dimensions.Width(20), Dimensions.Height(90));
-        this.font.draw(batch, "Life : "+this.getAccount().getSkills().get(0), Dimensions.Width(10), Dimensions.Height(80));
-        this.font.draw(batch, "Strength : "+this.getAccount().getSkills().get(1), Dimensions.Width(10), Dimensions.Height(70));
-        this.font.draw(batch, "Speed : "+this.getAccount().getSkills().get(2), Dimensions.Width(10), Dimensions.Height(60));
+        this.font.setColor(Color.WHITE);
+        this.font.draw(batch,this.getAccount().getUser().toUpperCase(), Dimensions.Width(40), Dimensions.Height(90));
 
-        this.font.draw(batch, ""+this.getAccount().getCosts().get(0), Dimensions.Width(72), Dimensions.Height(80));
-        this.font.draw(batch, ""+this.getAccount().getCosts().get(1), Dimensions.Width(72), Dimensions.Height(70));
-        this.font.draw(batch, ""+this.getAccount().getCosts().get(2), Dimensions.Width(72), Dimensions.Height(60));
+        this.font.setColor(Color.DARK_GRAY);
+        this.font.draw(batch, "LIFE", Dimensions.Width(30), Dimensions.Height(79));
+        this.font.draw(batch, ""+this.getAccount().getSkills().get(0), Dimensions.Width(75), Dimensions.Height(79));
+        this.font.draw(batch, "STRENGTH", Dimensions.Width(30), Dimensions.Height(64));
+        this.font.draw(batch, ""+this.getAccount().getSkills().get(1), Dimensions.Width(76), Dimensions.Height(64));
+        this.font.draw(batch, "SPEED", Dimensions.Width(30), Dimensions.Height(49));
+        this.font.draw(batch, ""+this.getAccount().getSkills().get(2), Dimensions.Width(76), Dimensions.Height(49));
+
+        this.font.draw(batch, ""+this.getAccount().getCosts().get(0), Dimensions.Width(40), Dimensions.Height(74));
+        this.font.draw(batch, ""+this.getAccount().getCosts().get(1), Dimensions.Width(40), Dimensions.Height(59));
+        this.font.draw(batch, ""+this.getAccount().getCosts().get(2), Dimensions.Width(40), Dimensions.Height(44));
     }
 
     public int checkPlus(int x, int y){
@@ -97,6 +103,10 @@ public class SkillsMenu {
     }
     public void dispose(){
         this.font.dispose();
+    }
+
+    public void updateStock(){
+        this.stockelement.updateValues(this.getAccount().getStock());
     }
 
 }

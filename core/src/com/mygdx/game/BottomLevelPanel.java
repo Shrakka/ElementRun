@@ -16,23 +16,26 @@ public class BottomLevelPanel {
     private int y;
     private int cristals;
     private BitmapFont font;
+    private NotAnimated background;
 
     public BottomLevelPanel(int cristals){
         this.x = 0;
         this.y = 0;
         this.font = Dimensions.Font();
-        this.skillsbutton = new Button(Dimensions.Width(5),Dimensions.Height(2),0.178,"levelscreen/skillsbutton.png");
-        this.storebutton = new Button(Dimensions.Width(25),Dimensions.Height(2),0.178,"levelscreen/storebutton.png");
-        this.cristalsbutton = new Button(Dimensions.Width(75),Dimensions.Height(2),0.07,"levelscreen/cristalsbutton.png");
+        this.skillsbutton = new Button(Dimensions.Width(5),Dimensions.Height(1),0.25,"levelscreen/skillsbutton2.png");
+        this.storebutton = new Button("center",Dimensions.Height(1),0.25,"levelscreen/storebutton2.png");
+        this.cristalsbutton = new Button(Dimensions.Width(75),Dimensions.Height(1),0.07,"levelscreen/cristalsbutton.png");
         this.cristals = cristals;
-        System.out.println("test");
+        this.background = new NotAnimated(this.x,this.y,Dimensions.Width(100),Dimensions.Height(7),"interface/bpanelbg.png");
+
     }
 
     public void draw(SpriteBatch batch){
+        this.background.draw(batch);
         this.skillsbutton.draw(batch);
         this.storebutton.draw(batch);
         this.cristalsbutton.draw(batch);
-        this.font.draw(batch, ""+this.cristals, Dimensions.Width(85),Dimensions.Height(5));
+        this.font.draw(batch, ""+this.cristals, Dimensions.Width(85),Dimensions.Height(4));
     }
 
     public Button getSkillsbutton() {

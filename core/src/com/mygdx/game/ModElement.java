@@ -10,7 +10,7 @@ public class ModElement extends NotAlive {
     private String element;
 
     public ModElement(int line, int y, String element) {
-        super("gemmes/"+element+"/"+element+".atlas", line, y, 0.15);
+        super("gemmes/"+element+"/"+element+".atlas", line, y, 0.12);
         this.element = element;
     }
 

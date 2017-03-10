@@ -17,11 +17,17 @@ public class DeadMenu {
     private Sprite sprite;
     private Button retrybutton;
     private Button exitbutton;
+    private Account account;
+    private StockElement stockelement;
+    private BottomLevelPanel bottompanel;
 
-    public DeadMenu(String string){
+    public DeadMenu(String string, Account account){
+        this.account = account;
         this.string = string;
-        this.retrybutton = new Button("center",Dimensions.Height(40), 0.178, "deadscreen/retrybutton.png");
-        this.exitbutton = new Button("center",Dimensions.Height(60), 0.178, "deadscreen/exitbutton.png");
+        this.retrybutton = new Button("center",Dimensions.Height(50), 0.3, "deadscreen/retrybutton2.png");
+        this.exitbutton = new Button("center",Dimensions.Height(40), 0.3, "deadscreen/exitbutton2.png");
+        this.stockelement = new StockElement(this.getAccount().getStock().get(0),this.getAccount().getStock().get(1),this.getAccount().getStock().get(2));
+        this.bottompanel = new BottomLevelPanel(this.account.getCristals());
         this.init();
     }
 
@@ -50,5 +56,15 @@ public class DeadMenu {
         this.sprite.draw(batch);
         this.getRetryButton().draw(batch);
         this.getExitButton().draw(batch);
+        this.stockelement.draw(batch);
+        this.bottompanel.draw(batch);
+    }
+
+    public Account getAccount(){
+        return this.account;
+    }
+
+    public BottomLevelPanel getPanel(){
+        return this.bottompanel;
     }
 }

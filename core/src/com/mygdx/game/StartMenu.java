@@ -16,10 +16,12 @@ public class StartMenu {
     private String string;
     private Sprite sprite;
     private Button startbutton;
+    private Button fbbutton;
 
     public StartMenu(String string){
         this.string = string;
-        this.startbutton = new Button("center",Dimensions.Height(40),0.178,"startscreen/startbutton.png");
+        this.startbutton = new Button("center",Dimensions.Height(64),0.368,"startscreen/startbutton.png");
+        this.fbbutton = new Button("center",Dimensions.Height(56),0.368,"startscreen/fbbutton.png");
         this.init();
     }
 
@@ -43,5 +45,6 @@ public class StartMenu {
     public void draw(SpriteBatch batch){
         this.sprite.draw(batch);
         this.getStartButton().draw(batch);
+        this.fbbutton.draw(batch);
     }
 }
