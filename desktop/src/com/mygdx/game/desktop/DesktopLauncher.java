@@ -7,12 +7,9 @@ import com.mygdx.game.SmartGame;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.width = 360;
-		config.height = 640;
+		config.title = "Element Run";
+		config.width = 480;
+		config.height = 854;
 		new LwjglApplication(new SmartGame(), config);
 	}
 }
-
-// coucou
-// bonjour je suis Alexis
-// Bonjour Alexis, je suis Enzo ! 

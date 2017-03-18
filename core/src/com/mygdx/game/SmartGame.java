@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -22,6 +23,9 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 	private SkillsMenu smenu;
 	private LevelSelector lvlsct;
 	private LevelMenu lmenu;
+	private BrandScreen bscreen;
+	private CreditScreen cscreen;
+	private int bcounter;
 	private int selector;
 	private Account account;
 	private int nblvl;
@@ -33,17 +37,30 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 	private final int WIN = 4;
 	private final int SKILLS = 5;
 	private final int LVL = 6;
+	private final int BRAND = 7;
+	private final int CREDITS = 8;
 	
 	@Override
 	public void create () {
+		this.bcounter = 0;
 		this.camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		this.camera.position.set(this.camera.viewportWidth / 2f, this.camera.viewportHeight / 2f, 0);
 		this.batch = new SpriteBatch();
 		this.nblvl = Gdx.files.internal("smartgame/levels/").list().length;
 		this.account = new Account("Android", this.nblvl);
-		this.createMenu();
+		this.createBrandScreen();
 		Gdx.input.setInputProcessor(this);
-		this.selector = MENU;
+		this.selector = BRAND;
+		Music cavetune = Gdx.audio.newMusic(Gdx.files.internal("audio/CaveTune.mp3"));
+		cavetune.play();
+	}
+
+	public void createCreditScreen() {
+		this.cscreen = new CreditScreen("creditscreen/screen.jpg");
+	}
+
+	public void createBrandScreen(){
+		this.bscreen = new BrandScreen();
 	}
 
 	public void createMenu(){
@@ -90,6 +107,32 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 		}
 		this.batch.setProjectionMatrix(camera.combined);
 		this.batch.begin();
+
+		if (this.selector == CREDITS) {
+			this.cscreen.draw(this.batch);
+			this.camera.update();
+		}
+
+		if (this.selector == BRAND){
+			if (this.bcounter < 200) {
+				if (this.bcounter < 50){
+					this.bscreen.setAlpha((float)(this.bcounter) / 50);
+				}
+				else if (this.bcounter >= 50 && this.bcounter <= 150){
+					this.bscreen.setAlpha(1);
+				}
+				else {
+					this.bscreen.setAlpha((float)(200-this.bcounter)/50);
+				}
+				this.bscreen.draw(this.batch);
+				this.camera.update();
+			}
+			else{
+				this.createMenu();
+				this.selector = MENU;
+			}
+			this.bcounter++;
+		}
 
 		if (this.selector == LVL){
 			this.lmenu.draw(this.batch);
@@ -189,9 +232,21 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 		if (this.selector == GAME) {
 			this.game.click(screenX);
 		}
-		else if (this.selector == MENU && this.menu.getStartButton().click(screenX,screenY)) {
-			this.selector = LVLSCT;
-			this.createLevelSelector();
+		else if (this.selector == MENU){
+			if (this.menu.getStartButton().click(screenX,screenY)) {
+				this.selector = LVLSCT;
+				this.createLevelSelector();
+			}
+			else if (this.menu.getCButton().click(screenX,screenY)){
+				this.createCreditScreen();
+				this.selector = CREDITS;
+			}
+		}
+
+		else if (this.selector == CREDITS){
+			if (this.cscreen.getExitButton().click(screenX,screenY)){
+				this.selector = MENU;
+			}
 		}
 
 		else if (this.selector == LVL){
@@ -263,14 +318,17 @@ public class SmartGame implements ApplicationListener, InputProcessor {
 			else if (this.smenu.checkPlus(screenX, screenY) == 0){
 				this.account.downAir();
 				this.lvlsct.updateStock();
+				this.smenu.updateStock();
 			}
 			else if (this.smenu.checkPlus(screenX, screenY) == 1){
 				this.account.downFire();
 				this.lvlsct.updateStock();
+				this.smenu.updateStock();
 			}
 			else if (this.smenu.checkPlus(screenX, screenY) == 2){
 				this.account.downWater();
 				this.lvlsct.updateStock();
+				this.smenu.updateStock();
 			}
 
 		}
